@@ -3,7 +3,6 @@ require 'helpers.php';
 
 // Load routes
 $routes = [];
-require 'routes.php';
 
 // Check if route exists in routes.php
 if ($_SERVER["REQUEST_METHOD"] == "POST" AND array_key_exists(self::getUri(), $routes["post"])){
