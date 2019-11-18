@@ -16,9 +16,11 @@ function startScherm()
 function zoekenOptie($filenaam)//van de plaats waar uit je zoekt
 {
     $searchFor = searchFor();
-    echo(
-    "<form action='' method='get'>
-<input type=\"text\" name='searchFor' placeholder='$searchFor'></form>");
+    echo("<form class=\"form-inline active-purple-3 active-purple-4\" action='' methot='get'>
+  <i class=\"fas fa-search\" aria-hidden=\"true\"></i>
+  <input type=\"text\" name='searchFor' class=\"form-control form-control-sm ml-3 w-75\" type=\"text\" placeholder=\"$searchFor\"
+    aria-label=\"Search\">
+</form>");
 
     return $searchFor;
 }
