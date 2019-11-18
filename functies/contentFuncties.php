@@ -115,13 +115,4 @@ function ProductPerPaginaForm($pp)
 
 }
 
-
-//navigationbar
-function navigationbar(){
-
-
-
-}
-
 ?>
-

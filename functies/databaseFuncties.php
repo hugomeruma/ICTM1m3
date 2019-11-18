@@ -53,4 +53,21 @@ function selecterenZoeken($zoek)
     //verklaren van wat zoek is, waar gezocht moet worden etc.
 }
 
+
+//catagorien
+function stockgroups()
+{
+    $connection = maakVerbinding();
+    $stockgroups = mysqli_fetch_all(mysqli_query($connection, $sql), MYSQLI_ASSOC);
+    sluitVerbinding($connection);
+    return $stockgroups;
+}
+
+function ophalenStockgroups()
+{
+    $sql = "SELECT StockGroupID, StockGroupName FROM stockgroups";
+    $stockgroups = stockgroups($sql);
+    return $stockgroups;
+}
+
 ?>
