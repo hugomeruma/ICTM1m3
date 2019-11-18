@@ -117,7 +117,10 @@ function ProductPerPaginaForm($pp)
 //navigation bar
 function navigatieBalk()
 {
-    echo("hello");
+    echo("
+<nav class=\"navbar navbar-light bg-light\">
+  <a class=\"navbar-brand\" href=\"#\">Navbar</a>
+</nav>");
 }
 
 ?>

@@ -13,7 +13,7 @@ require "functies/contentFuncties.php";
 require "parts/head.php";
 require "parts/footer.php";
 //body
-include 'index.php';
+
 startScherm();
 ?>
 </body>
