@@ -2,12 +2,11 @@
 include "databaseFuncties.php";
 include "klantFuncties.php";
 include "URL.php";
-include "session_start.php";
 
 //bepaalt wat zichtbaar is een een scherm
 function startScherm()
 {
-    navigationbar();
+    navigatieBalk();
     //atm laat dit alle producten zien, hier moeten nog even producten voor geselecteerd worden
 
 }
@@ -113,6 +112,12 @@ function ProductPerPaginaForm($pp)
 {
     echo "<form action='' method='get'> Resultaten per pagina <input type=\"number\" name=\"pp\" min=\"10\" max=\"50\" step=\"10\" value=\"$pp\"></form>";
 
+}
+
+//navigation bar
+function navigatieBalk()
+{
+    echo("hello");
 }
 
 ?>
