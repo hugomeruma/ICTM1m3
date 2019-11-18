@@ -7,9 +7,9 @@ include "session_start.php";
 //bepaalt wat zichtbaar is een een scherm
 function startScherm()
 {
-    zoekenOptie('startScherm');
+    navigationbar();
     //atm laat dit alle producten zien, hier moeten nog even producten voor geselecteerd worden
-    toonProducten();
+
 }
 
 //zoekFunctie
@@ -115,4 +115,13 @@ function ProductPerPaginaForm($pp)
 
 }
 
+
+//navigationbar
+function navigationbar(){
+
+
+
+}
+
 ?>
+
