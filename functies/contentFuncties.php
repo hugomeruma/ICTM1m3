@@ -1,5 +1,5 @@
 <?php
-include "databaseFuncties.php";
+include "databaseFuncties/databaseFuncties.php";
 include "klantFuncties.php";
 include "URL.php";
 
@@ -121,7 +121,9 @@ function navigatieBalk()
 {
     echo("
 <nav class=\"navbar navbar-light bg-light\">
-  <a class=\"navbar-brand\" href=\"#\">Navbar</a>
+  <a class=\"navbar-brand\" href=\"#\">Navbar
+   <img src=\"assets/afbeeldingen/logo.png\" width=\"250\" height=\"90\" class=\"d-inline-block align-top\" alt=\"\">
+  </a>
 </nav>");
 }
 
