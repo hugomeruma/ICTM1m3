@@ -1,5 +1,5 @@
 <?php
-include "databaseFuncties/databaseFuncties.php";
+include "../databaseFuncties/databaseFuncties.php";
 include "klantFuncties.php";
 include "URL.php";
 

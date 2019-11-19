@@ -19,16 +19,12 @@
     </div>
 </nav>
 <nav class="navbar navbar-expand-lg py-0 button-navbar">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <div class="d-flex justify-content-around">
-            <ul class="navbar-nav">
-                <?php foreach (ophalenStockgroups() as $stockgroup): ?>
-                    <div class="col px-0">
-                        <button class="btn btn-primary btn-lg btn-block"
-                                type="button"><?= $stockgroup['StockGroupName'] ?></button>
-                    </div>
-                <?php endforeach; ?>
-            </ul>
-        </div>
+    <div class="collapse navbar-collapse d-flex justify-content-around" id="navbarSupportedContent">
+        <?php foreach (ophalenStockgroups() as $stockgroup): ?>
+            <div class="col px-0">
+                <button class="btn btn-primary btn-lg btn-block"
+                        type="button"><?= $stockgroup['StockGroupName'] ?></button>
+            </div>
+        <?php endforeach; ?>
     </div>
 </nav>
