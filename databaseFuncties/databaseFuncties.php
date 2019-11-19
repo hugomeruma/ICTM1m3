@@ -40,7 +40,7 @@ function offset($pp)
 
 function alleProducten()
 {
-    $sql = "SELECT StockItemID, StockItemName, UnitPrice, RecommendedRetailPrice FROM stockitems ";
+    $sql = "SELECT * FROM stockitems ";
     $producten = producten($sql);
     return $producten;
 }
