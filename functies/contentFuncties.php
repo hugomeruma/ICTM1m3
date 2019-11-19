@@ -4,9 +4,9 @@ include "klantFuncties.php";
 include "URL.php";
 
 //bepaalt wat zichtbaar is een een scherm
-function startScherm()
+function startScherm($filenaam)
 {
-    navigatieBalk();
+    navigatieBalk($filenaam);
     //atm laat dit alle producten zien, hier moeten nog even producten voor geselecteerd worden
 
 }
@@ -16,13 +16,10 @@ function startScherm()
 function zoekenOptie($filenaam)//van de plaats waar uit je zoekt
 {
     $searchFor = searchFor();
-    echo("<form class=\"form-inline active-purple-3 active-purple-4\" action='' methot='get'>
-  <i class=\"fas fa-search\" aria-hidden=\"true\"></i>
-  <input type=\"text\" name='searchFor' class=\"form-control form-control-sm ml-3 w-75\" type=\"text\" placeholder=\"$searchFor\"
-    aria-label=\"Search\">
-</form>");
-
-    return $searchFor;
+    return "
+<form action='$filenaam' method='get'>
+  <input type=\"search\" name='searchFor' class=\"form-control\" type=\"text\" placeholder=\"$searchFor\" aria-label=\"$searchFor\">
+</form>";
 }
 
 //Default van het search veld,
@@ -32,10 +29,10 @@ function searchFor()
 {
     if (isset($_GET['searchFor'])) {
         $searchFor = $_GET['searchFor'];
-        zoeken($searchFor);
+        //zoeken($searchFor);
         return $_GET['searchFor'];
     } else {
-        return 'Type hier om te zoeken';
+        return 'Zoeken...';
     }
 }
 
@@ -44,9 +41,9 @@ function toonProducten()
 {
     $producten = opvragenProducten();
     if (!empty($producten)) {
-        productTabelHoofd();
         foreach ($producten as $product) {
-            productTabel($product);
+            $print = product($product);
+            echo($print);
         }
     } else {
         echo "<br>Er zijn geen producten gevonden.<br>";
@@ -54,30 +51,13 @@ function toonProducten()
     }
 }
 
-function productTabelHoofd()
+function product($product)
 {
     echo("
-    <table class=\"table\"> 
-    <thead class=\"thead-dark\">
-        <tr>
-            <th>StockItemID</th>
-            <th>StockItemName</th>
-            <th>UnitPrice</th>
-            <th>RecommendedRetailPrice</th>
-        </tr>
-    </thead>
-    <tbody>");
-    return;
-}
-
-function productTabel($product)
-{
-    echo("<tr>" .
-        "<td>" . $product["StockItemID"] . "</td>" .
-        "<td>" . $product["StockItemName"] . "</td>" .
-        "<td>" . $product["UnitPrice"] . "</td>" .
-        "<td>" . $product["RecommendedRetailPrice"] . "</td>" .
-        "</tr>");
+    <div class='product_lijst'>
+    <h4>" . $product["StockItemName"] . "</h4>
+</div>
+    ");
     return;
 }
 
@@ -105,7 +85,13 @@ function paginationPrint($aantalPaginas)
 //aantalPaginas voor de resultaten
 function aantalPaginas($aantalProducten, $pp)
 {
-    $aantalPaginas = ceil($aantalProducten / $pp);
+    if ($pp < 10 or $pp > 50) {
+        $pp = 10;
+        echo $pp;
+        echo $aantalProducten;
+    }
+    $prodPagina = $pp;
+    $aantalPaginas = ceil($aantalProducten / $prodPagina);
     return $aantalPaginas;
 }
 
@@ -119,12 +105,14 @@ function ProductPerPaginaForm($pp)
 //navigation bar
 function navigatieBalk()
 {
-    echo("
-<nav class=\"navbar navbar-light bg-light\">
-  <a class=\"navbar-brand\" href=\"#\">Navbar
-   <img src=\"assets/afbeeldingen/logo.png\" width=\"250\" height=\"90\" class=\"d-inline-block align-top\" alt=\"\">
-  </a>
-</nav>");
+    require "parts/navbar.php";
+}
+
+function logo()
+{
+    return "<a class=\"navbar-brand\" href=\"#\">
+        <img src=\"assets/afbeeldingen/logo.png\" width=\"150\" height=\"54\" class=\"d-inline-block align-top\" alt=\"\">
+        </a>";
 }
 
 ?>

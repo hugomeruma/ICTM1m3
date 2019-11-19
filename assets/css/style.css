@@ -1,0 +1,15 @@
+/* Outline when active */
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border: 2px solid #00ADEF;
+    outline: 0;
+    box-shadow: none;
+}
+
+/* Collapse on hover*/
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+/ / remove the gap so it doesn 't close
+}
