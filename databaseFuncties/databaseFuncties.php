@@ -3,13 +3,11 @@
 function maakVerbinding()
 {
     $host = "localhost";
-    $databasename = "wideworldimporters";
-    $port = 3306;
-    $user = "root";
-    $pass = "";
+    $databasename = "worldwideimporters";
+    $username = "root";
+    $password = "";
 
-    $connection = mysqli_connect($host, $user, $pass, $databasename, $port);
-    return ($connection);
+    return new mysqli($host, $username, $password, $databasename);
 }
 
 function sluitVerbinding($connection)
