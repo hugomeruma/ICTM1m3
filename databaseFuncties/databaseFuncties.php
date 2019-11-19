@@ -55,7 +55,7 @@ function selecterenZoeken($zoek)
 
 
 //catagorien
-function stockgroups()
+function stockgroups($sql)
 {
     $connection = maakVerbinding();
     $stockgroups = mysqli_fetch_all(mysqli_query($connection, $sql), MYSQLI_ASSOC);

@@ -9,6 +9,6 @@
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <title><?= $title ?> - WWI</title>
-    <?= require "navbar.php" ?>
+    <?php require "navbar.php" ?>
 </head>
 <body>

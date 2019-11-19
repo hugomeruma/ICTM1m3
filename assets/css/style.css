@@ -1,9 +1,13 @@
-/* Outline when active */
-.form-control:focus {
+/* form properties */
+.form-control:hover:focus {
     color: #495057;
     background-color: #fff;
-    border: 2px solid #00ADEF;
+    border: 1px solid #00ADEF;
     outline: 0;
+    box-shadow: none;
+}
+
+.form-control:focus {
     box-shadow: none;
 }
 
@@ -11,5 +15,38 @@
 .dropdown:hover .dropdown-menu {
     display: block;
     margin-top: 0;
-/ / remove the gap so it doesn 't close
+    border: 1px solid #00ADEF;
 }
+
+/* Dropdown item change color on hover */
+.dropdown-item:hover {
+    color: #00ADEF;
+    background-color: #d4d9db;
+}
+
+/* Button */
+.btn {
+    background-color: #F1F1F1;
+    border-radius: 0px 0px 15px 15px;
+    color: #00ADEF;
+    padding: 0 0 0 0;
+    font-size: 15px;
+    border: none;
+}
+
+.btn:hover {
+    background-color: #F1F1F1;
+    color: #00ADEF;
+    border: 1px solid #00ADEF;
+    border-top-width: 0px;
+}
+
+.top-navbar {
+    background-color: #f1f1f1;
+    padding: 0px 16px 0px 16px;
+}
+
+.button-navbar {
+    background-color: rgba(0, 0, 0, 0.0);
+}
+

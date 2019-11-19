@@ -102,17 +102,36 @@ function ProductPerPaginaForm($pp)
 
 }
 
-//navigation bar
-function navigatieBalk()
-{
-    require "parts/navbar.php";
-}
-
+//navbar items
 function logo()
 {
     return "<a class=\"navbar-brand\" href=\"#\">
         <img src=\"assets/afbeeldingen/logo.png\" width=\"150\" height=\"54\" class=\"d-inline-block align-top\" alt=\"\">
         </a>";
+}
+
+function displayDropdownStockgroups()
+{
+    echo "<li class=\"nav-item dropdown\">
+                <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdown\" role=\"button\" data-toggle=\"dropdown\"
+                   aria-haspopup=\"true\" aria-expanded=\"false\">Categorieën
+                </a>";
+
+    displayStockgroup();
+
+    echo "</li>";
+}
+
+function displayStockgroup()
+{
+    $stockgroups = ophalenStockgroups();
+    if (!empty($stockgroups)) {
+        echo "<div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">";
+        foreach ($stockgroups as $stockgroup) {
+            echo "<a class=\"dropdown-item\" href=\"#\">" . $stockgroup['StockGroupName'] . "</a>";
+        }
+        echo "</div>";
+    }
 }
 
 ?>

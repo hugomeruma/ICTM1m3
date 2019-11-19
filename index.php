@@ -5,5 +5,4 @@ require "parts/head.php";
 //body
 
 require "parts/footer.php";
-
 ?>
