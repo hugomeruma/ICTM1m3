@@ -1,5 +1,5 @@
 <?php
-include "../databaseFuncties/databaseFuncties.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/ICTM1m3/databaseFuncties/databaseFuncties.php";
 include "klantFuncties.php";
 include "URL.php";
 

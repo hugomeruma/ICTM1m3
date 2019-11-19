@@ -19,11 +19,12 @@
     </div>
 </nav>
 <nav class="navbar navbar-expand-lg py-0 button-navbar">
-    <div class="collapse navbar-collapse d-flex justify-content-around" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse d-flex justify-content-around" id="navbarSupportedContent ">
         <?php foreach (ophalenStockgroups() as $stockgroup): ?>
             <div class="col px-0">
-                <button class="btn btn-primary btn-lg btn-block"
-                        type="button"><?= $stockgroup['StockGroupName'] ?></button>
+                <a href="/ICTM1m3/producten/?in=<?= $stockgroup['StockGroupID'] ?>"
+                   class="btn btn-primary btn-lg btn-block"
+                   role="button"> <?= $stockgroup['StockGroupName'] ?> </button></a>
             </div>
         <?php endforeach; ?>
     </div>
