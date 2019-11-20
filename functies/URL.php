@@ -7,15 +7,21 @@ function url($post, $var)
 {
     //searchFor
     $searchFor = searchForURL("searchFor=");
-    //page
+    $in = inURL("in=");
+    $pp = ppURL("pp=");
+
     if ($post == "page=") {
         $page = pageURL($post, $var);
+        return "?" . $searchFor . $in . $page . $pp;
     } else {
         $page = pageURL("page=", 1);
     }
-    //Product Per pagina URL
-    $pp = ppURL("pp=");
-    return "producten?" . $searchFor . $page . $pp;
+
+    if ($post == "searchFor") {
+        return "producten?" . $in . "page=1&" . $pp;
+    } else {
+        return "?" . $searchFor . $in . $page . $pp;
+    }
 }
 
 function searchForURL($searchFor)
@@ -46,7 +52,7 @@ function ppURL($pp)
 
 function inURL($in)
 {
-    $in .= $_GET["in"];
+    $in .= $_GET["in"] . "&";
     return $in;
 }
 ?>

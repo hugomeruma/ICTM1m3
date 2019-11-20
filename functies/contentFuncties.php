@@ -13,14 +13,6 @@ function startScherm($filenaam)
 
 //zoekFunctie
 //laat een text input zien
-function zoekenOptie($filenaam)//van de plaats waar uit je zoekt
-{
-    $searchFor = searchFor();
-    return "
-<form action='$filenaam' method='get'>
-  <input type=\"search\" name='searchFor' class=\"form-control\" type=\"text\" placeholder=\"$searchFor\" aria-label=\"$searchFor\">
-</form>";
-}
 
 //Default van het search veld,
 //Als er niks is gezocht: 'Type hier om te zoeken'
@@ -78,7 +70,7 @@ function paginationPrint($aantalPaginas)
 {
     for ($page = 1; $page <= $aantalPaginas; $page++) {
         $url = url('page=', $page);
-        echo "<a href=$url>  $page  </a>";
+        echo "<a href=producten?$url>  $page  </a>";
     }
 }
 
@@ -98,29 +90,18 @@ function aantalPaginas($aantalProducten, $pp)
 //producten per pagina kiezer
 function ProductPerPaginaForm($pp)
 {
-    echo "<form action='' method='get'> Resultaten per pagina <input type=\"number\" name=\"pp\" min=\"10\" max=\"50\" step=\"10\" value=\"$pp\"></form>";
+    $page = $_GET['page'];
+    $in = $_GET['in'];
+    echo "<form action='' method='get'> 
+Resultaten per pagina 
+<input type=\"number\" name=\"pp\" min=\"10\" max=\"50\" step=\"10\" value=\"$pp\">
+<input type=\"hidden\" name=\"page\" value=\"$page\"> 
+<input type=\"hidden\" name=\"in\" value=\"$in\">
+</form>";
 
 }
 
 //navbar items
-function logo()
-{
-    return "<a class=\"navbar-brand\" href=\"#\">
-        <img src=\"assets/afbeeldingen/logo.png\" width=\"150\" height=\"54\" class=\"d-inline-block align-top\" alt=\"\">
-        </a>";
-}
-
-function displayDropdownStockgroups()
-{
-    echo "<li class=\"nav-item dropdown\">
-                <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdown\" role=\"button\" data-toggle=\"dropdown\"
-                   aria-haspopup=\"true\" aria-expanded=\"false\">Categorieën
-                </a>";
-
-    displayStockgroup();
-
-    echo "</li>";
-}
 
 function displayStockgroup()
 {

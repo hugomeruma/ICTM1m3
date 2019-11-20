@@ -10,9 +10,9 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- oplossing bedenken voor index.php naam file -->
         <div class="ml-auto">
-            <form method='get' class="form-inline my-2 my-lg-0">
-                <input type=\"search\" name='searchFor' class="form-control mr-sm-2"
-                       placeholder=<?= searchFor() ?>>
+            <form action="<?= url("SearchFor", "empty") ?>" method='get' class="form-inline my-2 my-lg-0">
+                <input type="search" name='searchFor' class="form-control mr-sm-2"
+                       placeholder="<?= searchFor() ?>">
             </form>
         </div>
         <!-- oplossing voor button account-->
@@ -22,7 +22,7 @@
     <div class="collapse navbar-collapse d-flex justify-content-around" id="navbarSupportedContent ">
         <?php foreach (ophalenStockgroups() as $stockgroup): ?>
             <div class="col px-0">
-                <a href="/ICTM1m3/producten/?in=<?= $stockgroup['StockGroupID'] ?>&page=1&pp=10&"
+                <a href="/ICTM1m3/producten/?in=<?= $stockgroup['StockGroupID'] ?>&page=1&pp=10"
                    class="btn btn-primary btn-lg btn-block"
                    role="button"> <?= $stockgroup['StockGroupName'] ?> </button></a>
             </div>
