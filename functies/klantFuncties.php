@@ -19,6 +19,8 @@ function opvragenProducten()
     //alleproducten laten zien.
     if (!isset($_GET['in']) && !isset($_GET['searchFor'])) {
         return alleProducten();
+    } elseif (isset($_GET['in']) && !isset($_GET['searchFor'])) {
+        return productenInStockgroup();
     }
 }
 

@@ -15,7 +15,7 @@ function url($post, $var)
     }
     //Product Per pagina URL
     $pp = ppURL("pp=");
-    return "?" . "$searchFor" . "$page" . "$pp";
+    return "producten?" . $searchFor . $page . $pp;
 }
 
 function searchForURL($searchFor)
@@ -44,5 +44,10 @@ function ppURL($pp)
     return $pp;
 }
 
+function inURL($in)
+{
+    $in .= $_GET["in"];
+    return $in;
+}
 ?>
 

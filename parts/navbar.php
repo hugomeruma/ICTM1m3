@@ -12,17 +12,17 @@
         <div class="ml-auto">
             <form method='get' class="form-inline my-2 my-lg-0">
                 <input type=\"search\" name='searchFor' class="form-control mr-sm-2"
-                       placeholder=<?= searchFor() ?> aria-label=\"$searchFor\">
+                       placeholder=<?= searchFor() ?>>
             </form>
         </div>
         <!-- oplossing voor button account-->
     </div>
 </nav>
-<nav class="navbar navbar-expand-lg py-0 button-navbar">
+<nav class="navbar navbar-expand-lg pt-0 button-navbar">
     <div class="collapse navbar-collapse d-flex justify-content-around" id="navbarSupportedContent ">
         <?php foreach (ophalenStockgroups() as $stockgroup): ?>
             <div class="col px-0">
-                <a href="/ICTM1m3/producten/?in=<?= $stockgroup['StockGroupID'] ?>"
+                <a href="/ICTM1m3/producten/?in=<?= $stockgroup['StockGroupID'] ?>&page=1&pp=10&"
                    class="btn btn-primary btn-lg btn-block"
                    role="button"> <?= $stockgroup['StockGroupName'] ?> </button></a>
             </div>

@@ -8,7 +8,7 @@ function maakVerbinding()
     $user = "root";
     $pass = "";
 
-    $connection = mysqli_connect($host, $user, $pass, $databasename, $port);
+    $connection = new mysqli($host, $user, $pass, $databasename, $port);
     return ($connection);
 }
 
@@ -18,17 +18,18 @@ function sluitVerbinding($connection)
 }
 
 //selecteren Producten
-function producten($sql)
+function fixPagination($count)
 {
-    $connection = maakVerbinding();
-    $productenTotaal = mysqli_fetch_all(mysqli_query($connection, $sql), MYSQLI_ASSOC);
-    $aantalProducten = count($productenTotaal);
-    $pp = pagination($aantalProducten);
-    $offset = offset($pp);
-    $sql .= "LIMIT $offset, $pp";
-    $productenTotaal = mysqli_fetch_all(mysqli_query($connection, $sql), MYSQLI_ASSOC);
-    sluitVerbinding($connection);
-    return $productenTotaal;
+    $pp = pagination($count);
+    return $pp;
+}
+
+function producten($stmt)
+{
+    $stmt->exectue;
+    $result = $stmt->get_result;
+    $producten = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    return $producten;
 }
 
 function offset($pp)
@@ -65,9 +66,55 @@ function stockgroups($sql)
 
 function ophalenStockgroups()
 {
-    $sql = "SELECT StockGroupID, StockGroupName FROM stockgroups";
+    $sql = "SELECT SG.StockGroupID, SG.StockGroupName 
+FROM stockgroups as SG "; //JOIN stockitemsstockgroup as SISG ON SG.StockGroupID = SISG.StockGroupID
     $stockgroups = stockgroups($sql);
     return $stockgroups;
+}
+
+//sql injection needs to be fixed
+function productenInStockgroup()
+{
+    $sql = "SELECT SI.StockItemID, SI.StockItemName
+FROM StockItems as SI JOIN stockitemstockgroups as SG 
+ON SI.StockItemID = SG.StockItemID
+WHERE SG.StockGroupID = ?";
+
+    $conn = maakVerbinding();
+    $in = $_GET['in'];
+
+    $stmt = mysqli_stmt_init($conn);
+
+    if (mysqli_stmt_prepare($stmt, $sql)) {
+        mysqli_stmt_bind_param($stmt, 'i', $in);
+        mysqli_stmt_execute($stmt);
+        $countThis = mysqli_stmt_get_result($stmt);
+        $count = mysqli_num_rows($countThis);
+    } else {
+        echo "SQL Statement failed";
+    }
+
+    sluitVerbinding($conn);
+    $conn = maakVerbinding();
+//fixPagination($count)
+    $limit = fixPagination($count);
+//offset($limit)
+    $offset = offset($limit);
+    $sql .= " LIMIT ? OFFSET ?";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (mysqli_stmt_prepare($stmt, $sql)) {
+        mysqli_stmt_bind_param($stmt, 'iii', $in, $limit, $offset);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $producten = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        sluitVerbinding($conn);
+        return $producten;
+    } else {
+        echo "SQL Statement failed";
+    }
+    sluitVerbinding($conn);
+    return;
 }
 
 ?>
