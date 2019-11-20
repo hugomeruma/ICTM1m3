@@ -25,18 +25,19 @@
 }
 
 /* Button */
-.btn {
+.btn-nav {
     background-color: #F1F1F1;
     border-radius: 0px 0px 15px 15px;
     color: #00ADEF;
     padding: 0 0 0 0;
     font-size: 15px;
     border: none;
+    font-weight: 500;
     border-top: 1px solid #F1F1F1;
 
 }
 
-.btn:hover {
+.btn-nav:hover {
     background-color: #F1F1F1;
     color: #00ADEF;
     border: 1px solid #00ADEF;
@@ -52,3 +53,14 @@
     background-color: rgba(0, 0, 0, 0.0);
 }
 
+.btn-search {
+    color: #00ADEF;
+    background-color: #F1F1F1;
+    border: 1px solid #00ADEF;
+}
+
+.btn-search:hover {
+    background-color: #00ADEF;
+    color: white;
+    border: none;
+}

@@ -17,10 +17,10 @@ function zoeken($searchFor)
 function opvragenProducten()
 {
     //alleproducten laten zien.
-    if (!isset($_GET['in']) && !isset($_GET['searchFor'])) {
+    if (empty($_GET['in']) && !isset($_GET['searchFor'])) {
         return alleProducten();
-    } elseif (isset($_GET['in']) && !isset($_GET['searchFor'])) {
-        return productenInStockgroup();
+    } elseif (!empty($_GET['in']) && !isset($_GET['searchFor'])) {
+        return selecterenProducten();
     }
 }
 
@@ -46,3 +46,29 @@ function page()
     settype($page, 'integer');
     return $page;
 }
+
+//bepaalt de pagination per pagina bla bla
+function pagination($aantalProducten)
+{
+    $pp = productenPerPagina();
+    $_SESSION["pp"] = $pp;
+    $aantalPaginas = aantalPaginas($aantalProducten, $pp);
+    if ($aantalProducten > $pp) {
+        paginationPrint($aantalPaginas);
+    }
+    return $pp;
+}
+
+//aantalPaginas voor de resultaten
+function aantalPaginas($aantalProducten, $pp)
+{
+    if ($pp < 10 or $pp > 50) {
+        $pp = 10;
+        echo $pp;
+        echo $aantalProducten;
+    }
+    $prodPagina = $pp;
+    $aantalPaginas = ceil($aantalProducten / $prodPagina);
+    return $aantalPaginas;
+}
+

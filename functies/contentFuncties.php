@@ -55,43 +55,23 @@ function product($product)
 
 
 //paginationFunctie
-function pagination($aantalProducten)
-{
-    $pp = productenPerPagina();
-    $_SESSION["pp"] = $pp;
-    $aantalPaginas = aantalPaginas($aantalProducten, $pp);
-    if ($aantalProducten > $pp) {
-        paginationPrint($aantalPaginas);
-    }
-    return $pp;
-}
 
 function paginationPrint($aantalPaginas)
 {
     for ($page = 1; $page <= $aantalPaginas; $page++) {
         $url = url('page=', $page);
-        echo "<a href=producten?$url>  $page  </a>";
+        echo "<a href=$_SERVER[SERVER_NAME]'</a>";
     }
 }
 
-//aantalPaginas voor de resultaten
-function aantalPaginas($aantalProducten, $pp)
-{
-    if ($pp < 10 or $pp > 50) {
-        $pp = 10;
-        echo $pp;
-        echo $aantalProducten;
-    }
-    $prodPagina = $pp;
-    $aantalPaginas = ceil($aantalProducten / $prodPagina);
-    return $aantalPaginas;
-}
 
 //producten per pagina kiezer
 function ProductPerPaginaForm($pp)
 {
     $page = $_GET['page'];
-    $in = $_GET['in'];
+    if (!empty($_GET['in'])) {
+        $in = $_GET['in'];
+    } else $in = "";
     echo "<form action='' method='get'> 
 Resultaten per pagina 
 <input type=\"number\" name=\"pp\" min=\"10\" max=\"50\" step=\"10\" value=\"$pp\">
@@ -102,17 +82,5 @@ Resultaten per pagina
 }
 
 //navbar items
-
-function displayStockgroup()
-{
-    $stockgroups = ophalenStockgroups();
-    if (!empty($stockgroups)) {
-        echo "<div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">";
-        foreach ($stockgroups as $stockgroup) {
-            echo "<a class=\"dropdown-item\" href=\"#\">" . $stockgroup['StockGroupName'] . "</a>";
-        }
-        echo "</div>";
-    }
-}
 
 ?>

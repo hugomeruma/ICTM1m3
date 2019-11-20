@@ -7,7 +7,9 @@ require $_SERVER['DOCUMENT_ROOT'] . "/ICTM1m3/parts/head.php";
 
 <div class="container my-3">
     <h4>Producten > </h4>
-    <?php toonProducten(); ?>
+    <?php
+    toonProducten();
+    ?>
 </div>
 
 <?php

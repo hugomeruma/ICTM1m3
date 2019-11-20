@@ -12,6 +12,28 @@ function maakVerbinding()
     return ($connection);
 }
 
+function getFromDB($sql, $where = null, $limit = null, $offset = null, $search = null)
+{
+    $conn = maakVerbinding();
+
+    $stmt = mysqli_stmt_init($conn);
+
+    mysqli_stmt_prepare($stmt, $sql);
+    if ($where != null && $limit == null && $offset == null && $search == null) {
+        mysqli_stmt_bind_param($stmt, 'i', $where);
+    }
+    if ($where != null && $limit != null && $search == null) {
+        mysqli_stmt_bind_param($stmt, 'iii', $where, $limit, $offset);
+    }
+    if ($where == null && $limit != null && $search == null) {
+        mysqli_stmt_bind_param($stmt, 'ii', $limit, $offset);
+    }
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    sluitVerbinding($conn);
+    return $result;
+}
+
 function sluitVerbinding($connection)
 {
     mysqli_close($connection);
@@ -24,13 +46,6 @@ function fixPagination($count)
     return $pp;
 }
 
-function producten($stmt)
-{
-    $stmt->exectue;
-    $result = $stmt->get_result;
-    $producten = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    return $producten;
-}
 
 function offset($pp)
 {
@@ -39,82 +54,50 @@ function offset($pp)
     return $offset;
 }
 
-function alleProducten()
+//ophalen producten
+function tellenProducten($where = null)
 {
-    $sql = "SELECT * FROM stockitems ";
-    $producten = producten($sql);
-    return $producten;
+    if ($where != null) {
+        $count = "SELECT count(*) as aantalProducten FROM StockItems as SI JOIN stockitemstockgroups as SG
+ON SI.StockItemID = SG.StockItemID
+WHERE SG.StockGroupID = ?;";
+    } else {
+        $count = "SELECT count(*) as aantalProducten FROM StockItems;";
+    }
+    $row = mysqli_fetch_array(getFromDB($count, $where), MYSQLI_ASSOC);
+    return $row['aantalProducten'];
 }
 
-function selecterenZoeken($zoek)
-{
-    //  $sql= "SELECT * FROM WHERE LIKE $zoek"
-    // $producten = producten($sql)
-
-    //verklaren van wat zoek is, waar gezocht moet worden etc.
-}
-
-
-//catagorien
-function stockgroups($sql)
-{
-    $connection = maakVerbinding();
-    $stockgroups = mysqli_fetch_all(mysqli_query($connection, $sql), MYSQLI_ASSOC);
-    sluitVerbinding($connection);
-    return $stockgroups;
-}
-
-function ophalenStockgroups()
+function selecterenStockgroups()
 {
     $sql = "SELECT SG.StockGroupID, SG.StockGroupName 
-FROM stockgroups as SG "; //JOIN stockitemsstockgroup as SISG ON SG.StockGroupID = SISG.StockGroupID
-    $stockgroups = stockgroups($sql);
-    return $stockgroups;
+FROM stockgroups as SG  WHERE SG.StockGroupID IN (SELECT StockGroupId FROM stockitemstockgroups)";
+    return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
 }
+
+function selecterenProducten()
+{
+    $where = $_GET['in'];
+    $count = tellenProducten($where);
+    $limit = fixPagination($count);
+    $offset = offset($limit);
+    $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
+ON I.StockItemID = G.StockItemID
+WHERE G.StockGroupID = ? LIMIT ? OFFSET ?";
+    return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset), MYSQLI_ASSOC);
+
+}
+
+function alleProducten()
+{
+    $count = tellenProducten(null);
+    $limit = fixPagination($count);
+    $offset = offset($limit);
+    $sql = "SELECT * FROM stockitems LIMIT ? OFFSET ?";
+    return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset), MYSQLI_ASSOC);
+}
+
 
 //sql injection needs to be fixed
-function productenInStockgroup()
-{
-    $sql = "SELECT SI.StockItemID, SI.StockItemName
-FROM StockItems as SI JOIN stockitemstockgroups as SG 
-ON SI.StockItemID = SG.StockItemID
-WHERE SG.StockGroupID = ?";
-
-    $conn = maakVerbinding();
-    $in = $_GET['in'];
-
-    $stmt = mysqli_stmt_init($conn);
-
-    if (mysqli_stmt_prepare($stmt, $sql)) {
-        mysqli_stmt_bind_param($stmt, 'i', $in);
-        mysqli_stmt_execute($stmt);
-        $countThis = mysqli_stmt_get_result($stmt);
-        $count = mysqli_num_rows($countThis);
-    } else {
-        echo "SQL Statement failed";
-    }
-
-    sluitVerbinding($conn);
-    $conn = maakVerbinding();
-//fixPagination($count)
-    $limit = fixPagination($count);
-//offset($limit)
-    $offset = offset($limit);
-    $sql .= " LIMIT ? OFFSET ?";
-    $stmt = mysqli_stmt_init($conn);
-
-    if (mysqli_stmt_prepare($stmt, $sql)) {
-        mysqli_stmt_bind_param($stmt, 'iii', $in, $limit, $offset);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        $producten = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        sluitVerbinding($conn);
-        return $producten;
-    } else {
-        echo "SQL Statement failed";
-    }
-    sluitVerbinding($conn);
-    return;
-}
 
 ?>
