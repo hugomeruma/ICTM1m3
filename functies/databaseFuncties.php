@@ -53,4 +53,12 @@ function selecterenZoeken($zoek)
     //verklaren van wat zoek is, waar gezocht moet worden etc.
 }
 
+function MaakAccount($connection, $firstName, $tussenvoegsel, $lastName, $email, $password, $city, $postalCode, $houseNumber, $streetName, $phoneNumber) {
+    $statement = mysqli_prepare($connection, "INSERT INTO klant (firstName, tussenvoegsel, lastName, email, password, city, postalCode, houseNumber, streetName, phoneNumber) VALUES(?,?,?,?,?,?,?,?,?,?)");
+    mysqli_stmt_bind_param($statement, 'ssssssssss', $firstName, $tussenvoegsel, $lastName, $email, $password, $city, $postalCode, $houseNumber, $streetName, $phoneNumber);
+    mysqli_stmt_execute($statement);
+    return mysqli_stmt_affected_rows($statement) == 1;
+}
+
+
 ?>
