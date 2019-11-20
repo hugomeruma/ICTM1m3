@@ -1,10 +1,13 @@
 <?php
 require "../../parts/admin/head.php";
 require "../../parts/admin/menu.php";
-require "../../functies/helpers.php";
 require "../../databaseFuncties/producten.php";
 
 $count = 0;
+
+if (isset($_POST['verwijder'])) {
+    verwijderProducten($producten);
+}
 ?>
     <div class="container">
         <form method="post">
@@ -15,7 +18,7 @@ $count = 0;
                 <div class="col-6 pt-1">
                     <a class="btn btn-success float-right" href="/admin/producten/create.php"
                        role="button">Toevoegen</a>
-                    <button type="submit" class="btn btn-danger float-right mr-2">Verwijderen</button>
+                    <button type="submit" name="verwijder" class="btn btn-danger float-right mr-2">Verwijderen</button>
                 </div>
             </div>
             <div class="table-responsive">

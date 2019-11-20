@@ -1,7 +1,7 @@
 <?php
 require 'databaseFuncties.php';
 
-function productenBeherenOverzicht($limit, $page = 0)
+function productenBeherenOverzicht(int $limit, int $page = 0)
 {
     $offset = $page * $limit;
     $conn = maakVerbinding();
@@ -14,7 +14,7 @@ function productenBeherenOverzicht($limit, $page = 0)
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-function telPaginas($productenPerPagina)
+function telPaginas(int $productenPerPagina)
 {
     $conn = maakVerbinding();
     $stmt = $conn->prepare("SELECT COUNT(*) as totaal FROM stockitems");
@@ -25,25 +25,16 @@ function telPaginas($productenPerPagina)
     return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['totaal'] / $productenPerPagina);
 }
 
-function paginaNummering($huidigePagina, $totaalPaginas)
+function verwijderProducten(array $productenIDs)
 {
-    $paginaNummers = [];
-    if ($huidigePagina <= 1) { // Wanneer je bij het begin van de pagina's bent
-        $paginaNummers['selected'] = 1;
-        if ($totaalPaginas >= 2) {
-            $paginaNummers[1] = 2;
-        }
-        if ($totaalPaginas >= 3) {
-            $paginaNummers[2] = 3;
-        }
-    } elseif ($huidigePagina >= round($totaalPaginas)) { // Wanneer je aan het einde van de pagina's bent
-        $paginaNummers[0] = $huidigePagina - 2;
-        $paginaNummers[1] = $huidigePagina - 1;
-        $paginaNummers['selected'] = $huidigePagina;
-    } else { // De 'normal case'
-        $paginaNummers[0] = $huidigePagina - 1;
-        $paginaNummers['selected'] = $huidigePagina;
-        $paginaNummers[2] = $huidigePagina + 1;
+    $conn = maakVerbinding();
+    foreach ($productenIDs as $productIDs) {
+        $stmt = $conn->prepare("DELETE");
+        $stmt->bind_param('ii', $limit, $offset);
     }
-    return $paginaNummers;
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+    $conn->close();
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }

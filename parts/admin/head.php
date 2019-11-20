@@ -1,3 +1,7 @@
+<?php
+require "../../functies/helpers.php";
+require "../../functies/algemeneFuncties.php";
+?>
 <!doctype html>
 <html lang="en">
 <head>
