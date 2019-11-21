@@ -62,13 +62,6 @@ WHERE SG.StockGroupID = ?;";
     return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['aantalProducten']);
 }
 
-function selecterenStockgroups()
-{
-    $sql = "SELECT SG.StockGroupID, SG.StockGroupName 
-FROM stockgroups as SG  WHERE SG.StockGroupID IN (SELECT StockGroupId FROM stockitemstockgroups)";
-    return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
-}
-
 function selecterenProducten()
 {
     $where = $_GET['in'];
@@ -91,6 +84,23 @@ function alleProducten()
     return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset), MYSQLI_ASSOC);
 }
 
-//sql injection needs to be fixed
+//stockGroups
+function selecterenStockgroups()
+{
+    $sql = "SELECT SG.StockGroupID, SG.StockGroupName 
+FROM stockgroups as SG  WHERE SG.StockGroupID IN (SELECT StockGroupId FROM stockitemstockgroups)";
+    return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
+}
+
+function currentStockGroup()
+{
+    if (empty($_GET['in'])) {
+        return "Alle producten";
+    } else {
+        $sql = "SELECT StockGroupName as StockGroupName FROM stockgroups WHERE StockGroupId = ?;";
+        $result = getFromDB($sql, $_GET['in']);
+        return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['StockGroupName']);
+    }
+}
 
 ?>

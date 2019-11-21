@@ -41,6 +41,7 @@
     background-color: #F1F1F1;
     color: #00ADEF;
     border: 1px solid #00ADEF;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 5px 5px 0 rgba(0, 0, 0, 0.19);
     border-top: 0px solid #F1F1F1;
 }
 
@@ -63,4 +64,8 @@
     background-color: #00ADEF;
     color: white;
     border: none;
+}
+
+.product_lijst {
+    border-bottom: 0px solid #F1F1F1;
 }
