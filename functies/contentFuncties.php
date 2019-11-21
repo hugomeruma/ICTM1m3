@@ -60,7 +60,7 @@ function paginationPrint($aantalPaginas)
 {
     for ($page = 1; $page <= $aantalPaginas; $page++) {
         $url = url('page=', $page);
-        echo "<a href=$_SERVER[SERVER_NAME]'</a>";
+        echo "<a href=" . $_SERVER['SERVER_NAME'] . ">  </a>";
     }
 }
 

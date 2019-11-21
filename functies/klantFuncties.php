@@ -32,7 +32,6 @@ function productenPerPagina()
     } else {
         $pp = 10;
     }
-    ProductPerPaginaForm($pp);
     return $pp;
 }
 
@@ -47,25 +46,35 @@ function page()
     return $page;
 }
 
-//bepaalt de pagination per pagina bla bla
-function pagination($aantalProducten)
+function paginaNummering($huidigePagina, $totaalPaginas)
 {
-    $pp = productenPerPagina();
-    $_SESSION["pp"] = $pp;
-    $aantalPaginas = aantalPaginas($aantalProducten, $pp);
-    if ($aantalProducten > $pp) {
-        paginationPrint($aantalPaginas);
+    $paginaNummers = [];
+    if ($huidigePagina <= 1) { // Wanneer je bij het begin van de pagina's bent
+        $paginaNummers['selected'] = 1;
+        if ($totaalPaginas >= 2) {
+            $paginaNummers[1] = 2;
+        }
+        if ($totaalPaginas >= 3) {
+            $paginaNummers[2] = 3;
+        }
+    } elseif ($huidigePagina >= round($totaalPaginas)) { // Wanneer je aan het einde van de pagina's bent
+        $paginaNummers[0] = $huidigePagina - 2;
+        $paginaNummers[1] = $huidigePagina - 1;
+        $paginaNummers['selected'] = $huidigePagina;
+    } else { // De 'normal case'
+        $paginaNummers[0] = $huidigePagina - 1;
+        $paginaNummers['selected'] = $huidigePagina;
+        $paginaNummers[2] = $huidigePagina + 1;
     }
-    return $pp;
+    return $paginaNummers;
 }
 
+
 //aantalPaginas voor de resultaten
-function aantalPaginas($aantalProducten, $pp)
+function telPaginas($aantalProducten, $pp)
 {
     if ($pp < 10 or $pp > 50) {
         $pp = 10;
-        echo $pp;
-        echo $aantalProducten;
     }
     $prodPagina = $pp;
     $aantalPaginas = ceil($aantalProducten / $prodPagina);

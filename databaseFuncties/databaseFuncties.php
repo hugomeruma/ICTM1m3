@@ -40,12 +40,6 @@ function sluitVerbinding($connection)
 }
 
 //selecteren Producten
-function fixPagination($count)
-{
-    $pp = pagination($count);
-    return $pp;
-}
-
 
 function offset($pp)
 {
@@ -64,8 +58,8 @@ WHERE SG.StockGroupID = ?;";
     } else {
         $count = "SELECT count(*) as aantalProducten FROM StockItems;";
     }
-    $row = mysqli_fetch_array(getFromDB($count, $where), MYSQLI_ASSOC);
-    return $row['aantalProducten'];
+    $result = getFromDB($count, $where);
+    return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['aantalProducten']);
 }
 
 function selecterenStockgroups()
@@ -79,7 +73,7 @@ function selecterenProducten()
 {
     $where = $_GET['in'];
     $count = tellenProducten($where);
-    $limit = fixPagination($count);
+    $limit = productenPerPagina($count);
     $offset = offset($limit);
     $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
 ON I.StockItemID = G.StockItemID
@@ -91,7 +85,7 @@ WHERE G.StockGroupID = ? LIMIT ? OFFSET ?";
 function alleProducten()
 {
     $count = tellenProducten(null);
-    $limit = fixPagination($count);
+    $limit = productenPerPagina($count);
     $offset = offset($limit);
     $sql = "SELECT * FROM stockitems LIMIT ? OFFSET ?";
     return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset), MYSQLI_ASSOC);
