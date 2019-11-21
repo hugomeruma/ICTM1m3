@@ -16,16 +16,17 @@ if (isset($_GET['page'])) {
 
 <div class="container">
     <h5>Producten > <?= currentStockGroup() ?></h5>
-    <div class="container-fluid pagination justify-content-between mt-">
+    <div class="container-fluid pagination justify-content-between form-inline">
 
-        <form action='' method='get'>
+        <form action='' method='get' class="">
             Resultaten per pagina
-            <input type="number" name="pp" min="10" max="50" step="10" value="<?= $_GET['pp'] ?>">
+            <input type="number" name="pp" min="10" max="50" step="10" value="<?= $_GET['pp'] ?>"
+                   class="mx-3 product_per_pagina_form">
             <input type="hidden" name="page" value="<?= $_GET['page'] ?>">
             <input type="hidden" name="in" value="<?= $_GET['page'] ?>">
         </form>
 
-        <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation example pagination">
             <ul class="pagination justify-content-center">
                 <li class="page-item<?= ($vorige < 1) ? ' disabled' : '' ?>">
                     <a class="page-link"
@@ -55,7 +56,7 @@ if (isset($_GET['page'])) {
     <?php if (!empty($producten)) {
         foreach ($producten
                  as $product): ?>
-            <div class="container row product_lijst my-2">
+            <div class="container row product_kaart my-2">
                     <?php require "productkaart.php" ?>
             </div>
                 
