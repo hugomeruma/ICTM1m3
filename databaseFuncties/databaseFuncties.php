@@ -3,35 +3,11 @@
 function maakVerbinding()
 {
     $host = "localhost";
-    $databasename = "wideworldimporters";
-    $port = 3306;
-    $user = "root";
-    $pass = "";
+    $databasename = "worldwideimporters";
+    $username = "root";
+    $password = "";
 
-    $connection = new mysqli($host, $user, $pass, $databasename, $port);
-    return ($connection);
-}
-
-function getFromDB($sql, $where = null, $limit = null, $offset = null, $search = null)
-{
-    $conn = maakVerbinding();
-
-    $stmt = mysqli_stmt_init($conn);
-
-    mysqli_stmt_prepare($stmt, $sql);
-    if ($where != null && $limit == null && $offset == null && $search == null) {
-        mysqli_stmt_bind_param($stmt, 'i', $where);
-    }
-    if ($where != null && $limit != null && $search == null) {
-        mysqli_stmt_bind_param($stmt, 'iii', $where, $limit, $offset);
-    }
-    if ($where == null && $limit != null && $search == null) {
-        mysqli_stmt_bind_param($stmt, 'ii', $limit, $offset);
-    }
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    sluitVerbinding($conn);
-    return $result;
+    return new mysqli($host, $username, $password, $databasename);
 }
 
 function sluitVerbinding($connection)
@@ -40,6 +16,18 @@ function sluitVerbinding($connection)
 }
 
 //selecteren Producten
+function producten($sql)
+{
+    $connection = maakVerbinding();
+    $productenTotaal = mysqli_fetch_all(mysqli_query($connection, $sql), MYSQLI_ASSOC);
+    $aantalProducten = count($productenTotaal);
+    $pp = pagination($aantalProducten);
+    $offset = offset($pp);
+    $sql .= "LIMIT $offset, $pp";
+    $productenTotaal = mysqli_fetch_all(mysqli_query($connection, $sql), MYSQLI_ASSOC);
+    sluitVerbinding($connection);
+    return $productenTotaal;
+}
 
 function offset($pp)
 {
@@ -48,59 +36,19 @@ function offset($pp)
     return $offset;
 }
 
-//ophalen producten
-function tellenProducten($where = null)
-{
-    if ($where != null) {
-        $count = "SELECT count(*) as aantalProducten FROM StockItems as SI JOIN stockitemstockgroups as SG
-ON SI.StockItemID = SG.StockItemID
-WHERE SG.StockGroupID = ?;";
-    } else {
-        $count = "SELECT count(*) as aantalProducten FROM StockItems;";
-    }
-    $result = getFromDB($count, $where);
-    return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['aantalProducten']);
-}
-
-function selecterenProducten()
-{
-    $where = $_GET['in'];
-    $count = tellenProducten($where);
-    $limit = productenPerPagina($count);
-    $offset = offset($limit);
-    $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
-ON I.StockItemID = G.StockItemID
-WHERE G.StockGroupID = ? LIMIT ? OFFSET ?";
-    return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset), MYSQLI_ASSOC);
-
-}
-
 function alleProducten()
 {
-    $count = tellenProducten(null);
-    $limit = productenPerPagina($count);
-    $offset = offset($limit);
-    $sql = "SELECT * FROM stockitems LIMIT ? OFFSET ?";
-    return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset), MYSQLI_ASSOC);
+    $sql = "SELECT StockItemID, StockItemName, UnitPrice, RecommendedRetailPrice FROM stockitems ";
+    $producten = producten($sql);
+    return $producten;
 }
 
-//stockGroups
-function selecterenStockgroups()
+function selecterenZoeken($zoek)
 {
-    $sql = "SELECT SG.StockGroupID, SG.StockGroupName 
-FROM stockgroups as SG  WHERE SG.StockGroupID IN (SELECT StockGroupId FROM stockitemstockgroups)";
-    return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
-}
+    //  $sql= "SELECT * FROM WHERE LIKE $zoek"
+    // $producten = producten($sql)
 
-function currentStockGroup()
-{
-    if (empty($_GET['in'])) {
-        return "Alle producten";
-    } else {
-        $sql = "SELECT StockGroupName as StockGroupName FROM stockgroups WHERE StockGroupId = ?;";
-        $result = getFromDB($sql, $_GET['in']);
-        return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['StockGroupName']);
-    }
+    //verklaren van wat zoek is, waar gezocht moet worden etc.
 }
 
 ?>

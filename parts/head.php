@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <!-- Required meta tags -->
-    <!--    <base href="http://localhost/ICTM1m3/">-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
