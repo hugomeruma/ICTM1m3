@@ -55,9 +55,10 @@ if (isset($_GET['page'])) {
     <?php if (!empty($producten)) {
         foreach ($producten
                  as $product): ?>
-            <div class="container">
-                <h6><?= $product['StockItemName'] ?></h6>
+            <div class="container row product_lijst my-2">
+                    <?php require "productkaart.php" ?>
             </div>
+                
         <?php endforeach;
     }
     ?>
