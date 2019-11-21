@@ -1,24 +1,17 @@
 <div class="col-2 img">
 
-    <img src="/assets/afbeeldingen/Airline%20Novelties.png" alt="hier staat niks " />
-    
-
+    <img src="assets/afbeeldingen/image_not_available.png" alt="">
 
 </div>
 
-<div class="col-10 product-item__content">
-    <div class="product-item__info hit-area">
+<div class="col-8 product-item_content">
 
-        <ul class="product-specs" data-test="product-specs">
-
-        </ul>
-
-        <div class="product_info">
-            <h6><?= $product['StockItemName'] ?></h6>
-            <strong class="product_prijs ">vanaf <?= $product["UnitPrice"] ?>  </strong>
-                    Op voorraad. Voor 21:00 uur besteld, morgen in huis
-
-            <span style="color:blue">dit is een goed product</span>
-        </div>
+    <div class="product_info">
+        <h5><?= $product['StockItemName'] ?></h5>
+        <p></p>
     </div>
+
+</div>
+<div class="col-2 product_prijs">
+    <h6>€<?= $product["UnitPrice"] ?>,-</h6>
 </div>

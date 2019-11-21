@@ -6,6 +6,7 @@ require __DIR__ . "/parts/head.php";
 ?>
 
 <div class="container">
+
 </div>
 
 <?php
