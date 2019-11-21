@@ -91,7 +91,6 @@ function alleProducten()
     return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset), MYSQLI_ASSOC);
 }
 
-
 //sql injection needs to be fixed
 
 ?>

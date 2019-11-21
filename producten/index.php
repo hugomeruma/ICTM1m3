@@ -14,7 +14,26 @@ require $_SERVER['DOCUMENT_ROOT'] . "/ICTM1m3/parts/head.php";
         <input type="hidden" name="in" value="<?= $_GET['page'] ?>">
     </form>
     <?php
-    toonProducten();
+    $producten = opvragenProducten();
+    if (empty($producten)): ?>
+        <br> Er zijn geen producten gevonden <br>
+    <?php endif; ?>
+    <?php if (!empty($producten)) {
+        foreach ($producten
+
+                 as $product): ?>
+            <div class='product_item row'>
+                <div class="col-1">
+                    image
+                </div>
+                <div class="col-5 row">
+                    <div class="col-5">
+                        <h5>  <?= $product["StockItemName"] ?></h5>
+                    </div>
+                </div>
+            </div>>
+        <?php endforeach;
+    }
     $aantalPaginas = telPaginas(tellenProducten($_GET['in']), $_GET['pp']);
     if (isset($_GET['page'])) {
         $vorige = $_GET['page'] - 1;
@@ -43,6 +62,12 @@ require $_SERVER['DOCUMENT_ROOT'] . "/ICTM1m3/parts/head.php";
             </li>
         </ul>
     </nav>
+    <form action='' method='get'>
+        Resultaten per pagina
+        <input type="number" name="pp" min="10" max="50" step="10" value="<?= $_GET['pp'] ?>">
+        <input type="hidden" name="page" value="<?= $_GET['page'] ?>">
+        <input type="hidden" name="in" value="<?= $_GET['page'] ?>">
+    </form>
 </div>
 <?php
 

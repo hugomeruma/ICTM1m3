@@ -1,18 +1,4 @@
 <?php
-
-//Onderscheiden of de klant in een catagorie zoekt of niet
-function zoeken($searchFor)
-{
-    if (isset($_GET['in'])) {
-        $in = $_GET['in'];
-        echo "Zoeken naar $searchFor in $in";
-        return;
-    } else {
-        echo "Zoeken naar $searchFor";
-        return;
-    }
-}
-
 //opvragen van producten
 function opvragenProducten()
 {
