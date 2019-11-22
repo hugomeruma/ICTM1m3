@@ -1,7 +1,8 @@
 <?php
-require $_SERVER['DOCUMENT_ROOT'] . "/ICTM1m3/functies/helpers.php";
-require $_SERVER['DOCUMENT_ROOT'] . "/ICTM1m3/functies/contentFuncties.php";
-require $_SERVER['DOCUMENT_ROOT'] . "/ICTM1m3/parts/head.php";
+require __dir__ . "/../functies/algemeneFuncties.php";
+require __dir__ . "/../functies/helpers.php";
+require __dir__ . "/../functies/contentFuncties.php";
+require __dir__ . "/../parts/head.php";
 
 $aantalPaginas = telPaginas(tellenProducten($_GET['in']), $_GET['pp']);
 if (isset($_GET['page'])) {
@@ -30,18 +31,18 @@ if (isset($_GET['page'])) {
             <ul class="pagination justify-content-center">
                 <li class="page-item<?= ($vorige < 1) ? ' disabled' : '' ?>">
                     <a class="page-link"
-                       href="/ICTM1m3/producten?page=<?= $vorige ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>"
+                       href="<?= getBaseUrl() ?>/producten?page=<?= $vorige ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>"
                        tabindex="-1"
                        aria-disabled="true">Vorige</a>
                 </li>
                 <?php foreach (paginaNummering($_GET['page'], $aantalPaginas) as $key => $paginaNummer): ?>
                     <li class="page-item<?= ($key === 'selected') ? ' active' : '' ?>"><a class="page-link"
-                                                                                          href="/ICTM1m3/producten?page=<?= $paginaNummer ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>"><?= $paginaNummer ?></a>
+                                                                                          href="<?= getBaseUrl() ?>/producten?page=<?= $paginaNummer ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>"><?= $paginaNummer ?></a>
                     </li>
                 <?php endforeach; ?>
                 <li class="page-item<?= ($volgende >= $aantalPaginas) ? ' disabled' : '' ?>">
                     <a class="page-link"
-                       href="/ICTM1m3/producten?page=<?= $volgende ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>">Volgende</a>
+                       href="<?= getBaseUrl() ?>/producten?page=<?= $volgende ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>">Volgende</a>
                 </li>
             </ul>
         </nav>
@@ -77,18 +78,18 @@ if (isset($_GET['page'])) {
             <ul class="pagination justify-content-center">
                 <li class="page-item<?= ($vorige < 1) ? ' disabled' : '' ?>">
                     <a class="page-link"
-                       href="/ICTM1m3/producten?page=<?= $vorige ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>"
+                       href="<?= getBaseUrl() ?>/producten?page=<?= $vorige ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>"
                        tabindex="-1"
                        aria-disabled="true">Vorige</a>
                 </li>
                 <?php foreach (paginaNummering($_GET['page'], $aantalPaginas) as $key => $paginaNummer): ?>
                     <li class="page-item<?= ($key === 'selected') ? ' active' : '' ?>"><a class="page-link"
-                                                                                          href="/ICTM1m3/producten?page=<?= $paginaNummer ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>"><?= $paginaNummer ?></a>
+                                                                                          href="<?= getBaseUrl() ?>/producten?page=<?= $paginaNummer ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>"><?= $paginaNummer ?></a>
                     </li>
                 <?php endforeach; ?>
                 <li class="page-item<?= ($volgende >= $aantalPaginas) ? ' disabled' : '' ?>">
                     <a class="page-link"
-                       href="/ICTM1m3/producten?page=<?= $volgende ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>">Volgende</a>
+                       href="<?= getBaseUrl() ?>/producten?page=<?= $volgende ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>">Volgende</a>
                 </li>
             </ul>
         </nav>
@@ -97,6 +98,6 @@ if (isset($_GET['page'])) {
 </div>
 <?php
 
-require $_SERVER['DOCUMENT_ROOT'] . "/ICTM1m3/parts/footer.php";
+require __dir__ . "/../parts/footer.php";
 ?>
 

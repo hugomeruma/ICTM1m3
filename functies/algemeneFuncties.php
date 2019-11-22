@@ -1,4 +1,5 @@
 <?php
+
 function paginaNummering($huidigePagina, $totaalPaginas)
 {
     $paginaNummers = [];
@@ -20,4 +21,9 @@ function paginaNummering($huidigePagina, $totaalPaginas)
         $paginaNummers[2] = $huidigePagina + 1;
     }
     return $paginaNummers;
+}
+
+function getBaseUrl($base = 'localhost:8080')
+{
+    return 'http://' . $base;
 }
