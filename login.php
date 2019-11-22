@@ -1,15 +1,31 @@
 <?php
+ob_start();
 require __DIR__ . "/functies/algemeneFuncties.php";
 require __DIR__ . "/functies/helpers.php";
 require __DIR__ . "/functies/contentFuncties.php";
+require __DIR__ . "/functies/account.php";
 require __DIR__ . "/parts/head.php";
-?>
 
+if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd']) {
+    redirect('');
+}
+
+if (isset($_POST['login'])) {
+    if (login($_POST['email'], $_POST['wachtwoord'])) {
+        redirect('');
+    } else {
+        $message = 'Inloggen mislukt, controlleer de velden.';
+        redirect('login.php');
+    }
+}
+
+?>
     <div class="container">
-        <form method="post" class="mt-3 pt-3">
+        <h1 class="mt-3 mb-3">Login</h1>
+        <form method="post">
             <div class="form-group">
                 <label for="email">Email address*</label>
-                <input type="email" class="form-control" id="email" required>
+                <input type="email" name="email" class="form-control" id="email" required>
             </div>
             <div class="form-group">
                 <label for="password">Wachtwoord*</label>

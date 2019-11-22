@@ -1,4 +1,9 @@
-<!doctype html>
+<?php
+if (!isset($_SESSION)) {
+    session_start();
+}
+?>
+    <!doctype html>
 <html lang="en">
 <head>
     <!-- Required meta tags -->

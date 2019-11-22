@@ -12,9 +12,21 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="ml-auto form-inline">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= getBaseUrl() ?>/login.php">Login</a>
-                </li>
+                <?php if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd'] == true): ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?= $_SESSION['name'] ?? '' ?>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="<?= getBaseUrl() . '/uitloggen.php' ?>">Uitloggen</a>
+                        </div>
+                    </li>
+                <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= getBaseUrl() ?>/login.php">Login</a>
+                    </li>
+                <?php endif; ?>
             </ul>
             <form action="<?= url("SearchFor", "empty") ?>" method='get' class="form-inline my-2 my-lg-0">
                 <input type="text" name='searchFor' class="form-control mr-sm-2 px-3"
