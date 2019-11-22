@@ -1,6 +1,6 @@
 <div class="col-2">
 
-    <img src="<?= "http://" . $_SERVER['SERVER_NAME'] ?>/ICTM1m3/assets/afbeeldingen/image_not_available.png"
+    <img src="http://<?= getBaseUrl() ?>/assets/afbeeldingen/image_not_available.png"
          class="img">
 
 </div>

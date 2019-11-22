@@ -25,10 +25,23 @@ function telPaginas(int $productenPerPagina)
     return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['totaal'] / $productenPerPagina);
 }
 
-function verwijderProducten(array $productenIDs)
+function haalProductOpID($id)
 {
     $conn = maakVerbinding();
-    foreach ($productenIDs as $productIDs) {
+    $stmt = $conn->prepare("SELECT * FROM stockitems WHERE StockItemID = ?");
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+    $conn->close();
+    return (mysqli_fetch_all($result, MYSQLI_ASSOC));
+}
+
+function verwijderProducten(array $productenIDs)
+{
+
+    foreach ($productenIDs as $productID) {
+        dd(haalProductOpID($productID));
         $stmt = $conn->prepare("DELETE");
         $stmt->bind_param('ii', $limit, $offset);
     }
