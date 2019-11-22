@@ -15,7 +15,7 @@ if (isset($_GET['page'])) {
 //body
 ?>
 
-<div class="container">
+<div class="container mt-5">
     <h5>Producten > <?= currentStockGroup() ?></h5>
     <div class="container-fluid pagination justify-content-between form-inline">
 
@@ -48,7 +48,7 @@ if (isset($_GET['page'])) {
         </nav>
 
     </div>
-
+    <div class="container my-3">
     <?php
     $producten = opvragenProducten();
     if (empty($producten)): ?>
@@ -57,13 +57,14 @@ if (isset($_GET['page'])) {
     <?php if (!empty($producten)) {
         foreach ($producten
                  as $product): ?>
-            <div class="container row product_kaart my-2">
+            <div class="container row product_kaart">
                     <?php require "productkaart.php" ?>
             </div>
                 
         <?php endforeach;
     }
     ?>
+    </div>
     <div class="container-fluid pagination justify-content-between my-5">
 
         <form action='' method='get' class="">

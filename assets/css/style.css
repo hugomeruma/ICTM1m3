@@ -1,4 +1,14 @@
-/* form properties */
+/* Images */
+.img {
+    height: 100%;
+    max-height: 110px;
+    width: 100%;
+    max-width: 100px;
+    object-fit: contain;
+
+    vertical-align: middle;
+}
+
 .form-control:hover:focus {
     color: #495057;
     background-color: #fff;
@@ -7,61 +17,12 @@
     box-shadow: none;
 }
 
+/*Forms*/
 .product_per_pagina_form {
     text-align: left;
     width: 17%;
     padding-left: 1px;
     padding-right: 0px;
-}
-
-/* Collapse on hover*/
-.dropdown:hover .dropdown-menu {
-    display: block;
-    margin-top: 0;
-    border: 1px solid #00ADEF;
-}
-
-/* Dropdown item change color on hover */
-.dropdown-item:hover {
-    color: #00ADEF;
-    background-color: #d4d9db;
-}
-
-/* Button */
-.btn-nav {
-    background-color: #F1F1F1;
-    border-radius: 0px 0px 15px 15px;
-    color: #00ADEF;
-    padding: 0 0 0 0;
-    font-size: 15px;
-    border: none;
-    font-weight: 500;
-    border-top: 1px solid #F1F1F1;
-
-}
-
-.btn-nav:hover {
-    background-color: #F1F1F1;
-    color: #00ADEF;
-    border: 1px solid #00ADEF;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 5px 5px 0 rgba(0, 0, 0, 0.19);
-    border-top: 0px solid #F1F1F1;
-}
-
-.top-navbar {
-    background-color: #f1f1f1;
-    padding: 0px 16px 0px 16px;
-}
-
-.button-navbar {
-    background-color: rgba(0, 0, 0, 0.0);
-}
-
-.icon-navbar {
-    color: #00ADEF;
-    text-shadow: 1px 1px 1px #ccc;
-
-    font-size: 1.5em;
 }
 
 .btn-search {
@@ -76,26 +37,72 @@
     border: none;
 }
 
+/* Buttons */
+/*NavBar*/
+.btn-nav {
+    background-color: #F1F1F1;
+    border-radius: 0px 0px 15px 15px;
+    color: #00ADEF;
+    padding: 0 0 0 0;
+    font-size: 15px;
+    border: none;
+    font-weight: 500;
+    border-top: 1px solid #F1F1F1;
+    position: absolute;
+}
+
+.btn-nav:hover {
+    background-color: #F1F1F1;
+    color: #00ADEF;
+    border: 1px solid #00ADEF;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 5px 5px 0 rgba(0, 0, 0, 0.19);
+    border-top: 0px solid #F1F1F1;
+}
+
+.button-navbar {
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+/*Pagination*/
+.page-item.active .page-link {
+    background-color: #00ADEF;
+    border: 1px solid #E2E6E9;
+}
+
+.page-link:hover {
+    color: #00ADEF;
+}
+
+.page-link {
+    color: #00ADEF;
+    border: 1px solid #E2E6E9;
+}
+
+
+/*NavBar*/
+.top-navbar {
+    background-color: #f1f1f1;
+    padding: 0px 16px 0px 16px;
+}
+
+/*Producten*/
 .product_kaart {
+    padding: 20px 0px;
     height: 100%;
-    max-height: 110px;
-    border: 5px solid #F1F1F1;
+    max-height: 120px;
 }
 
-.img {
-    height: 100%;
-    max-height: 100px;
-    width: 100%;
-    max-width: 100px;
-    object-fit: contain;
+.product_kaart:hover {
 
+}
+
+.product_prijs {
     vertical-align: middle;
 }
 
-.product_info {
-
-}
-
-product_prijs {
-    vertical-align: middle;
+.startpagina {
+    font-size: 72px;
+    background: -webkit-radial-gradient(circle, #FF8A01, #E52F71);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
