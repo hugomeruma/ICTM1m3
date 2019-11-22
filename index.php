@@ -11,15 +11,9 @@ require __DIR__ . "/parts/head.php";
     if (empty($producten)): ?>
         <br> Er zijn geen producten gevonden <br>
     <?php endif; ?>
-    <?php if (!empty($producten)) {
-        foreach ($producten
-                 as $product): ?>
-            <div class="container row product_kaart my-5">
-                <?php require "producten/productkaart.php" ?>
-            </div>
 
-        <?php endforeach;
-    }
+    <?php if (!empty($producten))
+                require "hoofdpagina.php"
     ?>
 
 <?php
