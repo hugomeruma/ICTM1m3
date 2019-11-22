@@ -30,10 +30,12 @@ function getFromDB($sql, $where = null, $limit = null, $offset = null, $search =
     sluitVerbinding($conn);
     return $result;
 }
+
 function sluitVerbinding($connection)
 {
     mysqli_close($connection);
 }
+
 //selecteren Producten
 function offset($pp)
 {
@@ -67,6 +69,7 @@ ON I.StockItemID = G.StockItemID
 WHERE G.StockGroupID = ? LIMIT ? OFFSET ?";
     return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset), MYSQLI_ASSOC);
 }
+
 function alleProducten()
 {
     $count = tellenProducten(null);
@@ -94,4 +97,17 @@ function currentStockGroup()
         return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['StockGroupName']);
     }
 }
+
+function getStockGroup($where)
+{
+    if (!empty($_GET['in'])) {
+        $sql = "SELECT StockGroupName FROM StockGroups where StockGroupID = 1";
+    } else {
+        $sql = "SELECT SG.StockGroupName FROM stockgroups as SG JOIN stockitemstockgroups as SI 
+ON SI.StockGroupID = SG.StockGroupID WHERE SI.StockItemID = ?";
+    }
+    $result = getFromDB($sql, $where);
+    return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['StockGroupName']);
+}
+
 ?>

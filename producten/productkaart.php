@@ -1,23 +1,36 @@
-<div class="col-2 img">
-
-   <img src="/assets/afbeeldingen/Airline%20Novelties.png" alt="hier staat niks " />
-    
-
+<div class="col-2">
+    <img src="
+    <?php
+    $img = getStockGroup($product['StockItemID']);
+    $new = urlencode($img);
+    if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/ICTM1m3/assets/afbeeldingen/$new.png")) {
+        echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/$new.png");
+    } else {
+        echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/image_not_available.png");
+    }
+    ?>"
+         class="img">
 
 </div>
 
-<div class="col-10 product-item__content">
-    <div class="product-item__info hit-area">
+<div class="col-7 product-item_content py-2">
 
-        <div class="product_info">
-            <h6><?= $product['StockItemName'] ?></h6>
-                    Op voorraad. Voor 21:00 uur besteld, morgen in huis
-            <ul class="product-specs pull-right" data-test="product-specs">
-                <h4><?= $product['UnitPrice']?>,-</h4>
-            </ul>
+    <div class="product_info">
+        <h5><?= $product['StockItemName'] ?></h5>
+        <?php if (!empty($product['MarketingComments'])): ?>
+            <h6><?= $product['MarketingComments'] ?></h6>
+        <?php else: ?>
+            <h6><?= $product['SearchDetails'] ?></h6>
+            <p><?php echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/$new.png") ?></p>
 
-
-            <span style="color:blue"> <?=$product['MarketingComments']  ?>  </span>
-        </div>
+        <?php endif; ?>
     </div>
+    <!--    <a href="/ICTM1m3/product/?=--><? //= $product['StockItemID'] ?><!--" class="stretched-link"></a>-->
+</div>
+<div class="col-3 product_prijs" style="text-align: right">
+    <h5 style="margin-bottom: 0px">€ <?= $product["UnitPrice"] ?>,-</h5>
+    <span style="font-size: 12px">taxrate: <?= $product['TaxRate'] ?></span>
+    <span style="font-size: 12px; font-weight: bold"><br>Recommended retail price: <br>
+        € <?= $product["RecommendedRetailPrice"] ?>,-</span>
+    <!--    <toevoegen aan winkelmandje><button> met icon /button>-->
 </div>
