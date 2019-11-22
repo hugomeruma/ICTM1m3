@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg navbar-light top-navbar">
     <!-- logo -->
     <a class="navbar-brand" href="<?= "http://" . $_SERVER['SERVER_NAME'] ?>/ICTM1m3">
@@ -25,17 +26,18 @@
 
     </div>
 </nav>
+
 <nav class="navbar navbar-expand-lg pt-0 button-navbar">
     <div class="collapse navbar-collapse d-flex justify-content-around" id="navbarSupportedContent ">
         <div class="col px-0">
             <a href="/ICTM1m3/producten/?in=&page=1&pp=10"
-               class="btn btn-primary btn-lg btn-block btn-nav"
+               class="btn btn-primary btn-block btn-nav"
                role="button">Alle producten</a>
         </div>
         <?php foreach (selecterenStockgroups() as $stockgroup): ?>
             <div class="col px-0">
                 <a href="/ICTM1m3/producten/?in=<?= $stockgroup['StockGroupID'] ?>&page=1&pp=10"
-                   class="btn btn-primary btn-lg btn-block btn-nav"
+                   class="btn btn-primary btn-block btn-nav"
                    role="button"> <?= $stockgroup['StockGroupName'] ?></a>
             </div>
         <?php endforeach; ?>
