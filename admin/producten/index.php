@@ -1,4 +1,6 @@
 <?php
+require "../../functies/helpers.php";
+require "../../functies/algemeneFuncties.php";
 require "../../parts/admin/head.php";
 require "../../parts/admin/menu.php";
 require "../../databaseFuncties/producten.php";
@@ -6,7 +8,7 @@ require "../../databaseFuncties/producten.php";
 $count = 0;
 
 if (isset($_POST['verwijder'])) {
-    verwijderProducten($producten);
+    verwijderProducten($_POST['productIDs']);
 }
 ?>
     <div class="container">
@@ -41,7 +43,8 @@ if (isset($_POST['verwijder'])) {
                             <td>
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input overview-checkbox"
-                                           id="customCheck<?= $count ?>">
+                                           id="customCheck<?= $count ?>" name="productIDs[]"
+                                           value="<?= $product['StockItemID'] ?>">
                                     <label class="custom-control-label" for="customCheck<?= $count ?>"></label>
                                 </div>
                             </td>

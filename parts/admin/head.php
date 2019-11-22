@@ -1,7 +1,3 @@
-<?php
-require "../../functies/helpers.php";
-require "../../functies/algemeneFuncties.php";
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,7 +6,7 @@ require "../../functies/algemeneFuncties.php";
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php getBaseUrl(); ?>/assets/css/bootstrap.min.css">
 
     <title>Admin - WWI</title>
 </head>

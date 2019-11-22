@@ -103,10 +103,11 @@ function getStockGroup($where)
     if (!empty($_GET['in'])) {
         return $_GET['in'];
     } else {
-        $sql = "SELECT StockGroupId FROM stockitemstockgroups where StockItemID = ?;";
+        $sql = "SELECT StockGroupID FROM stockitemstockgroups where StockItemID = ?;";
     }
     $result = getFromDB($sql, $where);
-    return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['StockGroupName']);
+    $nr = rand(0, mysqli_num_rows($result) - 1);
+    return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['StockGroupID']);
 }
 
 ?>
