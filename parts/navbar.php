@@ -10,8 +10,12 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <!-- oplossing bedenken voor index.php naam file -->
         <div class="ml-auto form-inline">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= getBaseUrl() ?>/login.php">Login</a>
+                </li>
+            </ul>
             <form action="<?= url("SearchFor", "empty") ?>" method='get' class="form-inline my-2 my-lg-0">
                 <input type="text" name='searchFor' class="form-control mr-sm-2 px-3"
                        placeholder="<?= searchFor() ?>">
