@@ -1,10 +1,8 @@
 <div class="col-2">
     <img src="
     <?php
-    $img = getStockGroup($product['StockItemID']);
-    $new = urlencode($img);
-    if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/ICTM1m3/assets/afbeeldingen/$new.cat.png")) {
-        echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/$new.cat.png");
+    if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/ICTM1m3/assets/afbeeldingen/cat" . $_GET['in'] . ".png")) {
+        echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/cat" . $_GET['in'] . ".png");
     } else {
         echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/image_not_available.png");
     }
@@ -18,7 +16,7 @@
     <div class="product_info">
         <h5><?= $product['StockItemName'] ?></h5>
 
-        <p><?= $new ?> ItemID <?= $product['StockItemID'] ?></p>
+        <!--        <p>--><? //= $new ?><!-- ItemID --><? //= $product['StockItemID'] ?><!--</p>-->
 
         <?php if (!empty($product['MarketingComments'])): ?>
             <h6><?= $product['MarketingComments'] ?></h6>
