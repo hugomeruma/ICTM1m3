@@ -16,4 +16,5 @@ function searchFor()
         return 'Zoeken...';
     }
 }
+
 ?>
