@@ -101,10 +101,9 @@ function currentStockGroup()
 function getStockGroup($where)
 {
     if (!empty($_GET['in'])) {
-        $sql = "SELECT StockGroupName FROM StockGroups where StockGroupID = 1";
+        return $_GET['in'];
     } else {
-        $sql = "SELECT SG.StockGroupName FROM stockgroups as SG JOIN stockitemstockgroups as SI 
-ON SI.StockGroupID = SG.StockGroupID WHERE SI.StockItemID = ?";
+        $sql = "SELECT StockGroupId FROM stockitemstockgroups where StockItemID = ?;";
     }
     $result = getFromDB($sql, $where);
     return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['StockGroupName']);
