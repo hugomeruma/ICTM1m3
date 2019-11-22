@@ -23,7 +23,7 @@ function paginaNummering($huidigePagina, $totaalPaginas)
     return $paginaNummers;
 }
 
-function getBaseUrl($base = 'localhost:8080')
+function getBaseUrl($base = 'localhost/ICTM1m3/')
 {
     return 'http://' . $base;
 }

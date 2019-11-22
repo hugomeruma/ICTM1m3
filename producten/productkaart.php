@@ -1,4 +1,4 @@
-<div class="col-2">
+<div class="col-2" style="vertical-align: bottom">
     <img src="
     <?php
     $img = getStockGroup($product['StockItemID']);
