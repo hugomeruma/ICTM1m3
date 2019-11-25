@@ -98,16 +98,26 @@ function currentStockGroup()
     }
 }
 
-function getStockGroup($where)
+function getStockGroup($where, $all = null)
 {
-    if (!empty($_GET['in'])) {
+    if (!empty($_GET['in']) && $all == null) {
         return $_GET['in'];
     } else {
         $sql = "SELECT StockGroupID FROM stockitemstockgroups where StockItemID = ?;";
     }
     $result = getFromDB($sql, $where);
     $nr = rand(0, mysqli_num_rows($result) - 1);
+    if ($all != null) {
+        return (mysqli_fetch_all($result, MYSQLI_ASSOC));
+    }
     return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['StockGroupID']);
+}
+
+function getStockItem($stockItemID)
+{
+    $sql = "SELECT * FROM stockitems WHERE StockItemID = ?";
+    $where = $stockItemID;
+    return mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC);
 }
 
 ?>

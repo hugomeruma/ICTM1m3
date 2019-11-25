@@ -1,4 +1,4 @@
-<div class="col-2" style="vertical-align: bottom">
+<div class="col-2" style="">
     <img src="
     <?php
     $img = getStockGroup($product['StockItemID']);
@@ -9,7 +9,7 @@
     }
     ?>"
          class="img">
-
+    <a href="displayproduct.php?view=<?= $product['StockItemID'] ?>&in=<?= $_GET['in'] ?>" class="stretched-link"></a>
 </div>
 
 <div class="col-7 product-item_content py-2">
@@ -22,12 +22,17 @@
         <?php else: ?>
             <h6><?= $product['Tags'] ?></h6>
         <?php endif; ?>
+        <a href="displayproduct.php?view=<?= $product['StockItemID'] ?>&in=<?= $_GET['in'] ?>"
+           class="stretched-link"></a>
     </div>
-    <!--    <a href="/ICTM1m3/product/?=--><? //= $product['StockItemID'] ?><!--" class="stretched-link"></a>-->
+
 </div>
+
 <div class="col-3 product_prijs" style="text-align: right">
-    <h5 style="margin-bottom: 0px">€ <?= $product["UnitPrice"] ?>,-</h5>
-    <span style="font-size: 12px; font-weight: bold"><br>Recommended retail price: <br>
-        € <?= $product["RecommendedRetailPrice"] ?>,-</span>
+    <h5 style="margin-bottom: 0px">
+        € <?= number_format($product["UnitPrice"] * (($product["UnitPrice"] / 100) + 1), 2) ?>,-</h5>
+    <span style="font-size: 12px">incl. btw (<?= $product["UnitPrice"] / 100 ?>%) </span>
+
     <!--    <toevoegen aan winkelmandje><button> met icon /button>-->
+
 </div>

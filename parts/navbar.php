@@ -11,6 +11,15 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="ml-auto form-inline">
+            <form action="<?= url("SearchFor", "empty") ?>" method='get' class="form-inline my-2 my-lg-0">
+                <input type="text" name='searchFor' class="form-control mr-sm-2 px-3"
+                       placeholder="<?= searchFor() ?>">
+                <input type="hidden" name="page" value="1">
+                <input type="hidden" name="in" value="<?= $_GET['in'] ?>">
+                <input type="hidden" name="pp" value="<?= $_GET['pp'] ?>">
+                <button class="btn btn-outline-success my-2 my-sm-0 btn-search" type="submit">Search</button>
+            </form>
+            <!-- oplossing voor button account-->
             <ul class="navbar-nav">
                 <?php if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd'] == true): ?>
                     <li class="nav-item dropdown">
@@ -27,17 +36,14 @@
                         <a class="nav-link" href="<?= getBaseUrl() ?>/login.php">Login</a>
                     </li>
                 <?php endif; ?>
+                <li>
+                    <!--Button winkelmandje-->
+                </li>
             </ul>
-            <form action="<?= url("SearchFor", "empty") ?>" method='get' class="form-inline my-2 my-lg-0">
-                <input type="text" name='searchFor' class="form-control mr-sm-2 px-3"
-                       placeholder="<?= searchFor() ?>">
-                <input type="hidden" name="page" value="1">
-                <input type="hidden" name="in" value="<?= $_GET['in'] ?>">
-                <input type="hidden" name="pp" value="<?= $_GET['pp'] ?>">
-                <button class="btn btn-outline-success my-2 my-sm-0 btn-search" type="submit">Search</button>
-            </form>
+
+
         </div>
-        <!-- oplossing voor button account-->
+
 
     </div>
 </nav>

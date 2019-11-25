@@ -9,6 +9,9 @@
     vertical-align: middle;
 }
 
+.div-img {
+}
+
 .form-control:hover:focus {
     color: #495057;
     background-color: #fff;
@@ -21,8 +24,6 @@
 .product_per_pagina_form {
     text-align: left;
     width: 17%;
-    padding-left: 1px;
-    padding-right: 0px;
 }
 
 .btn-search {
@@ -68,11 +69,9 @@
     background-color: #00ADEF;
     border: 1px solid #E2E6E9;
 }
-
 .page-link:hover {
     color: #00ADEF;
 }
-
 .page-link {
     color: #00ADEF;
     border: 1px solid #E2E6E9;
@@ -87,13 +86,14 @@
 
 /*Producten*/
 .product_kaart {
-    padding: 20px 0px;
     height: 100%;
     max-height: 120px;
 }
 
 .product_kaart:hover {
-
+    -moz-box-shadow: inset 0 0 1px #000000;
+    -webkit-box-shadow: inset 0 0 1px #000000;
+    box-shadow: inset 0 0 1px #000000;
 }
 
 .product_prijs {
@@ -109,5 +109,26 @@
     text-shadow: 15px 15px 15px darkgray;
 
 
+.view-product-main {
+    height: 100%;
+    max-height: 475px;
+}
 
+/*.view-product-main-img{*/
+/*    max-height: 400px;*/
+/*    max-width: 400px;*/
+/*    width: 100%;*/
+/*    object-fit: contain;*/
+/*}*/
+
+.carousel .item {
+    height: 300px;
+    margin: 0 auto
+}
+
+.item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 300px;
 }
