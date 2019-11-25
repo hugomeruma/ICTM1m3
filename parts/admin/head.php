@@ -1,3 +1,13 @@
+<?php
+if (!isset($_SESSION)) {
+    session_start();
+}
+if (!$_SESSION['ingelogd']) {
+    redirect('login.php');
+} elseif (!$_SESSION['isAdmin']) {
+    redirect('');
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
