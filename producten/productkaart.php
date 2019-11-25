@@ -2,10 +2,10 @@
     <img src="
     <?php
     $img = getStockGroup($product['StockItemID']);
-    if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/ICTM1m3/assets/afbeeldingen/cat" . $img . ".png")) {
-        echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/cat" . $img . ".png");
+    if (file_exists(__DIR__ . "/assets/afbeeldingen/cat" . $img . ".png")) {
+        echo(getBaseUrl() . "/assets/afbeeldingen/cat" . $img . ".png");
     } else {
-        echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/image_not_available.png");
+        echo(getBaseUrl() . "/assets/afbeeldingen/image_not_available.png");
     }
     ?>"
          class="img">

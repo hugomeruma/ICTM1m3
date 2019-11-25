@@ -5,7 +5,7 @@ function productenBeherenOverzicht(int $limit, int $page = 0)
 {
     $offset = $page * $limit;
     $conn = maakVerbinding();
-    $stmt = $conn->prepare("SELECT stockitems.StockItemID, stockitems.StockItemName, stockitems.unitPrice FROM stockitems LIMIT ? OFFSET ?");
+    $stmt = $conn->prepare("SELECT stockitems.StockItemID, stockitems.StockItemName, stockitems.UnitPrice FROM stockitems LIMIT ? OFFSET ?");
     $stmt->bind_param('ii', $limit, $offset);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -34,7 +34,7 @@ function haalProductOpID($id)
     $result = $stmt->get_result();
     $stmt->close();
     $conn->close();
-    return (mysqli_fetch_all($result, MYSQLI_ASSOC));
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
 function verwijderProducten(array $productenIDs)
@@ -45,6 +45,18 @@ function verwijderProducten(array $productenIDs)
         $stmt = $conn->prepare("DELETE");
         $stmt->bind_param('ii', $limit, $offset);
     }
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+    $conn->close();
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
+function zoekProductenOpNaam($name)
+{
+    $conn = maakVerbinding();
+    $stmt = $conn->prepare("SELECT * FROM stockitems WHERE StockItemName LIKE CONCAT('%', ?, '%')");
+    $stmt->bind_param('s', $name);
     $stmt->execute();
     $result = $stmt->get_result();
     $stmt->close();
