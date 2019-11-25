@@ -17,6 +17,8 @@
                         <?= $_SESSION['name'] ?>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<?= getBaseUrl() . '/admin/wachtwoord-wijzigen.php' ?>">Wachtwoord
+                            wijzigen</a>
                         <a class="dropdown-item" href="<?= getBaseUrl() . '/admin/instellingen.php' ?>">Instellingen</a>
                         <a class="dropdown-item" href="<?= getBaseUrl() . '/uitloggen.php' ?>">Uitloggen</a>
                     </div>

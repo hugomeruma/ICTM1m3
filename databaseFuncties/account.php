@@ -52,6 +52,17 @@ function wijzigEmail($email, $id)
     return $result;
 }
 
+function wijzigWachtwoord($id, $wachtwoord)
+{
+    $conn = maakVerbinding();
+    $stmt = $conn->prepare('UPDATE accounts set password = ? WHERE id = ?');
+    $stmt->bind_param('si', $wachtwoord, $id);
+    $result = $stmt->execute();
+    $stmt->fetch();
+    $stmt->close();
+    return $result;
+}
+
 //function accountGegevensToevoegen(array $account)
 //{
 //    $connection = MaakVerbinding();
