@@ -11,7 +11,7 @@ $product = getStockItem($_GET['view']);
     <h6>Producten > <?php if (!empty($_GET['in'])) {
             echo currentStockGroup($_GET['in']) . " > ";
         }
-        echo $product['StockItemName'] ?></h6>
+        echo "<span style='font-weight: bold'>" . $product['StockItemName'] . "</span>" ?></h6>
     <?php
     echo "<br>";
     ?>
@@ -21,30 +21,34 @@ $product = getStockItem($_GET['view']);
     <div class="row">
         <div class="col-5">
 
-            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="false">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
                 <div class="carousel-inner">
                     <?php
                     $imageIDs = imgIDs();
                     $first = true;
                     foreach ($imageIDs as $imgID): ?>
-                        <div class="carousel-item<?php if ($first == true) {
-                            echo " active";
+                        <div class="carousel-item <?php if ($first == true) {
+                            echo "active";
                         } ?>">
-                            <img class="d-block w-auto"
-                                 src="<?php echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/" . $imgID . ".png"); ?>"
-                                 height="400" width="100">
+                            <img class="active carousel-image"
+                                 src="<?php echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/" . $imgID . ".png"); ?>">
                         </div>
                         <?php $first = false;
                     endforeach; ?>
                 </div>
-                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+
+
+                <a class="carousel-control-prev h-auto" href="#myCarousel" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+
+                <a class="carousel-control-next h-auto" href="#myCarousel" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
+
+
             </div>
 
         </div>
