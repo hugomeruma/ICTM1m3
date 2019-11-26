@@ -30,7 +30,7 @@ $product = getStockItem($_GET['view']);
                         <div class="carousel-item <?php if ($first == true) {
                             echo "active";
                         } ?>">
-                            <img class="active carousel-image"
+                            <img class="active container"
                                  src="<?php echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/" . $imgID . ".png"); ?>">
                         </div>
                         <?php $first = false;

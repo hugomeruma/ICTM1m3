@@ -36,7 +36,6 @@ function catImageIDs()
     $check = array();
     foreach ($imgIDs as $id){
         $check[] = "cat".$id["StockGroupID"];
-        echo "<br>";
     }
     $newNames = array_unique($check);
 
