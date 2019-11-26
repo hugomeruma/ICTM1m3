@@ -17,4 +17,32 @@ function searchFor()
     }
 }
 
+function imgIDs()
+{
+//    maak een array voor ID's
+    $imgIDs = catImageIDs();
+    return $imgIDs;
+//   afbeeldingen vcor catagorien als er geen andere beschik baar zijn
+}
+
+function catImageIDs()
+{
+    $stockItemID = $_GET['view'];
+    $imgIDs = (getStockGroup($stockItemID, 1));
+
+    if (!empty($_GET['in'])) {
+        array_unshift($imgIDs, Array("StockGroupID" => $_GET['in']));
+    }
+    $check = array();
+    foreach ($imgIDs as $id){
+        $check[] = "cat".$id["StockGroupID"];
+        echo "<br>";
+    }
+    $newNames = array_unique($check);
+
+    return $newNames;
+
+}
+
+
 ?>
