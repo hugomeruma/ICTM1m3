@@ -44,3 +44,13 @@ ALTER TABLE `stock_group_images`
     ADD CONSTRAINT `StockGroupImages_Image` FOREIGN KEY (`StockitemGroupImageID`) REFERENCES `images` (`ImageID`) ON DELETE CASCADE ON UPDATE CASCADE,
     ADD CONSTRAINT `StockGroupImages_StockGroup` FOREIGN KEY (`StockitemGroupID`) REFERENCES `stockgroups` (`StockGroupID`) ON DELETE CASCADE ON UPDATE CASCADE;
   COMMIT;
+  
+  <strong>27-11-2019 - Add Reviews </strong><br>
+  CREATE TABLE `reviews` (
+    `ReviewID` int(11) NOT NULL,
+    `Name` varchar(255) DEFAULT NULL,
+    `Rating` float NOT NULL,
+    `Title` varchar(255) NOT NULL,
+    `Description` text DEFAULT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  COMMIT;
