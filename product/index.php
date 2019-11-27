@@ -18,6 +18,7 @@ require __DIR__ . "/../functies/productFuncties.php";
 <div class="container my-2">
     <div class="row">
         <div class="col-6">
+
             <?php
             require __DIR__ . "/parts/imageCarousel.php";
             ?>

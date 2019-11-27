@@ -1,4 +1,7 @@
 <?php
 $product = getStockItem($_GET['view']);
 
-$prijs = $product["UnitPrice"] * (($product["UnitPrice"] / 100) + 1);
+function price($priceExcl, $taxrate)
+{
+    return ($priceExcl * ($taxrate / 100) + 1);
+}

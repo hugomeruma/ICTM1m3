@@ -1,6 +1,6 @@
 <?php
 //default functies verbinden
-function maakVerbinding()
+function maakVerbinding($user = null, $pass = null)
 {
     $host = "localhost";
     $databasename = "wideworldimporters";

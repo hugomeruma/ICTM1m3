@@ -1,15 +1,22 @@
 <!-- <div class="col-6"> -->
 
 <div class="prijs centerd">
-    <span class="€"> € <?= $prijs ?>,-</span>
-    <p class="opmerking">incl. btw (<?= $product["UnitPrice"] / 100 ?>%) </p>
+    <span class="€"> € <?= price($product["UnitPrice"], $product["UnitPrice"]) ?>,-</span>
+    <div class="opmerking"> incl. btw (<?= $product["UnitPrice"] / 100 ?>%)</div>
 </div>
 
-<div class="centerd">
-    <button type="button" class="btn-block btn btn-primary button-toevoegen">
-        <i class="fas fa-user"></i>
-        <span class="button-tekst">Toevoegen aan winkelmandje</span>
+<div class="button centerd">
+    <button type="button" class="btn btn-primary button-toevoegen justify-content-around">
+        <i class="fas fa-shopping-basket button-icon"></i>
+        <span class="button-tekst">&nbsp;Toevoegen aan winkelmandje</span>
     </button>
 </div>
+
+
+<table class="table table-striped">
+    <?php
+    require __DIR__ . "/infoTabel.php";
+    ?>
+</table>
 
 <!-- </div> -->
