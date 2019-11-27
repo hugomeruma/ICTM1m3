@@ -7,7 +7,7 @@ function opvragenProducten()
         return alleProducten();
     } elseif (!empty($_GET['in']) && !isset($_GET['searchFor'])) {
         return selecterenProducten();
-    } elseif (empty($_GET['in']) && isset($_GET['searchFor'])) {
+    } elseif (!empty($_GET['in']) && isset($_GET['searchFor'])) {
         return zoekenProducten();
     }
 

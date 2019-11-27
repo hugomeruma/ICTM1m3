@@ -58,27 +58,6 @@ WHERE SG.StockGroupID = ?;";
     return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['aantalProducten']);
 }
 
-function selecterenProducten()
-{
-    $where = $_GET['in'];
-    $count = tellenProducten($where);
-    $limit = productenPerPagina($count);
-    $offset = offset($limit);
-    $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
-ON I.StockItemID = G.StockItemID
-WHERE G.StockGroupID = ? LIMIT ? OFFSET ?";
-    return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset), MYSQLI_ASSOC);
-}
-
-function alleProducten()
-{
-    $count = tellenProducten(null);
-    $limit = productenPerPagina($count);
-    $offset = offset($limit);
-    $sql = "SELECT * FROM stockitems LIMIT ? OFFSET ?";
-    return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset), MYSQLI_ASSOC);
-}
-
 //stockGroups
 function selecterenStockgroups()
 {
@@ -119,5 +98,39 @@ function getStockItem($stockItemID)
     $where = $stockItemID;
     return mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC);
 }
+
+function alleProducten()
+{
+    $count = tellenProducten(null);
+    $limit = productenPerPagina($count);
+    $offset = offset($limit);
+    $sql = "SELECT * FROM stockitems LIMIT ? OFFSET ?";
+    return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset), MYSQLI_ASSOC);
+}
+
+function selecterenProducten()
+{
+    $where = $_GET['in'];
+    $count = tellenProducten($where);
+    $limit = productenPerPagina($count);
+    $offset = offset($limit);
+    $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
+ON I.StockItemID = G.StockItemID
+WHERE G.StockGroupID = ? LIMIT ? OFFSET ?";
+    return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset), MYSQLI_ASSOC);
+}
+
+function zoekenProducten()
+{
+    $where = $_GET['in'];
+    $count = tellenProducten($where);
+    $limit = productenPerPagina($count);
+    $offset = offset($limit);
+    $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
+ON I.StockItemID = G.StockItemID
+WHERE G.StockGroupID = ? LIMIT ? OFFSET ?";
+    return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset, $_GET['searchFor']), MYSQLI_ASSOC);
+}
+
 
 ?>
