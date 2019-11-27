@@ -19,12 +19,16 @@ function getFromDB($sql, $where = null, $limit = null, $offset = null, $search =
     if ($where != null && $limit == null && $offset == null && $search == null) {
         mysqli_stmt_bind_param($stmt, 'i', $where);
     }
+    if ($where == null && $limit != null && $search == null) {
+        mysqli_stmt_bind_param($stmt, 'isii', $where, $search, $limit, $offset);
+    }
     if ($where != null && $limit != null && $search == null) {
         mysqli_stmt_bind_param($stmt, 'iii', $where, $limit, $offset);
     }
     if ($where == null && $limit != null && $search == null) {
         mysqli_stmt_bind_param($stmt, 'ii', $limit, $offset);
     }
+
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     sluitVerbinding($conn);
