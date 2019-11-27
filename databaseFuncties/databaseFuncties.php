@@ -19,8 +19,7 @@ function getFromDB($sql, $where = null, $limit = null, $offset = null, $search =
     if ($where != null && $limit == null && $offset == null && $search == null) {
         mysqli_stmt_bind_param($stmt, 'i', $where);
     }
-    if ($where == null && $limit != null && $search == null) {
-
+    if ($where != null && $limit != null && $search != null) {
         mysqli_stmt_bind_param($stmt, 'isii', $where, $search, $limit, $offset);
     }
     if ($where != null && $limit != null && $search == null) {
@@ -133,10 +132,9 @@ function zoekenProducten()
     $offset = offset($limit);
     $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
 ON I.StockItemID = G.StockItemID
-WHERE  G.StockGroupID = ? and SearchDetails like ?
+WHERE  G.StockGroupID = ? and SearchDetails like '?%'
 LIMIT ? OFFSET ? ";
-    $search = "'" . $_GET['searchFor'] . "%'";
-    return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset, $search), MYSQLI_ASSOC);
+    return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset, $_GET['searchFor']), MYSQLI_ASSOC);
 }
 
 
