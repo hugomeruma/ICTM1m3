@@ -20,8 +20,10 @@ function getFromDB($sql, $where = null, $limit = null, $offset = null, $search =
         mysqli_stmt_bind_param($stmt, 'i', $where);
     }
     if ($where != null && $limit != null && $search != null) {
-        dd($seach);
         mysqli_stmt_bind_param($stmt, 'isii', $where, $search, $limit, $offset);
+    }
+    if ($where == null && $limit != null && $search != null) {
+        mysqli_stmt_bind_param($stmt, 'sii', $search, $limit, $offset);
     }
     if ($where != null && $limit != null && $search == null) {
         mysqli_stmt_bind_param($stmt, 'iii', $where, $limit, $offset);
@@ -126,19 +128,31 @@ WHERE G.StockGroupID = ? LIMIT ? OFFSET ?";
     return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset), MYSQLI_ASSOC);
 }
 
+
 function zoekenProducten()
 {
-    $where = $_GET['in'];
-    $count = tellenProducten($where);
-    $limit = productenPerPagina($count);
-    $offset = offset($limit);
-    $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
-ON I.StockItemID = G.StockItemID
+    if (empty($_GET['in'])) {
+        $where = 6;
+        $count = tellenProducten($where);
+        $limit = productenPerPagina($count);
+        $offset = offset($limit);
+        $sql = "SELECT * FROM StockItems WHERE SearchDetails like ? 
+LIMIT ? 
+OFFSET ?";
+        $search = "%" . $_GET['searchFor'] . "%";
+        return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset, $search), MYSQLI_ASSOC);
+    } elseif ((!empty($_GET['in']))) {
+        $where = $_GET['in'];
+        $count = tellenProducten($where);
+        $limit = productenPerPagina($count);
+        $offset = offset($limit);
+        $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
+ON I.StockItemID = G.StockItemID 
 WHERE  G.StockGroupID = ? and SearchDetails like ?
-LIMIT ? OFFSET ? ";
-    $search = "'" . $_GET['searchFor'] . "%'";
-    return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset, $search), MYSQLI_ASSOC);
+LIMIT ? 
+OFFSET ?";
+        $search = "%" . $_GET['searchFor'] . "%";
+        return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset, $search), MYSQLI_ASSOC);
+    }
 }
-
-
-?>
+    ?>
