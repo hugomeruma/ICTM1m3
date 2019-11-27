@@ -16,7 +16,7 @@ function getFromDB($sql, $where = null, $limit = null, $offset = null, $search =
     $conn = maakVerbinding();
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, $sql);
-    if ($where != null && $limit == null && $offset == null && $search == null) {
+    if ($where != null && $limit == null && $search == null) {
         mysqli_stmt_bind_param($stmt, 'i', $where);
     }
     if ($where != null && $limit != null && $search != null) {
@@ -30,6 +30,13 @@ function getFromDB($sql, $where = null, $limit = null, $offset = null, $search =
     }
     if ($where == null && $limit != null && $search == null) {
         mysqli_stmt_bind_param($stmt, 'ii', $limit, $offset);
+    }
+    if ($where == null && $limit == null && $search != null) {
+        mysqli_stmt_bind_param($stmt, 's', $search);
+        dd($search);
+    }
+    if ($where != null && $limit == null && $search != null) {
+        mysqli_stmt_bind_param($stmt, 'is', $where, $search);
     }
 
 
@@ -53,17 +60,38 @@ function offset($pp)
 }
 
 //ophalen browsen
-function tellenProducten($where = null)
+function tellenProducten($where = null, $search = null)
 {
-    if ($where != null) {
-        $count = "SELECT count(*) as aantalProducten FROM StockItems as SI JOIN stockitemstockgroups as SG
+//    tellen catagorie, alleen een where
+    if ($where != null && $search == null) {
+        $count = "SELECT count(*) as amount FROM StockItems as SI JOIN stockitemstockgroups as SG
 ON SI.StockItemID = SG.StockItemID
 WHERE SG.StockGroupID = ?;";
-    } else {
-        $count = "SELECT count(*) as aantalProducten FROM StockItems;";
+        $result = getFromDB($count, $where);
     }
-    $result = getFromDB($count, $where);
-    return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['aantalProducten']);
+//   tellen alle producten helemaal niks.
+    if ($where == null && $search == null) {
+        $count = "SELECT count(*) as amount FROM StockItems;";
+        $result = getFromDB($count);
+
+    }
+//    tellen in alle resultaten. Alleen een search.
+    if ($where == null && $search != null) {
+        echo "<h1>TEST<h1>";
+        die;
+        $count = "SELECT count(*) as amount FROM StockItems WHERE SearchDetails like ? ";
+
+        $result = getFromDB($count, null, null, null, $search);
+    }
+//    tellen in een catagorie, een where en een search
+    if ($where != null && $search != null) {
+        $count = "SELECT count(*) as amount FROM StockItems as I JOIN stockitemstockgroups as G
+ON I.StockItemID = G.StockItemID 
+WHERE  G.StockGroupID = ? and SearchDetails like ?";
+        $result = getFromDB($count, $where, null, null, $search);
+    }
+
+    return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['amount']);
 }
 
 //stockGroups
@@ -107,6 +135,13 @@ function getStockItem($stockItemID)
     return mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC);
 }
 
+function getColor($ColorID)
+{
+    $sql = "SELECT ColorName FROM colors WHERE ColorID = ?";
+    $where = $ColorID;
+    return (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC)[0]['ColorName']);
+}
+
 function alleProducten()
 {
     $count = tellenProducten(null);
@@ -128,31 +163,33 @@ WHERE G.StockGroupID = ? LIMIT ? OFFSET ?";
     return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset), MYSQLI_ASSOC);
 }
 
-
 function zoekenProducten()
 {
-    if (empty($_GET['in'])) {
-        $where = 6;
-        $count = tellenProducten($where);
+    if ($_GET['in'] == "") {
+        $search = "%" . $_GET['searchFor'] . "%";
+
+        $count = tellenProducten(null, $search);
         $limit = productenPerPagina($count);
         $offset = offset($limit);
+
         $sql = "SELECT * FROM StockItems WHERE SearchDetails like ? 
 LIMIT ? 
 OFFSET ?";
-        $search = "%" . $_GET['searchFor'] . "%";
-        return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset, $search), MYSQLI_ASSOC);
-    } elseif ((!empty($_GET['in']))) {
+        return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset, $search), MYSQLI_ASSOC);
+    } elseif (!empty($_GET['in'])) {
         $where = $_GET['in'];
-        $count = tellenProducten($where);
+        $search = "%" . $_GET['searchFor'] . "%";
+
+        $count = tellenProducten($where, $search);
         $limit = productenPerPagina($count);
         $offset = offset($limit);
         $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
 ON I.StockItemID = G.StockItemID 
 WHERE  G.StockGroupID = ? and SearchDetails like ?
-LIMIT ? 
-OFFSET ?";
-        $search = "%" . $_GET['searchFor'] . "%";
+LIMIT ? OFFSET ? ";
         return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset, $search), MYSQLI_ASSOC);
     }
 }
-    ?>
+
+
+?>
