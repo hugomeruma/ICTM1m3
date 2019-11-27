@@ -44,20 +44,6 @@ function offset($pp)
     return $offset;
 }
 
-//ophalen producten
-function tellenProducten($where = null)
-{
-    if ($where != null) {
-        $count = "SELECT count(*) as aantalProducten FROM StockItems as SI JOIN stockitemstockgroups as SG
-ON SI.StockItemID = SG.StockItemID
-WHERE SG.StockGroupID = ?;";
-    } else {
-        $count = "SELECT count(*) as aantalProducten FROM StockItems;";
-    }
-    $result = getFromDB($count, $where);
-    return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['aantalProducten']);
-}
-
 function selecterenProducten()
 {
     $where = $_GET['in'];

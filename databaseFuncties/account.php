@@ -1,14 +1,5 @@
 <?php
-
-//function MaakVerbinding()
-//{
-//    $DATABASE_HOST = 'localhost';
-//    $DATABASE_USER = 'root';
-//    $DATABASE_PASS = '';
-//    $DATABASE_NAME = 'wideworldimporters';
-//    $connection = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-//    return $connection;
-//}
+require __DIR__ . "/databaseFuncties.php";
 
 function maakAccount($firstName, $tussenvoegsel, $lastName, $email, $password, $city, $postalCode, $houseNumber, $streetName, $phoneNumber)
 {
@@ -47,6 +38,28 @@ function ophalengegevens($id)
     mysqli_stmt_bind_param($sql, 'i', $id);
     mysqli_stmt_execute($sql);
     $result = mysqli_fetch_all(mysqli_query($conn, $sql), MYSQLI_ASSOC);
+    return $result;
+}
+
+function wijzigEmail($email, $id)
+{
+    $conn = maakVerbinding();
+    $stmt = $conn->prepare('UPDATE accounts set email = ? WHERE id = ?');
+    $stmt->bind_param('si', $email, $id);
+    $result = $stmt->execute();
+    $stmt->fetch();
+    $stmt->close();
+    return $result;
+}
+
+function wijzigWachtwoord($id, $wachtwoord)
+{
+    $conn = maakVerbinding();
+    $stmt = $conn->prepare('UPDATE accounts set password = ? WHERE id = ?');
+    $stmt->bind_param('si', $wachtwoord, $id);
+    $result = $stmt->execute();
+    $stmt->fetch();
+    $stmt->close();
     return $result;
 }
 
