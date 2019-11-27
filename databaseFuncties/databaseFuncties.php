@@ -128,7 +128,8 @@ function zoekenProducten()
     $offset = offset($limit);
     $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
 ON I.StockItemID = G.StockItemID
-WHERE G.StockGroupID = ? LIMIT ? OFFSET ?";
+WHERE  G.StockGroupID = ? and SearchDetails like '?%'
+LIMIT ? OFFSET ? ";
     return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset, $_GET['searchFor']), MYSQLI_ASSOC);
 }
 
