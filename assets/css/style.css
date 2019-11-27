@@ -9,7 +9,7 @@
     vertical-align: middle;
 }
 
-.form-control:hover:focus {
+.search-bar:hover:focus {
     color: #495057;
     background-color: #fff;
     border: 1px solid #00ADEF;
@@ -32,7 +32,7 @@
 .btn-search:hover {
     background-color: #00ADEF;
     color: white;
-    border: none;
+    border: 1px solid #00ADEF;
 }
 
 /* Buttons */
@@ -107,13 +107,10 @@
     text-shadow: 15px 15px 15px darkgray;
 }
 .carousel-inner {
-    /*height: 500px;*/
 }
 .carousel-image{
     max-height: 400px;
     height: 100%;
-    max-width: 100%;
-    width: 100%;
     object-fit: contain;
 }
 
@@ -123,4 +120,5 @@
 
 .carousel-control-next-icon{
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+    opacity: 100%;
 }

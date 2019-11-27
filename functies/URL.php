@@ -18,7 +18,7 @@ function url($post, $var)
     }
 
     if ($post == "searchFor") {
-        return "producten?" . $in . "page=1&" . $pp;
+        return "browsen?" . $in . "page=1&" . $pp;
     } else {
         return "?" . $searchFor . $in . $page . $pp;
     }

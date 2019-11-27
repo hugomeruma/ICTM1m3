@@ -1,5 +1,5 @@
 <?php
-//opvragen van producten
+//opvragen van browsen
 function opvragenProducten()
 {
     //alleproducten laten zien.
@@ -10,7 +10,7 @@ function opvragenProducten()
     }
 }
 
-//producten per pagina
+//browsen per pagina
 function productenPerPagina()
 {
     if (isset($_GET['pp'])) {

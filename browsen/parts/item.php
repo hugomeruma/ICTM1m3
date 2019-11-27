@@ -1,15 +1,12 @@
 <div class="col-2" style="">
     <img src="
     <?php
-    $img = getStockGroup($product['StockItemID']);
-    if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/ICTM1m3/assets/afbeeldingen/cat" . $img . ".png")) {
-        echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/cat" . $img . ".png");
-    } else {
-        echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/image_not_available.png");
-    }
+    $img = imgIDs($product["StockItemID"], true);
+    echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/" . $img . ".png");
     ?>"
          class="img">
-    <a href="displayproduct.php?view=<?= $product['StockItemID'] ?>&in=<?= $_GET['in'] ?>" class="stretched-link"></a>
+    <a href="<?= getBaseUrl() ?>product/index.php?view=<?= $product['StockItemID'] ?>&in=<?= $_GET['in'] ?>"
+       class="stretched-link"></a>
 </div>
 
 <div class="col-7 product-item_content py-2">
@@ -22,7 +19,7 @@
         <?php else: ?>
             <h6><?= $product['Tags'] ?></h6>
         <?php endif; ?>
-        <a href="displayproduct.php?view=<?= $product['StockItemID'] ?>&in=<?= $_GET['in'] ?>"
+        <a href="<?= getBaseUrl() ?>product/index.php?view=<?= $product['StockItemID'] ?>&in=<?= $_GET['in'] ?>"
            class="stretched-link"></a>
     </div>
 
@@ -32,6 +29,8 @@
     <h5 style="margin-bottom: 0px">
         € <?= number_format($product["UnitPrice"] * (($product["UnitPrice"] / 100) + 1), 2) ?>,-</h5>
     <span style="font-size: 12px">incl. btw (<?= $product["UnitPrice"] / 100 ?>%) </span>
+    <br>
+    <span style="font-size: 12px"><?php echo "vooraad" ?></span>
 
     <!--    <toevoegen aan winkelmandje><button> met icon /button>-->
 

@@ -44,7 +44,7 @@ function offset($pp)
     return $offset;
 }
 
-//ophalen producten
+//ophalen browsen
 function tellenProducten($where = null)
 {
     if ($where != null) {
@@ -90,7 +90,7 @@ FROM stockgroups as SG  WHERE SG.StockGroupID IN (SELECT StockGroupId FROM stock
 function currentStockGroup()
 {
     if (empty($_GET['in'])) {
-        return "Alle producten";
+        return "Alle browsen";
     } else {
         $sql = "SELECT StockGroupName as StockGroupName FROM stockgroups WHERE StockGroupId = ?;";
         $result = getFromDB($sql, $_GET['in']);

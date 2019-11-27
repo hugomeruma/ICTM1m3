@@ -31,18 +31,18 @@ if (isset($_GET['page'])) {
             <ul class="pagination justify-content-center">
                 <li class="page-item<?= ($vorige < 1) ? ' disabled' : '' ?>">
                     <a class="page-link"
-                       href="<?= getBaseUrl() ?>/producten?page=<?= $vorige ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>"
+                       href="<?= getBaseUrl() ?>/browsen?page=<?= $vorige ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>"
                        tabindex="-1"
                        aria-disabled="true">Vorige</a>
                 </li>
                 <?php foreach (paginaNummering($_GET['page'], $aantalPaginas) as $key => $paginaNummer): ?>
                     <li class="page-item<?= ($key === 'selected') ? ' active' : '' ?>"><a class="page-link"
-                                                                                          href="<?= getBaseUrl() ?>/producten?page=<?= $paginaNummer ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>"><?= $paginaNummer ?></a>
+                                                                                          href="<?= getBaseUrl() ?>/browsen?page=<?= $paginaNummer ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>"><?= $paginaNummer ?></a>
                     </li>
                 <?php endforeach; ?>
                 <li class="page-item<?= ($volgende >= $aantalPaginas) ? ' disabled' : '' ?>">
                     <a class="page-link"
-                       href="<?= getBaseUrl() ?>/producten?page=<?= $volgende ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>">Volgende</a>
+                       href="<?= getBaseUrl() ?>/browsen?page=<?= $volgende ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>">Volgende</a>
                 </li>
             </ul>
         </nav>
@@ -58,7 +58,7 @@ if (isset($_GET['page'])) {
         foreach ($producten
                  as $product): ?>
             <div class="container row product_kaart my-4">
-                    <?php require "productkaart.php" ?>
+                <?php require "parts/item.php" ?>
             </div>
                 
         <?php endforeach;
@@ -78,18 +78,18 @@ if (isset($_GET['page'])) {
             <ul class="pagination justify-content-center">
                 <li class="page-item<?= ($vorige < 1) ? ' disabled' : '' ?>">
                     <a class="page-link"
-                       href="<?= getBaseUrl() ?>/producten?page=<?= $vorige ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>"
+                       href="<?= getBaseUrl() ?>/browsen?page=<?= $vorige ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>"
                        tabindex="-1"
                        aria-disabled="true">Vorige</a>
                 </li>
                 <?php foreach (paginaNummering($_GET['page'], $aantalPaginas) as $key => $paginaNummer): ?>
                     <li class="page-item<?= ($key === 'selected') ? ' active' : '' ?>"><a class="page-link"
-                                                                                          href="<?= getBaseUrl() ?>/producten?page=<?= $paginaNummer ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>"><?= $paginaNummer ?></a>
+                                                                                          href="<?= getBaseUrl() ?>/browsen?page=<?= $paginaNummer ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>"><?= $paginaNummer ?></a>
                     </li>
                 <?php endforeach; ?>
                 <li class="page-item<?= ($volgende >= $aantalPaginas) ? ' disabled' : '' ?>">
                     <a class="page-link"
-                       href="<?= getBaseUrl() ?>/producten?page=<?= $volgende ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>">Volgende</a>
+                       href="<?= getBaseUrl() ?>/browsen?page=<?= $volgende ?>&in=<?= $_GET['in'] ?>&pp=<?= $_GET['pp'] ?>">Volgende</a>
                 </li>
             </ul>
         </nav>
