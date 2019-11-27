@@ -25,5 +25,5 @@ function paginaNummering($huidigePagina, $totaalPaginas)
 
 function getBaseUrl($base = 'localhost:8080')
 {
-    return 'http://' . $base;
+    return 'http://' . $base . '/';
 }
