@@ -10,11 +10,7 @@ require __DIR__ . "/parts/head.php";
     $producten = opvragenProducten();
     if (empty($producten)): ?>
         <br> Er zijn geen producten gevonden <br>
-    <?php endif; ?>
-
-    <?php if (!empty($producten))
-                require "hoofdpagina.php"
-    ?>
+        <?php dd($_GET['in']); endif; ?>
 
 <?php
 require __DIR__ . "/parts/footer.php";

@@ -189,8 +189,3 @@
 .product-info .button-toevoegen .button-icon {
     font-size: 19px;
 }
-
-.card-image {
-    width: 400px;
-    object-fit: contain;
-}

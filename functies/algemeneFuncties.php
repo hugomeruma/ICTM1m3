@@ -1,5 +1,4 @@
 <?php
-
 function paginaNummering($huidigePagina, $totaalPaginas)
 {
     $paginaNummers = [];
@@ -22,7 +21,6 @@ function paginaNummering($huidigePagina, $totaalPaginas)
     }
     return $paginaNummers;
 }
-
 function getBaseUrl($base = 'localhost/ICTM1m3/')
 {
     return 'http://' . $base;

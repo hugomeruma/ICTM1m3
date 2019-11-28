@@ -14,7 +14,7 @@ function productenBeherenOverzicht(int $limit, int $page = 0)
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-function telPaginas(int $productenPerPagina)
+function telPaginas($productenPerPagina)
 {
     $conn = maakVerbinding();
     $stmt = $conn->prepare("SELECT COUNT(*) as totaal FROM stockitems");

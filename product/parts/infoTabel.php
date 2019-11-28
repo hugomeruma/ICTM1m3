@@ -17,11 +17,11 @@ if (!empty ($product['MarketingComments'])):
 <?php
 endif;
 if (!empty ($product['Brand'])):
-?>
-<tr>
-    <th scope="row"> Merk</th>
-    <td><?= $product['Brand'] ?></td>
-</tr>
+    ?>
+    <tr>
+        <th scope="row"> Merk</th>
+        <td><?= $product['Brand'] ?></td>
+    </tr>
 <?php
 endif;
 if (!empty ($product['ColorID'])):
@@ -43,9 +43,14 @@ endif;
 if ($product['IsChillerStock'] != 0):
     ?>
     <tr>
-        <th scope="row"> Opmerkingen</th>
-        <td><?= $product['MarketingComments'] ?></td>
+        <th scope="row"> Gekoeld</th>
+        <td> Ja</td>
     </tr>
+    <!--    <tr>-->
+    <!--        <th scopoe="row">-->
+    <!--        <td>--><?//= "niks"
+    ?><!--</td>-->
+    <!--    </tr>-->
 <?php
 endif;
 ?>
