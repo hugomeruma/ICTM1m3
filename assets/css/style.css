@@ -189,3 +189,37 @@
 .product-info .button-toevoegen .button-icon {
     font-size: 19px;
 }
+
+.review-box {
+    border: 1px solid var(--blue);
+    border-radius: 15px;
+    width: 50%;
+    margin: 40px;
+}
+
+.review-header-row {
+    border-bottom: 1px solid var(--blue);
+    padding: 5px 15px;
+}
+
+.review-rating {
+    text-align: right;
+    white-space: nowrap
+}
+
+.review-header {
+    font-weight: bold;
+}
+
+.review-text-row {
+    height: 150px !important;
+}
+
+.review-text {
+    padding: 10px;
+}
+
+.fa {
+    border: none;
+}
+
