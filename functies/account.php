@@ -1,5 +1,5 @@
 <?php
-function login($mail, $password)
+function login($mail, $password, $noSessions = false)
 {
     $conn = maakVerbinding();
 
@@ -13,10 +13,13 @@ function login($mail, $password)
         if (isset($account[0])) {
             if ($_POST['wachtwoord'] === $password) {
 //                session_regenerate_id();
-                $_SESSION['name'] = getFullName($account[0]['firstName'], $account[0]['tussenvoegsel'], $account[0]['lastName']);
-                $_SESSION['ingelogd'] = TRUE;
-                $_SESSION['email'] = $_POST[0]['email'];
-                $_SESSION['id'] = $_POST[0]['id'];
+                if (!$noSessions) {
+                    $_SESSION['name'] = getFullName($account[0]['firstName'], $account[0]['tussenvoegsel'], $account[0]['lastName']);
+                    $_SESSION['ingelogd'] = TRUE;
+                    $_SESSION['email'] = $account[0]['email'];
+                    $_SESSION['id'] = $account[0]['id'];
+                    $_SESSION['isAdmin'] = $account[0]['isAdmin'];
+                }
                 return true;
             } else {
                 return false;

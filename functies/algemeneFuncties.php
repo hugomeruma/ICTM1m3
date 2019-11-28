@@ -1,4 +1,5 @@
 <?php
+
 function paginaNummering($huidigePagina, $totaalPaginas)
 {
     $paginaNummers = [];
