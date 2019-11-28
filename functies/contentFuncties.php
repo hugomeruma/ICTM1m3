@@ -62,4 +62,14 @@ function catImageIDs($stockitemID)
 
 }
 
+function price($priceExcl, $taxrate)
+{
+    $price = $priceExcl * (($taxrate / 100) + 1);
+    return number_format($price, 2);
+}
+
+
+
+
+
 ?>
