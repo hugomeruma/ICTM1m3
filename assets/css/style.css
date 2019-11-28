@@ -193,6 +193,8 @@
 .review-box {
     border: 1px solid var(--blue);
     border-radius: 15px;
+    width: 50%;
+    margin: 40px;
 }
 
 .review-header-row {
@@ -202,6 +204,7 @@
 
 .review-rating {
     text-align: right;
+    white-space: nowrap
 }
 
 .review-header {
@@ -215,3 +218,8 @@
 .review-text {
     padding: 10px;
 }
+
+.fa {
+    border: none;
+}
+

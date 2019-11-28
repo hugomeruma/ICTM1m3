@@ -5,7 +5,7 @@ require __dir__ . "/../functies/contentFuncties.php";
 require __dir__ . "/../parts/head.php";
 require __DIR__ . "/../functies/productFuncties.php";
 ?>
-<div class="container product-pt 1 mt-5">
+<div class="container 1 mt-5">
     <h6>Producten > <?php if (!empty($_GET['in'])) {
             echo currentStockGroup($product["StockItemID"]) . " > ";
         }
@@ -35,22 +35,15 @@ require __DIR__ . "/../functies/productFuncties.php";
     </div>
 </div>
 
-<div class="container product-pt2 justify-content-between">
-    <div class="row justify-content-around">
-        <div class="col review-box">
+<div class="container">
+    <div class="row d-block">
+        <?php
+        require __DIR__ . "/parts/showReview.php";
+        ?>
 
-            <?php
-            require __DIR__ . "/parts/showReview.php";
-            ?>
-
-        </div>
-        <div class="col">
-
-            <?php
-            require __DIR__ . "/parts/plaatsReview.php";
-            ?>
-
-        </div>
+        <?php
+        require __DIR__ . "/parts/plaatsReview.php";
+        ?>
     </div>
 </div>
 

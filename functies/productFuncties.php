@@ -10,18 +10,24 @@ function price($priceExcl, $taxrate)
     return number_format($price, 2);
 }
 
-function stars($counter)
+function stars($stop)
 {
-    $stars = "";
-    for ($nr = 0; $nr <= $counter; $nr++) {
-        if (($nr % 2) == 0) {
-            echo "$nr is even!<br>";
-        } else {
-            echo "$nr is odd!<br>";
-        }
+    for ($nr = 1; $nr < $stop; $nr = $nr + 2): ?>
+        <i class="fas fa-star"></i>
+    <?php
+    endfor;
+    if (($nr < 10)) {
+        if (($nr - $stop) == 0):?>
+            <i class="fas fa-star-half-alt"></i>
+            <?php
+            $nr++;
+        endif;
     }
-    return $stars;
+    $stop = ceil((10 - $nr) / 2);
+    for ($nr = 0; $nr < $stop; $nr++):?>
+        <i class="far fa-star"></i>
+    <?php
+    endfor;
 }
 
-
-
+?>
