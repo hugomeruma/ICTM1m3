@@ -63,6 +63,29 @@ function wijzigWachtwoord($id, $wachtwoord)
     return $result;
 }
 
+function AccountGegevensWijzigen($gegevens)
+{
+    if (!empty($gegevens["id"])) {
+        $connection = MaakVerbinding();
+        if (WijzigAccount($connection, $gegevens["id"], $gegevens["voornaam"], $gegevens["tussenvoegsel"], $gegevens["achternaam"], $gegevens["email"], $gegevens["woonplaats"], $gegevens["postcode"], $gegevens["huisnummer"], $gegevens["straatnaam"], $gegevens["telefoonnr"]) == 1)
+            $gegevens["melding"] = "De gegevens zijn gewijzigd en opgeslagen";
+        else $gegevens["melding"] = "De gegevens zijn niet gewijzigd!";
+        SluitVerbinding($connection);
+    } else $gegevens["melding"] = "Het id ontbreekt";
+    return $gegevens;
+}
+
+function  AccountGegevensOpvragen($gegevens)
+{
+    if (!empty($gegevens["id"])) {
+        $connection = MaakVerbinding();
+        $gegevens = SelecteerAccount($connection, $gegevens["id"]);
+        $gegevens["melding"] = "";
+        SluitVerbinding($connection);
+    } else $gegevens["melding"] = "Het nummer ontbreekt";
+    return $gegevens;
+}
+
 //function accountGegevensToevoegen(array $account)
 //{
 //    $connection = MaakVerbinding();

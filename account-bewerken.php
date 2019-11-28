@@ -1,6 +1,6 @@
 <?php
-require "AccountFuncties.php";
-require "authenticatie.php";
+require "functies\account.php";
+require "databaseFuncties\account.php";
 ?>
 
 <!DOCTYPE html>
@@ -124,7 +124,7 @@ if (isset($_POST["opslaan"])) {
 }
 ?>
 <br><?php print($gegevens["melding"]); ?><br>
-<a href="home.php">Terug naar de startpagina</a>
+<a href="hoofdpagina.php">Terug naar de startpagina</a>
 
 </body>
 </html>
