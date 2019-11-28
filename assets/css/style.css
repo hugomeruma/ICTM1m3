@@ -120,8 +120,8 @@
 
 .startpagina {
     font-size: 41px;
-    position: center;
-    background: -webkit-radial-gradient(circle, #00ADEF, #f1f1f1);
+    vertical-align: middle;
+    background: -webkit-radial-gradient(circle, #00ADEF, #929aa8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 15px 15px 15px darkgray;
@@ -189,3 +189,37 @@
 .product-info .button-toevoegen .button-icon {
     font-size: 19px;
 }
+
+.review-box {
+    border: 1px solid var(--blue);
+    border-radius: 15px;
+    width: 50%;
+    margin: 40px;
+}
+
+.review-header-row {
+    border-bottom: 1px solid var(--blue);
+    padding: 5px 15px;
+}
+
+.review-rating {
+    text-align: right;
+    white-space: nowrap
+}
+
+.review-header {
+    font-weight: bold;
+}
+
+.review-text-row {
+    height: 150px !important;
+}
+
+.review-text {
+    padding: 10px;
+}
+
+.fa {
+    border: none;
+}
+

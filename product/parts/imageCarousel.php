@@ -14,7 +14,6 @@
         endforeach; ?>
     </div>
 
-
     <a class="carousel-control-prev h-auto" href="#myCarousel" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
@@ -24,6 +23,5 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
-
 
 </div>

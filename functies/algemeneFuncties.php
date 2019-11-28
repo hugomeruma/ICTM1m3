@@ -11,7 +11,7 @@ function paginaNummering($huidigePagina, $totaalPaginas)
         if ($totaalPaginas >= 3) {
             $paginaNummers[2] = 3;
         }
-    } elseif ($huidigePagina >= round($totaalPaginas)) { // Wanneer je aan het einde van de pagina's bent
+    } elseif ($huidigePagina >= ceil($totaalPaginas)) { // Wanneer je aan het einde van de pagina's bent
         $paginaNummers[0] = $huidigePagina - 2;
         $paginaNummers[1] = $huidigePagina - 1;
         $paginaNummers['selected'] = $huidigePagina;
@@ -22,7 +22,6 @@ function paginaNummering($huidigePagina, $totaalPaginas)
     }
     return $paginaNummers;
 }
-
 function getBaseUrl($base = 'localhost/ICTM1m3/')
 {
     return 'http://' . $base;

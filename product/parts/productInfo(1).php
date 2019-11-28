@@ -1,8 +1,9 @@
 <!-- <div class="col-6"> -->
 
 <div class="prijs centerd">
-    <span class="€"> € <?= price($product["UnitPrice"], $product["UnitPrice"]) ?>,-</span>
-    <div class="opmerking"> incl. btw (<?= $product["UnitPrice"] / 100 ?>%)</div>
+    <span class="€"> € <?= price($product["UnitPrice"], $product["TaxRate"]) ?>,-</span>
+    <div class="opmerking"> incl. btw (<?= $product["TaxRate"] / 100 ?>%)</div>
+    <!--    <div class="opmerking"> --><? //= $stock ?><!--</div>-->
 </div>
 <form action="<?= getBaseUrl() ?>winkelmandje/index.php" method="post" class="form-inline my-2 my-lg-0">
     <input type="hidden" name="StockItemID" value="<?= $product['StockItemID'] ?>">
