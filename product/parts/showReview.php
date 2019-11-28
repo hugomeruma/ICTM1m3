@@ -1,5 +1,7 @@
 <!-- <div class="col-6"> -->
-
+<?php
+require ""
+?>
 <div class="row justify-content-between">
     <div class="col">
         username

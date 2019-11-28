@@ -1,4 +1,6 @@
 <?php
+require "Reviews.php";
+
 $product = getStockItem($_GET['view']);
 $stock = getStockHolding($product['StockItemID']);
 
