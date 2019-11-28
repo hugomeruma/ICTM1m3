@@ -12,7 +12,7 @@ if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd']) {
 }
 
 if (isset($_POST["registreren"])) {
-    if (maakAccount($_POST['voornaam'], $_POST['tussenvoegsel'], $_POST['achternaam'], $_POST['email'], $_POST['wachtwoord'], $_POST['woonplaats'], $_POST['postcode'], $_POST['huisnummer'], $_POST['straatnaam'], $_POST['telefoonnummer'])) {
+    if (maakAccount($_POST['voornaam'], $_POST['tussenvoegsel'], $_POST['achternaam'], $_POST['email'], password_hash($_POST['wachtwoord'], PASSWORD_DEFAULT), $_POST['woonplaats'], $_POST['postcode'], $_POST['huisnummer'], $_POST['straatnaam'], $_POST['telefoonnummer'])) {
         redirect('login.php');
     } else {
         $message = 'Er is iets fout gegaan, controleer de velden en probeer het opnieuw.';

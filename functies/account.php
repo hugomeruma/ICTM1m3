@@ -11,7 +11,7 @@ function login($mail, $password)
         $stmt->close();
         $account = mysqli_fetch_all($result, MYSQLI_ASSOC);
         if (isset($account[0])) {
-            if ($_POST['wachtwoord'] === $password) {
+            if (password_verify($password, $account[0]['password'])) {
 //                session_regenerate_id();
                 $_SESSION['name'] = getFullName($account[0]['firstName'], $account[0]['tussenvoegsel'], $account[0]['lastName']);
                 $_SESSION['ingelogd'] = TRUE;
