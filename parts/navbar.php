@@ -11,16 +11,22 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="ml-auto form-inline">
-            <form action="<?= getBaseUrl() ?>browsen" method='get' class="form-inline my-2 my-lg-0">
-                <input type="text" name='searchFor' class="form-control mr-sm-2 px-3 search-bar"
-                       placeholder="<?= searchFor() ?>">
-                <input type="hidden" name="page" value="1">
-                <input type="hidden" name="in" value="<?= $_GET['in'] ?>">
-                <input type="hidden" name="pp" value="<?= $_GET['pp'] ?>">
-                <button class="btn btn-outline-success my-2 my-sm-0 btn-search" type="submit">Search</button>
-            </form>
-            <!-- oplossing voor button account-->
             <ul class="navbar-nav">
+                <li>
+                    <form action="<?= getBaseUrl() ?>browsen" method='get' class="form-inline my-2 my-lg-0">
+                        <input type="text" name='searchFor' class="form-control mr-sm-2 px-3 search-bar"
+                               placeholder="<?= searchFor() ?>">
+                        <input type="hidden" name="page" value="1">
+                        <input type="hidden" name="in" value="<?= $_GET['in'] ?>">
+                        <input type="hidden" name="pp" value="<?= $_GET['pp'] ?>">
+                        <button class="btn btn-outline-success my-2 my-sm-0 btn-search" type="submit">Search</button>
+                    </form>
+                </li>
+                <!-- oplossing voor button account-->
+                <li>
+                    <a href="<?= getBaseUrl() ?>/winkelmandje" class="btn btn-primary btn-search mx-3"><i
+                                class="fas fa-shopping-cart"></i></a>
+                </li>
                 <?php if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd'] == true): ?>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -36,9 +42,7 @@
                         <a class="nav-link" href="<?= getBaseUrl() ?>/login.php">Login</a>
                     </li>
                 <?php endif; ?>
-                <li>
-                    <!--Button winkelmandje-->
-                </li>
+
             </ul>
 
 
@@ -59,6 +63,7 @@
                 <a href="/ICTM1m3/browsen/?in=<?= $stockgroup['StockGroupID'] ?>&page=1&pp=10"
                    class="btn btn-primary btn-lg btn-block btn-nav"
                    role="button"> <?= $stockgroup['StockGroupName'] ?></a>
+
             </div>
         <?php endforeach; ?>
     </div>

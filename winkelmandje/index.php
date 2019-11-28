@@ -41,13 +41,11 @@ $totaalorder = 0;
 //
 //    $totaalorder += $_SESSION['producten'][$value['StockItemID']] * $value['RecommendedRetailPrice'];
 //}
-echo "Totaalprijs = " . $totaalorder;
 
 // SELECT * FROM `stockitems` WHERE StockItemId  IN (array_keys($_SESSION['producten']))
 
 //Delete
 ?>
-
     <div class="container">
         <?php
         foreach ($winkelwagen as $product):

@@ -29,5 +29,6 @@ $subTotaal = $prijs_per_stuk * $_SESSION['producten'][$product['StockItemID']];
     <h5> € <?= $subTotaal ?>,-</h5>
     € <?= $prijs_per_stuk ?>,-
     <!--    <toevoegen aan winkelmandje><button> met icon /button>-->
+    <button type="button" class="btn btn-primary">verwijder</button>
 
 </div>
