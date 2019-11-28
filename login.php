@@ -12,7 +12,10 @@ if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd']) {
 
 if (isset($_POST['login'])) {
     if (login($_POST['email'], $_POST['wachtwoord'])) {
-        redirect('');
+        if (!$_SESSION['isAdmin']) {
+            redirect('');
+        }
+        redirect('admin');
     } else {
         $message = 'Inloggen mislukt, controlleer de velden.';
         redirect('login.php');
