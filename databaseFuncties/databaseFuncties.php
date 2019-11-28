@@ -85,7 +85,7 @@ WHERE SG.StockGroupID = ?;";
 //    tellen in een catagorie, een where en een search
     if ($where != null && $search != null) {
         $count = "SELECT count(*) as amount FROM StockItems as I JOIN stockitemstockgroups as G
-ON I.StockItemID = G.StockItemID 
+ON I.StockItemID = G.StockItemID
 WHERE  G.StockGroupID = ? and SearchDetails like ?";
         echo "<br>Catagorie: aan <br> Zoeken: aan<br>";
         $result = getFromDB($count, $where, null, null, $search);

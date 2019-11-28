@@ -11,7 +11,10 @@ function login($mail, $password, $noSessions = false)
         $stmt->close();
         $account = mysqli_fetch_all($result, MYSQLI_ASSOC);
         if (isset($account[0])) {
-            if ($_POST['wachtwoord'] === $password) {
+            echo "<br><br><br><br><br>";
+//            da($account);
+            if ($account[0]["password"] === $password) {
+
 //                session_regenerate_id();
                 if (!$noSessions) {
                     $_SESSION['name'] = getFullName($account[0]['firstName'], $account[0]['tussenvoegsel'], $account[0]['lastName']);
