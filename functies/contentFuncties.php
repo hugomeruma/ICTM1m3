@@ -8,9 +8,8 @@ include "URL.php";
 //Als er wel gezocht is 'laten zie van het zoekwoord'
 function searchFor()
 {
-    if (isset($_GET['searchFor'])) {
+    if (!empty($_GET['searchFor'])) {
         $searchFor = $_GET['searchFor'];
-        //zoeken($searchFor);
         return $_GET['searchFor'];
     } else {
         return 'Zoeken...';

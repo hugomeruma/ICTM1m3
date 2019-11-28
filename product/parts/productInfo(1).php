@@ -1,8 +1,9 @@
 <!-- <div class="col-6"> -->
 
 <div class="prijs centerd">
-    <span class="€"> € <?= price($product["UnitPrice"], $product["UnitPrice"]) ?>,-</span>
-    <div class="opmerking"> incl. btw (<?= $product["UnitPrice"] / 100 ?>%)</div>
+    <span class="€"> € <?= price($product["UnitPrice"], $product["TaxRate"]) ?>,-</span>
+    <div class="opmerking"> incl. btw (<?= $product["TaxRate"] / 100 ?>%)</div>
+    <!--    <div class="opmerking"> --><? //= $stock ?><!--</div>-->
 </div>
 
 <div class="button centerd">
