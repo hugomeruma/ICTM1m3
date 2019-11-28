@@ -1,28 +1,18 @@
 <?php
-
-//Onderscheiden of de klant in een catagorie zoekt of niet
-function zoeken($searchFor)
-{
-    if (isset($_GET['in'])) {
-        $in = $_GET['in'];
-        echo "Zoeken naar $searchFor in $in";
-        return;
-    } else {
-        echo "Zoeken naar $searchFor";
-        return;
-    }
-}
-
-//opvragen van producten
+//opvragen van browsen
 function opvragenProducten()
 {
     //alleproducten laten zien.
-    if (!isset($_GET['in']) && !isset($_GET['searchFor'])) {
+    if (empty($_GET['in']) && empty($_GET['searchFor'])) {
         return alleProducten();
+    } elseif (!empty($_GET['in']) && empty($_GET['searchFor'])) {
+        return selecterenProducten();
+    } elseif (!empty($_GET['searchFor'])) {
+        return zoekenProducten();
     }
 }
 
-//producten per pagina
+//browsen per pagina
 function productenPerPagina()
 {
     if (isset($_GET['pp'])) {
@@ -30,7 +20,6 @@ function productenPerPagina()
     } else {
         $pp = 10;
     }
-    ProductPerPaginaForm($pp);
     return $pp;
 }
 
@@ -44,3 +33,14 @@ function page()
     settype($page, 'integer');
     return $page;
 }
+
+//aantalPaginas voor de resultaten
+function telPaginas($aantalProducten, $pp)
+{
+    echo "<br>$aantalProducten<br>";
+    $prodPagina = $pp;
+    $aantalPaginas = ceil($aantalProducten / $prodPagina);
+    echo "$aantalPaginas";
+    return $aantalPaginas;
+}
+

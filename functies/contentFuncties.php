@@ -1,117 +1,64 @@
 <?php
-include "databaseFuncties.php";
+require __DIR__ . "/../databaseFuncties/databaseFuncties.php";
 include "klantFuncties.php";
 include "URL.php";
-include "session_start.php";
-
-//bepaalt wat zichtbaar is een een scherm
-function startScherm()
-{
-    zoekenOptie('startScherm');
-    //atm laat dit alle producten zien, hier moeten nog even producten voor geselecteerd worden
-    toonProducten();
-}
-
-//zoekFunctie
-//laat een text input zien
-function zoekenOptie($filenaam)//van de plaats waar uit je zoekt
-{
-    $searchFor = searchFor();
-    echo(
-    "<form action='' method='get'>
-<input type=\"text\" name='searchFor' placeholder='$searchFor'></form>");
-
-    return $searchFor;
-}
 
 //Default van het search veld,
 //Als er niks is gezocht: 'Type hier om te zoeken'
 //Als er wel gezocht is 'laten zie van het zoekwoord'
 function searchFor()
 {
-    if (isset($_GET['searchFor'])) {
+    if (!empty($_GET['searchFor'])) {
         $searchFor = $_GET['searchFor'];
-        zoeken($searchFor);
         return $_GET['searchFor'];
     } else {
-        return 'Type hier om te zoeken';
+        return 'Zoeken...';
     }
 }
 
-//Tonen Producten
-function toonProducten()
+function imgIDs($stockitemID, $isThubmnail = null)
 {
-    $producten = opvragenProducten();
-    if (!empty($producten)) {
-        productTabelHoofd();
-        foreach ($producten as $product) {
-            productTabel($product);
-        }
+//    maak een array voor ID's
+    $imgIDs = imageChooser($stockitemID);
+
+    if ($isThubmnail != null) {
+        return $imgIDs[0];
     } else {
-        echo "<br>Er zijn geen producten gevonden.<br>";
-        return;
+        return $imgIDs;
+    }
+    return $imgIDs;
+//   afbeeldingen vcor catagorien als er geen andere beschik baar zijn
+}
+
+function imageChooser($imgID)
+{
+    if (file_exists($_SERVER['DOCUMENT_ROOT'] . "/ICTM1m3/assets/afbeeldingen/" . $imgID . "a.png")) {
+        return itemImageIDs($imgID);
+    } else {
+        return catImageIDs($imgID);
     }
 }
 
-function productTabelHoofd()
+function itemImageIDs($imgID)
 {
-    echo("
-    <table class=\"table\"> 
-    <thead class=\"thead-dark\">
-        <tr>
-            <th>StockItemID</th>
-            <th>StockItemName</th>
-            <th>UnitPrice</th>
-            <th>RecommendedRetailPrice</th>
-        </tr>
-    </thead>
-    <tbody>");
-    return;
+
+    return $imgIDs = array(0 => $imgID . "a", 1 => $imgID . "b", 2 => $imgID . "c");
 }
 
-function productTabel($product)
+function catImageIDs($stockitemID)
 {
-    echo("<tr>" .
-        "<td>" . $product["StockItemID"] . "</td>" .
-        "<td>" . $product["StockItemName"] . "</td>" .
-        "<td>" . $product["UnitPrice"] . "</td>" .
-        "<td>" . $product["RecommendedRetailPrice"] . "</td>" .
-        "</tr>");
-    return;
-}
+    $imgIDs = (getStockGroup($stockitemID, 1));
 
-
-//paginationFunctie
-function pagination($aantalProducten)
-{
-    $pp = productenPerPagina();
-    $_SESSION["pp"] = $pp;
-    $aantalPaginas = aantalPaginas($aantalProducten, $pp);
-    if ($aantalProducten > $pp) {
-        paginationPrint($aantalPaginas);
+    if (!empty($_GET['in'])) {
+        array_unshift($imgIDs, Array("StockGroupID" => $_GET['in']));
     }
-    return $pp;
-}
-
-function paginationPrint($aantalPaginas)
-{
-    for ($page = 1; $page <= $aantalPaginas; $page++) {
-        $url = url('page=', $page);
-        echo "<a href=$url>  $page  </a>";
+    $check = array();
+    foreach ($imgIDs as $id) {
+        $check[] = "cat" . $id["StockGroupID"];
     }
-}
+    $newNames = array_unique($check);
 
-//aantalPaginas voor de resultaten
-function aantalPaginas($aantalProducten, $pp)
-{
-    $aantalPaginas = ceil($aantalProducten / $pp);
-    return $aantalPaginas;
-}
-
-//producten per pagina kiezer
-function ProductPerPaginaForm($pp)
-{
-    echo "<form action='' method='get'> Resultaten per pagina <input type=\"number\" name=\"pp\" min=\"10\" max=\"50\" step=\"10\" value=\"$pp\"></form>";
+    return $newNames;
 
 }
 

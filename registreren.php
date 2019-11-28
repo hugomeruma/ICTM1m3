@@ -1,0 +1,81 @@
+<?php
+ob_start();
+require __DIR__ . "/functies/algemeneFuncties.php";
+require __DIR__ . "/functies/helpers.php";
+require __DIR__ . "/functies/contentFuncties.php";
+require __DIR__ . '/parts/head.php';
+require __DIR__ . '/databaseFuncties/account.php';
+require __DIR__ . '/functies/account.php';
+
+if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd']) {
+    redirect('');
+}
+
+if (isset($_POST["registreren"])) {
+    if (maakAccount($_POST['voornaam'], $_POST['tussenvoegsel'], $_POST['achternaam'], $_POST['email'], $_POST['wachtwoord'], $_POST['woonplaats'], $_POST['postcode'], $_POST['huisnummer'], $_POST['straatnaam'], $_POST['telefoonnummer'])) {
+        redirect('login.php');
+    } else {
+        $message = 'Er is iets fout gegaan, controleer de velden en probeer het opnieuw.';
+    }
+}
+?>
+    <div class="container">
+        <h1 class="mt-3 mb-3">Registreren</h1>
+        <?= (isset($message)) ? "<p>{$message}</p>" : '' ?>
+        <form method="post">
+            <div class="form-group">
+                <label for="">Voornaam</label>
+                <input type="text" class="form-control" id="" name="voornaam"
+                       value="<?= $gegevens["voornaam"] ?? '' ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="tussenvoegsel">Tussenvoegsel</label>
+                <input type="text" class="form-control" id="tussenvoegsel" name="tussenvoegsel"
+                       value="<?= $gegevens["voornaam"] ?? '' ?>">
+            </div>
+            <div class="form-group">
+                <label for="achternaam">Achternaam</label>
+                <input type="text" class="form-control" id="achternaam" name="achternaam"
+                       value="<?= $gegevens["achternaam"] ?? '' ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email"
+                       value="<?= $gegevens["email"] ?? '' ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="wachtwoord">Wachtwoord</label>
+                <input type="password" class="form-control" id="wachtwoord" name="wachtwoord"
+                       value="<?= $gegevens["wachtwoord"] ?? '' ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="woonplaats">Woonplaats</label>
+                <input type="text" class="form-control" id="woonplaats" name="woonplaats"
+                       value="<?= $gegevens["woonplaats"] ?? '' ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="postcode">Postcode</label>
+                <input type="text" class="form-control" id="postcode" name="postcode"
+                       value="<?= $gegevens["postcode"] ?? '' ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="huisnummer">Huisnummer</label>
+                <input type="text" class="form-control" id="huisnummer" name="huisnummer"
+                       value="<?= $gegevens["huisnummer"] ?? '' ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="straatnaam">Straatnaam</label>
+                <input type="text" class="form-control" id="straatnaam" name="straatnaam"
+                       value="<?= $gegevens["straatnaam"] ?? '' ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="telefoonnummer">Telefoonnummer</label>
+                <input type="text" class="form-control" id="telefoonnummer" name="telefoonnummer"
+                       value="<?= $gegevens["telefoonnummer"] ?? '' ?>">
+            </div>
+            <button type="submit" name="registreren" class="btn btn-primary mb-3">Registreren</button>
+        </form>
+    </div>
+<?php
+require __DIR__ . "/parts/footer.php";
+?>
