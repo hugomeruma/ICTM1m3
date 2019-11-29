@@ -1,91 +1,32 @@
-<?php
-?>
-<div class="container">
-    <div class="row">
-        <div class="col-sm">
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+    <div class="carousel-inner">
+        <?php
+        $first = true;
+        foreach (getSpecialDeals() as $deal): ?>
+            <div class="carousel-item <?php if ($first == true) {
+                echo "active";
+            } ?>">
+                <div class="card" style="width: 18rem;">
+                    <img src="
+                    <?php
+                    if (empty($deal["StockItemID"])) {
+                        $inputID = $deal["StockGroupID"];
+                    } else {
+                        $inputID = $deal["StockItemID"];
+                    }
 
-            <div class="card"  style="width: 18rem;">
-
-                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" >
-                    <div class="carousel-inner">
-                        <?php
-                        $DealIDs = DealIDs(17);
-                        $first = true;
-                        foreach ($DealIDs as $DealID): ?>
-                            <div class="carousel-item <?php if ($first == true) {
-                                echo "active";
-                            } ?>">
-                                <img class="d-block w-100 carousel-image"
-                                     src="<?php echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/Deals" . $DealID . ".png"); ?>">
-                            </div>
-                            <?php $first = false;
-                        endforeach; ?>
+                    $img = imgIDs($inputID, true);
+                    echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/" . $img . ".png");
+                    ?>"
+                         class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $deal['SpecialDealID'] ?></h5>
+                        <p class="card-text"><?= $deal['DealDescription'] ?></p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">Item 1 </h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
             </div>
-        </div>
-
-        <div class="col-sm">
-
-            <div class="card"  style="width: 18rem;">
-
-                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" >
-                    <div class="carousel-inner">
-                        <?php
-                        $imageIDs = imgIDs(17);
-                        $first = true;
-                        foreach ($imageIDs as $imgID): ?>
-                            <div class="carousel-item <?php if ($first == true) {
-                                echo "active";
-                            } ?>">
-                                <img class="d-block w-100 carousel-image"
-                                     src="<?php echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/" . $imgID . ".png"); ?>">
-                            </div>
-                            <?php $first = false;
-                        endforeach; ?>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <h5 class="card-title">Item 2</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm">
-
-            <div class="card"  style="width: 18rem;">
-
-                <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" >
-                    <div class="carousel-inner">
-                        <?php
-                        $imageIDs = imgIDs(17);
-                        $first = true;
-                        foreach ($imageIDs as $imgID): ?>
-                            <div class="carousel-item <?php if ($first == true) {
-                                echo "active";
-                            } ?>">
-                                <img class="d-block w-100 carousel-image"
-                                     src="<?php echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/" . $imgID . ".png"); ?>">
-                            </div>
-                            <?php $first = false;
-                        endforeach; ?>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <h5 class="card-title">Item 3</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        </div>
+            <?php $first = false;
+        endforeach; ?>
     </div>
 </div>
