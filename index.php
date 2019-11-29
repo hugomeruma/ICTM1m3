@@ -7,9 +7,6 @@ require __DIR__ . "/parts/head.php";
 include "hoofdpagina.php";
 ?>
 
-<div class="container my-5" style="vertical-align:middle">
-
-</div>
 
 <?php
 require __DIR__ . "/parts/footer.php";
