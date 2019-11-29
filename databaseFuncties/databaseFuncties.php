@@ -11,10 +11,6 @@ function maakVerbinding($user = null, $pass = null)
     return ($connection);
 }
 
-
-
-
-
 function getFromDB($sql, $where = null, $limit = null, $offset = null, $search = null)
 {
     $conn = maakVerbinding();
