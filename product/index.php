@@ -4,7 +4,9 @@ require __dir__ . "/../functies/helpers.php";
 require __dir__ . "/../functies/contentFuncties.php";
 require __dir__ . "/../parts/head.php";
 require __DIR__ . "/../functies/productFuncties.php";
+require __dir__ . "/../Deals/discountBanner.php";
 ?>
+
 <div class="container 1 mt-5">
     <h6>Producten > <?php if (!empty($_GET['in'])) {
             echo currentStockGroup($product["StockItemID"]) . " > ";
@@ -36,15 +38,34 @@ require __DIR__ . "/../functies/productFuncties.php";
 </div>
 
 <div class="container">
-    <div class="row d-block">
-        <?php
-        require __DIR__ . "/parts/showReview.php";
+    <?php
+    $reviews = getReviews($_GET['view']);
+    foreach ($reviews as $review):
         ?>
+        <div class="col review-box">
+            <div class="row review-header-row">
+                <div class="col review-header">
+                    <?= $review['UserName'] ?>
+                </div>
+                <div class="col review-rating">
+                    <?= stars($review['Rating']) ?>
+                </div>
+            </div>
+            <div class="row review-text-row">
+                <div class="col review-text">
+                    <?= $review['Description'] ?>
+                </div>
+            </div>
+            <div class="row justify-content-end review-bottom">
+                <div class="col review-rating">
+                    <?= stars($review['Rating']) ?>
+                </div>
+            </div>
+        </div>
+    <?php
+    endforeach;
+    ?>
 
-        <?php
-        require __DIR__ . "/parts/plaatsReview.php";
-        ?>
-    </div>
 </div>
 
 <?php
