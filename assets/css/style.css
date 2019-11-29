@@ -155,6 +155,8 @@
 
 .product-info .prijs .€ {
     color: var(--blue);
+    font-weight: bold;
+    font-style: italic;
     font-size: 65px;
 }
 
@@ -222,4 +224,56 @@
 
 .review-bottom {
     padding: 5px 15px;
+}
+
+
+.banner-base {
+    border: 1px solid var(--blue);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.19), 0 5px 5px 0 rgba(0, 0, 0, 0.12);
+    padding: 18px;
+    height: 100px !important;
+    width: 1200px;
+    margin-bottom: 10px;
+    color: var(--blue);
+}
+
+.banner-text {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+
+.carousel-inner > .deal-carousel-item {
+    transition: -webkit-transform 1.7s ease-in-out;
+    transition: transform 1.7s ease-in-out;
+    transition: transform 1.7s ease-in-out, -webkit-transform 1.7s ease-in-out
+}
+
+
+.icon-stack {
+    position: relative;
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+    vertical-align: middle;
+}
+
+.icon-stack-1x,
+.icon-stack-2x {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.icon-stack-1x {
+    line-height: inherit;
+}
+
+.icon-stack-2x {
+    font-size: 1.5em;
 }

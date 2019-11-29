@@ -1,20 +1,18 @@
 <?php
 $deals = getSpecialDeals();
 ?>
-<div class="container">
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" date-interval="1000">
+<div class="container-fluid">
+    <div id="carouselExampleSlidesOnly" class="carousel slide deal-carousel-item" data-ride="carousel"
+         date-interval="false">
         <div class="carousel-inner">
-            <div class="carousel-item active">
+            <div class="carousel-item active deal-carousel-item">
                 <?php
                 require __DIR__ . "/parts/FirstBanner.php"; ?>
             </div>
-            <!--            --><?php
-            //            ?>
-            <!--            <div class="carousel-item">-->
-            <!--                -->
-            <!--            </div>-->
-            <!--            --><?php
-            //            ?>
+            <div class="carousel-item deal-carousel-item">
+                <?php
+                require __DIR__ . "/parts/UniversalBanner.php"; ?>
+            </div>
         </div>
     </div>
 </div>
