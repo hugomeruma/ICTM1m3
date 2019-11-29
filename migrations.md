@@ -1,3 +1,27 @@
+<strong>29-11-2019 - Add rights</strong> <br>
+
+CREATE TABLE `accounts` (
+  `id` int(11) NOT NULL,
+  `firstName` varchar(50) NOT NULL,
+  `tussenvoegsel` varchar(50) DEFAULT NULL,
+  `lastName` varchar(50) NOT NULL,
+  `email` varchar(255) NOT NULL ,
+  `password` varchar(255) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `postalCode` varchar(50) NOT NULL,
+  `houseNumber` varchar(20) NOT NULL,
+  `streetName` varchar(50) NOT NULL,
+  `phoneNumber` varchar(20) DEFAULT NULL,
+  `isAdmin` tinyint(1) NOT NULL
+)
+ALTER TABLE `accounts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+ALTER TABLE `accounts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+COMMIT;
+
+
 <strong>25-11-2019 - Add rights</strong> <br>
 ALTER TABLE `accounts` ADD `isAdmin` BOOLEAN NOT NULL AFTER `phoneNumber`;
 
