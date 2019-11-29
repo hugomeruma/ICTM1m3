@@ -1,5 +1,5 @@
 
-<div class="startpagina" > hier ga ik allemaal vet coole shit in Zetten </div>
+<div class="startpagina" > welkom op onze site  </div>
 
     <h2 class="region__header-title" data-test="region-header-title"> Onze aanraders</h2>
         <h6 style="vertical-align: bottom" > zie hier de items in de aanbieding </h6>

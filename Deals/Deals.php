@@ -6,7 +6,7 @@
             <div class="carousel-item <?php if ($first == true) {
                 echo "active";
             } ?>">
-                <div class="card" style="width: 18rem;">
+                <div class="jumbotron">
                     <img src="
                     <?php
                     if (empty($deal["StockItemID"])) {
@@ -17,13 +17,11 @@
 
                     $img = imgIDs($inputID, true);
                     echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/" . $img . ".png");
-                    ?>"
-                         class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $deal['SpecialDealID'] ?></h5>
-                        <p class="card-text"><?= $deal['DealDescription'] ?></p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
+                    ?>">
+
+                    <h5 class="jumbotron-title"><?= $deal['SpecialDealID'] ?></h5>
+                    <p class="jumbotron-text"><?= $deal['DealDescription'] ?></p>
+                    <a class="btn btn-primary btn-lg" href="#" role="button">Bekijk deal</a>
                 </div>
             </div>
             <?php $first = false;
