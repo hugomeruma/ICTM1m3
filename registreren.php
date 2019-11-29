@@ -7,8 +7,22 @@ require __DIR__ . '/parts/head.php';
 require __DIR__ . '/databaseFuncties/account.php';
 require __DIR__ . '/functies/account.php';
 
-if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd']) {
-    redirect('');
+
+//if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd']) {
+  //  redirect('');
+//}
+
+if (isset($_POST['email'])) {
+    $email = $_POST['email'];
+    $conn = maakVerbinding();
+    $sql = "SELECT email FROM accounts WHERE email = ?";
+    $result = mysqli_fetch_all(getFromDB($sql, $email), MYSQLI_ASSOC);
+
+    if (!empty(($result))) {
+        $emailDubbel =  print("bestaat al");
+    }
+    else redirect('');
+
 }
 
 if (isset($_POST["registreren"])) {
@@ -22,6 +36,7 @@ if (isset($_POST["registreren"])) {
     <div class="container">
         <h1 class="mt-3 mb-3">Registreren</h1>
         <?= (isset($message)) ? "<p>{$message}</p>" : '' ?>
+       <?= (isset($emailDubbel))? "<p>{$emailDubbel}</p>" : ''?>
         <form method="post">
             <div class="form-group">
                 <label for="">Voornaam</label>
@@ -73,9 +88,11 @@ if (isset($_POST["registreren"])) {
                 <input type="text" class="form-control" id="telefoonnummer" name="telefoonnummer"
                        value="<?= $gegevens["telefoonnummer"] ?? '' ?>">
             </div>
-            <button type="submit" name="registreren" class="btn btn-primary mb-3">Registreren</button>
+            <button onclick="" type="submit" name="registreren" class="btn btn-primary mb-3">Registreren</button>
         </form>
+
     </div>
 <?php
+
 require __DIR__ . "/parts/footer.php";
 ?>
