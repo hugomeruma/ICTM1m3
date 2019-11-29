@@ -9,14 +9,14 @@
                 <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" >
                     <div class="carousel-inner">
                         <?php
-                        $imageIDs = imgIDs(17);
+                        $DealIDs = DealIDs(17);
                         $first = true;
-                        foreach ($imageIDs as $imgID): ?>
+                        foreach ($DealIDs as $DealID): ?>
                             <div class="carousel-item <?php if ($first == true) {
                                 echo "active";
                             } ?>">
                                 <img class="d-block w-100 carousel-image"
-                                     src="<?php echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/" . $imgID . ".png"); ?>">
+                                     src="<?php echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/Deals" . $DealID . ".png"); ?>">
                             </div>
                             <?php $first = false;
                         endforeach; ?>
