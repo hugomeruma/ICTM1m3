@@ -19,7 +19,7 @@ if (isset($_POST['email'])) {
     $result = mysqli_fetch_all(getFromDB($sql, $email), MYSQLI_ASSOC);
 
     if (!empty(($result))) {
-        $emailDubbel =  print("bestaat al");
+        $emailDubbel = "Het emailadress wordt al gebruikt. ";
     }
     else redirect('');
 
@@ -75,7 +75,7 @@ if (isset($_POST["registreren"])) {
             </div>
             <div class="form-group">
                 <label for="huisnummer">Huisnummer</label>
-                <input type="text" class="form-control" id="huisnummer" name="huisnummer"
+                <input type="number" class="form-control" id="huisnummer" name="huisnummer"
                        value="<?= $gegevens["huisnummer"] ?? '' ?>" required>
             </div>
             <div class="form-group">
