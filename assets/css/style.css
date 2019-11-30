@@ -192,6 +192,10 @@
     font-size: 19px;
 }
 
+.show-review {
+    margin: 20px 0px;
+}
+
 .review-box {
     width: 900px;
 
@@ -225,6 +229,34 @@
 .review-bottom {
     padding: 5px 15px;
 }
+
+.review-form {
+    justify-content: center;
+    padding: 20px
+}
+
+.review-NA-btn {
+    margin: 10px;
+    width: 5px;
+    background-color: var(--blue);
+    border: none;
+}
+
+.review-form-NA-text {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+}
+
+.review-option {
+    max-width: 175px !important;
+    background-color: var(--blue);
+    border: 1px solid var(--blue);
+}
+
+
+
 
 
 .banner-base {
