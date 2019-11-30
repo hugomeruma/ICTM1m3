@@ -207,5 +207,11 @@ LIMIT ? OFFSET ? ";
     }
 }
 
+function getSpecialDeals()
+{
+    $sql = "SELECT * FROM specialdeals;";
+    return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
+}
+
 
 ?>

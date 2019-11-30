@@ -55,3 +55,40 @@ ALTER TABLE `stock_group_images`
     `StockItemID` varchar(45) NOT NULL
   );
   
+   <strong>29-11-2019 - Special Deals </strong><br>
+   drop table if exists `specialdeals`;
+   
+   CREATE TABLE `specialdeals` (
+     `SpecialDealID` int(11) NOT NULL,
+     `StockItemID` int(11) DEFAULT NULL,
+     `StockGroupID` int(11) DEFAULT NULL,
+     `CustomerCategoryID` int(11) DEFAULT NULL,
+     `DealDescription` varchar(30) NOT NULL,
+     `StartDate` date NOT NULL,
+     `EndDate` date NOT NULL,
+     `DiscountAmount` decimal(18,2) DEFAULT NULL,
+     `DiscountPercentage` decimal(18,3) DEFAULT NULL,
+     `UnitPrice` decimal(18,2) DEFAULT NULL,
+     `LastEditedBy` int(11) NOT NULL,
+     `LastEditedWhen` datetime NOT NULL
+   ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+   
+   INSERT INTO `specialdeals` (`SpecialDealID`, `StockItemID`, `StockGroupID`, `CustomerCategoryID`, `DealDescription`, `StartDate`, `EndDate`, `DiscountAmount`, `DiscountPercentage`, `UnitPrice`, `LastEditedBy`, `LastEditedWhen`) VALUES
+   (1, NULL, 7, NULL, '10% op USB-Novelties', '2019-11-27', '2020-11-27', NULL, '10.000', NULL, 1, '2019-11-28 00:00:00'),
+   (2, 220, NULL, NULL, '5% Discount on cooled chocolat', '2019-11-27', '2020-11-27', NULL, '5.000', NULL, 1, '2019-11-28 00:00:00'),
+   (3, 221, NULL, NULL, '5% Discount on cooled chocolat', '2019-11-27', '2020-11-27', NULL, '5.000', NULL, 1, '2019-11-28 00:00:00'),
+   (4, 222, NULL, NULL, '5% Discount on cooled chocolat', '2019-11-27', '2020-11-27', NULL, '5.000', NULL, 1, '2019-11-28 00:00:00');
+   
+   ALTER TABLE `specialdeals`
+     ADD PRIMARY KEY (`SpecialDealID`),
+     ADD KEY `FK_Sales_SpecialDeals_StockItemID` (`StockItemID`),
+     ADD KEY `FK_Sales_SpecialDeals_CustomerCategoryID` (`CustomerCategoryID`),
+     ADD KEY `FK_Sales_SpecialDeals_StockGroupID` (`StockGroupID`),
+     ADD KEY `FK_Sales_SpecialDeals_Application_People` (`LastEditedBy`);
+   
+   ALTER TABLE `specialdeals`
+     ADD CONSTRAINT `FK_Sales_SpecialDeals_Application_People` FOREIGN KEY (`LastEditedBy`) REFERENCES `people` (`PersonID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+     ADD CONSTRAINT `FK_Sales_SpecialDeals_CustomerCategoryID_Sales_CustomerCategor16` FOREIGN KEY (`CustomerCategoryID`) REFERENCES `customercategories` (`CustomerCategoryID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+     ADD CONSTRAINT `FK_Sales_SpecialDeals_StockGroupID_Warehouse_StockGroups` FOREIGN KEY (`StockGroupID`) REFERENCES `stockgroups` (`StockGroupID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+     ADD CONSTRAINT `FK_Sales_SpecialDeals_StockItemID_Warehouse_StockItems` FOREIGN KEY (`StockItemID`) REFERENCES `stockitems` (`StockItemID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+   
