@@ -1,7 +1,11 @@
 <!-- <div class="col-6"> -->
 
 <div class="prijs centerd">
-    <span class="€"> € <?= price($product["UnitPrice"], $product["TaxRate"]) ?>,-</span>
+    <?php if(getDiscount($_GET['view']) != null):?>
+        <span class="€%"> € <?= price($product["UnitPrice"], $product["TaxRate"], $_GET['view']) ?>,-</span>
+    <?php else: ?>
+        <span class="€"> € <?= price($product["UnitPrice"], $product["TaxRate"], $_GET['view']) ?>,-</span>
+    <?php endif; ?>
     <div class="opmerking"> incl. btw (<?= $product["TaxRate"] / 100 ?>%)</div>
     <!--    <div class="opmerking"> --><? //= $stock ?><!--</div>-->
 </div>

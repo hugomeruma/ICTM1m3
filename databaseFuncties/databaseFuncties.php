@@ -68,8 +68,7 @@ ON SI.StockItemID = SG.StockItemID
 WHERE SG.StockGroupID = ?;";
         echo "<br>Catagorie: Aan<br> Zoeken uit<br>";
         $result = getFromDB($count, $where);
-    }
-//   tellen alle producten helemaal niks.
+    } //   tellen alle producten helemaal niks.
     elseif ($where == null && $search == null) {
         $count = "SELECT count(*) as amount FROM StockItems;";
         echo "<br>Alle producten<br>";
@@ -213,5 +212,28 @@ function getSpecialDeals()
     return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
 }
 
+function getDiscount($stockItemID = null, $stockGroupID = null)
+{
+    $sql = "SELECT DiscountPercentage
+FROM specialdeals
+WHERE StockItemID = ?";
+    $where = $stockItemID;
+    $discount = (mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC)["DiscountPercentage"]);
+    if (!empty($discount['DiscountPercentage'])){
+
+        return $discount['DiscountPercentage'];
+    } else {
+        foreach (getStockGroup($stockItemID, true) as $id){
+            $sql = "SELECT DiscountPercentage
+FROM specialdeals
+WHERE StockGroupID = " . $id['StockGroupID'];
+            $discount = (mysqli_fetch_array(getFromDB($sql), MYSQLI_ASSOC)["DiscountPercentage"]);
+            if ($discount){
+                return $discount;
+            }
+        }
+    }
+    return;
+}
 
 ?>
