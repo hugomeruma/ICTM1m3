@@ -6,12 +6,6 @@ require __dir__ . "/../parts/head.php";
 require __dir__ . "/../Deals/discountBanner.php";
 require __dir__ . "/../functies/productFuncties.php";
 
-
-if (isset($_POST['rating'])) {
-    print_r($_POST);
-    redirect('product/index.php?view=' .$_GET['view'] .'&in=' . $_GET['in']);
-    die;
-}
 ?>
 
     <div class="container 1 mt-5">
@@ -21,7 +15,13 @@ if (isset($_POST['rating'])) {
             echo "<span style='font-weight: bold'>" . $product['StockItemName'] . "</span>" ?></h6>
         <?php
         echo "<br>";
+        if (isset($_POST['rating'])) {
+            print_r($_POST);
+            insertReview($_POST['stockItemID'], $_POST['userID'], $_POST['name'], $_POST['rating'], $_POST['Description']);
+            redirect('product/index.php?view=' . $_GET['view'] . '&in=' . $_GET['in'] . "&opgeslagen=opgeslagen");
+        }
         ?>
+
     </div>
 
     <div class="container my-2 mb-5">
@@ -89,7 +89,7 @@ if (isset($_POST['rating'])) {
                         <div class="col review-box">
                             <div class="row review-header-row">
                                 <div class="col review-header">
-                                    <?= $review['UserName'] ?>
+                                    <?= $review['Name'] ?>
                                 </div>
                                 <div class="col review-rating">
                                     <?= stars($review['Rating']) ?>

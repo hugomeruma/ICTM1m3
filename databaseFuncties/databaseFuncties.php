@@ -236,4 +236,14 @@ WHERE StockGroupID = " . $id['StockGroupID'];
     return;
 }
 
+function insertReview($stockItemID, $UserID, $Name, $Rating, $Description){
+    $sql = "INSERT INTO `reviews`(`StockItemID`, `UserID`, `Name`, `Rating`, `Description`) VALUES (?,?,?,?,?)";
+    $conn = maakVerbinding();
+    $stmt = mysqli_stmt_init($conn);
+    mysqli_stmt_prepare($stmt, $sql);
+    mysqli_stmt_bind_param($stmt, 'iisis', $stockItemID, $UserID, $Name, $Rating, $Description);
+    mysqli_stmt_execute($stmt);
+    sluitVerbinding($conn);
+    return;
+}
 ?>

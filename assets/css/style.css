@@ -66,23 +66,53 @@
 /* Buttons */
 /*NavBar*/
 .button-bar {
-    height: 50px;
-    text-align: center;
-    background: var(--blue);
+    /*height: 50px;*/
+    /*text-align: center;*/
 }
 
 .divStockGroup {
+    padding-left: 1px;
+    padding-right: 1px;
+    background: var(--blue);
+
     border-style: solid;
     border-color: white;
-    border-width: 0 1px 0 1px;
+    border-width: 0px 2px 2px 2px;
+
+    height: 50px;
+    text-align: center;
+
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.divStockGroup-selected {
+    background: var(--grey);
+    border-radius: 0px 0px 5px 5px;
+    border-width: 0 2px 2px 2px;
+    border-bottom-color: var(--blue);
+}
+
+.divStockGroup:hover {
+    background: lightgrey;
+    border-width: 0 2px 2px 2px;
+    border-bottom-color: var(--blue);
+}
+
 .stockGroup {
+    font-size: 17px;
     color: white;
+}
+
+.divStockGroup-selected .stockGroup {
+    color: var(--blue);
+}
+
+.divStockGroup-selected .stockGroup:hover {
+    text-decoration: none;
+    color: var(--blue);
 }
 
 .stockGroup:hover {

@@ -49,13 +49,16 @@
 </nav>
 
 <div class="button-bar d-flex justify-content-around">
-    <div class="divStockGroup">
-        <a href="/ICTM1m3/browsen/?in=&page=1&pp=10" class="stockGroup">Alle producten</a>
+    <div class="divStockGroup col<?php if ($_GET['in'] == null) echo " divStockGroup-selected"?>">
+        <a href="/ICTM1m3/browsen/?in=&page=1&pp=10" class="stockGroup stretched-link">Alle producten</a>
     </div>
     <?php foreach (selecterenStockgroups() as $stockgroup): ?>
-        <div class="divStockGroup">
+        <div class="divStockGroup col<?php if ($_GET['in'] == $stockgroup['StockGroupID']) echo " divStockGroup-selected"?>">
             <a href="/ICTM1m3/browsen/?in=<?= $stockgroup['StockGroupID'] ?>&page=1&pp=10"
-               class="stockGroup"> <?= $stockgroup['StockGroupName'] ?></a>
+               class="stockGroup stretched-link"> <?= $stockgroup['StockGroupName'] ?>
+            </a>
         </div>
     <?php endforeach; ?>
 </div>
+
+<?php ?>

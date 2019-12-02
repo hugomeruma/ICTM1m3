@@ -15,9 +15,10 @@ if (!isset($_SESSION['ingelogd'])):?>
     <div class="review-form-NA justify-content-center">
         <h6 class="review-form-NA-text">Je hebt het product nog niet gekocht.</h6>
     </div>
-<?php
+    <?php
 else:
     print_r($_SESSION);
+
     ?>
 
     <form action="<?php getCurrentURL() ?>" method="POST">
