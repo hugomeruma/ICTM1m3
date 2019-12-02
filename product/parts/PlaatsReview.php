@@ -1,4 +1,6 @@
 <?php
+
+
 if (!isset($_SESSION['ingelogd'])):?>
     <h6 class="review-form-NA-text">Je bent nog niet ingelogd.</h6>
     <div class="button centerd">
@@ -15,17 +17,23 @@ if (!isset($_SESSION['ingelogd'])):?>
     </div>
 <?php
 else:
+    print_r($_SESSION);
     ?>
-    <form method="$_GET">
-        <input type="hidden" name="StockItemID" value="<?= $_POST['view'] ?>">
-        <input type="hidden" name="User">
-        <div class="form-group">
-            <label for="exampleFormControlTextarea1">Example textarea</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-        </div>
+
+    <form action="<?php getCurrentURL() ?>" method="POST">
+        <input type="hidden" name="stockItemID" value="<?= $_GET['view'] ?>">
+        <input type="hidden" name="userID" value="<?= $_SESSION['id'] ?>">
+        <input type="hidden" name="name" value="<?= $_SESSION['name'] ?>">
+
         <div class="form-group">
             <input type="number" name="rating" value="10" placeholder="">
-            <button type="submit" class="btn btn-primary mb-2">Verstuur</button>
+            <button type="submit" class="btn btn-primary mb-2 review-option">Verstuur</button>
+        </div>
+
+
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Plaats hier uw review</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="Description" rows="5"></textarea>
         </div>
     </form>
 <?php

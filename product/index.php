@@ -6,6 +6,12 @@ require __dir__ . "/../parts/head.php";
 require __dir__ . "/../Deals/discountBanner.php";
 require __dir__ . "/../functies/productFuncties.php";
 
+
+if (isset($_POST['rating'])) {
+    print_r($_POST);
+    redirect('product/index.php?view=' .$_GET['view'] .'&in=' . $_GET['in']);
+    die;
+}
 ?>
 
     <div class="container 1 mt-5">

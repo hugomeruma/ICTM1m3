@@ -26,3 +26,4 @@ function getBaseUrl($base = 'localhost/ICTM1m3/')
 {
     return 'http://' . $base;
 }
+
