@@ -7,8 +7,7 @@ require __dir__ . "/../Deals/discountBanner.php";
 require __dir__ . "/../functies/productFuncties.php";
 
 ?>
-
-    <div class="container 1 mt-5">
+    <div class="container 1">
         <h6>Producten > <?php if (!empty($_GET['in'])) {
                 echo currentStockGroup($product["StockItemID"]) . " > ";
             }

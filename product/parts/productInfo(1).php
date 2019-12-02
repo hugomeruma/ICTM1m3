@@ -1,10 +1,16 @@
 <!-- <div class="col-6"> -->
 
 <div class="prijs centerd">
-    <?php if(getDiscount($_GET['view']) != null):?>
-        <span class="€discount"> € <?= price($product["UnitPrice"], $product["TaxRate"], $_GET['view']) ?>,-</span>
+    <?php if (getDiscount($_GET['view']) != null): ?>
+    <div class="price-with-discount">
+        <span class="fa-stack discount-icon">
+            <i class="fas fa-certificate fa-stack-2x"></i>
+            <i class="fas fa-percent fa-stack-1x fa-inverse"></i>
+        </span>
+        <div class="€discount"> € <?= price($product["UnitPrice"], $product["TaxRate"], $_GET['view']) ?>,-</div>
+    </div>
     <?php else: ?>
-        <span class="€"> € <?= price($product["UnitPrice"], $product["TaxRate"], $_GET['view']) ?>,-</span>
+        <div class="€"> € <?= price($product["UnitPrice"], $product["TaxRate"], $_GET['view']) ?>,-</div>
     <?php endif; ?>
     <div class="opmerking"> incl. btw (<?= $product["TaxRate"] / 100 ?>%)</div>
     <!--    <div class="opmerking"> --><? //= $stock ?><!--</div>-->

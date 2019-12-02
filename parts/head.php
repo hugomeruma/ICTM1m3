@@ -15,6 +15,8 @@ if (!isset($_SESSION)) {
           type="text/css">
     <link rel="stylesheet" href="<?= getBaseUrl() ?>/assets/css/style.css"
           type="text/css">
+    <link rel="stylesheet" href="<?= getBaseUrl() ?>/assets/css/test.css"
+          type="text/css">
     <link rel="stylesheet" href="<?= getBaseUrl() ?>/assets/css/fontawesome-free-5.11.2-web/css/all.css">
     <title>WWI</title>
 </head>

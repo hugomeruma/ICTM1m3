@@ -1,13 +1,8 @@
-<div class="container-fluid banner-base mt-5">
-    <h2 class="banner-text d-inline">
+<div class="container col banner-base mt-5">
+
+    <div class="banner-text d-inline">
         CLICK HERE TO SEE OUR SPECIAL DEALS!
-    </h2>
+    </div>
+    <a class="stretched-link " href="<?= getBaseUrl() ?>"></a>
 </div>
 
-
-<!--<i class="fa fa-certificate banner-icon"></i>-->
-<!---->
-<!--<span class="fa-stack">-->
-<!--    <i class="fa fa-percent fa-stack-1x fa-invert"></i>-->
-<!--    <i class="fa fa-certificate fa-stack-2x"></i>-->
-<!--</span>-->

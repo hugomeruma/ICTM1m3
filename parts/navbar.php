@@ -49,15 +49,26 @@
 </nav>
 
 <div class="button-bar d-flex justify-content-around">
-    <div class="divStockGroup col<?php if ($_GET['in'] == null) echo " divStockGroup-selected"?>">
+    <div class="divStockGroup col<?php if (isset($_GET['in']) && $_GET['in'] == null) echo " divStockGroup-selected"?>">
         <a href="/ICTM1m3/browsen/?in=&page=1&pp=10" class="stockGroup stretched-link">Alle producten</a>
     </div>
     <?php foreach (selecterenStockgroups() as $stockgroup): ?>
-        <div class="divStockGroup col<?php if ($_GET['in'] == $stockgroup['StockGroupID']) echo " divStockGroup-selected"?>">
+        <div class="divStockGroup col<?php if (isset($_GET['in']) && $_GET['in'] == $stockgroup['StockGroupID']) echo " divStockGroup-selected"?>">
             <a href="/ICTM1m3/browsen/?in=<?= $stockgroup['StockGroupID'] ?>&page=1&pp=10"
                class="stockGroup stretched-link"> <?= $stockgroup['StockGroupName'] ?>
             </a>
+
+            <?php if (getDiscount(null, $stockgroup['StockGroupID']) != null): ?>
+                <div class="discount-icon-div-on-stockgroup">
+                    <span class="fa-stack discount-icon-on-stockgroup">
+                        <i class="fas fa-certificate fa-stack-2x"></i>
+                        <i class="fas fa-percent fa-stack-1x fa-inverse"></i>
+                    </span>
+                </div>
+            <?php endif; ?>
+
         </div>
+
     <?php endforeach; ?>
 </div>
 
