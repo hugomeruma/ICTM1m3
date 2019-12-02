@@ -7,6 +7,21 @@
     /*Font*/
 }
 
+@font-face {
+    font-family: 'BigNoodleTitling';
+    font-style: normal;
+    font-weight: normal;
+    src: local('BigNoodleTitling'), url('/assets/fonts/big_noodle_titling.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'BigNoodleTitling Oblique';
+    font-style: normal;
+    font-weight: normal;
+    src: local('BigNoodleTitling Oblique'), url('/assets/fonts/big_noodle_titling_oblique.woff') format('woff');
+}
+
 .centerd {
     text-align: center;
 }
@@ -160,6 +175,12 @@
     font-style: italic;
     font-size: 65px;
 }
+.product-info .prijs .€discount {
+    color: green;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 65px;
+}
 
 .product-info .prijs .opmerking {
     font-size: 15px;
@@ -244,6 +265,7 @@
 }
 
 .review-form-NA-text {
+    font-family: BigNoodleTitling;
     font-style: italic;
     font-weight: bold;
     font-size: 20px;
@@ -257,9 +279,6 @@
 }
 
 
-
-
-
 .banner-base {
     border: 1px solid var(--blue);
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.19), 0 5px 5px 0 rgba(0, 0, 0, 0.12);
@@ -271,8 +290,8 @@
 }
 
 .banner-text {
+    font-family: BigNoodleTitling Oblique;
     font-style: italic;
-    font-weight: bold;
     font-size: 50px;
     text-align: center;
     margin-bottom: 0px;

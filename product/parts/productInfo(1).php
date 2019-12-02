@@ -2,7 +2,7 @@
 
 <div class="prijs centerd">
     <?php if(getDiscount($_GET['view']) != null):?>
-        <span class="€%"> € <?= price($product["UnitPrice"], $product["TaxRate"], $_GET['view']) ?>,-</span>
+        <span class="€discount"> € <?= price($product["UnitPrice"], $product["TaxRate"], $_GET['view']) ?>,-</span>
     <?php else: ?>
         <span class="€"> € <?= price($product["UnitPrice"], $product["TaxRate"], $_GET['view']) ?>,-</span>
     <?php endif; ?>

@@ -5,6 +5,7 @@ require __dir__ . "/../functies/contentFuncties.php";
 require __dir__ . "/../parts/head.php";
 require __dir__ . "/../Deals/discountBanner.php";
 
+
 if (!isset($_GET['searchFor'])) {
     $_GET['searchFor'] = null;
 }
@@ -69,7 +70,11 @@ if (isset($_GET['page'])) {
             foreach ($producten
                      as $product): ?>
                 <div class="container row product_kaart my-4">
-                    <?php require "parts/item.php" ?>
+                    <?php
+                    //                    require __DIR__ . "/../functies/productFuncties.php";
+                    require "parts/item.php"
+
+                    ?>
                 </div>
 
             <?php endforeach;

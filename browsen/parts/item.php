@@ -1,3 +1,6 @@
+<?php
+
+?>
 <div class="col-2" style="">
     <img src="
     <?php
@@ -27,7 +30,12 @@
 
 <div class="col-3 product_prijs" style="text-align: right">
     <h5 style="margin-bottom: 0px">
-        € <?= number_format($product["UnitPrice"] * (($product["UnitPrice"] / 100) + 1), 2) ?>,-</h5>
+        <?php if(getDiscount($product['StockItemID']) != null):?>
+            <span class="€discount"> € <?= price($product["UnitPrice"], $product["TaxRate"], $product['StockItemID']) ?>,-</span>
+        <?php else: ?>
+            <span class="€"> € <?= price($product["UnitPrice"], $product["TaxRate"], $product['StockItemID']) ?>,-</span>
+        <?php endif; ?>
+    </h5>
     <span style="font-size: 12px">incl. btw (<?= $product["UnitPrice"] / 100 ?>%) </span>
     <br>
     <span style="font-size: 12px"><?php echo "vooraad" ?></span>
@@ -35,3 +43,7 @@
     <!--    <toevoegen aan winkelmandje><button> met icon /button>-->
 
 </div>
+
+<?php
+
+?>

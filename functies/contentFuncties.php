@@ -3,6 +3,28 @@ require __DIR__ . "/../databaseFuncties/databaseFuncties.php";
 include "klantFuncties.php";
 include "URL.php";
 
+function price($priceExcl, $taxrate, $stockItemID = null)
+{
+    $price = $priceExcl * (($taxrate / 100) + 1);
+
+    $off = checkDiscount($stockItemID);
+    if ($off != null) {
+        $discount = (100 - $off)/100;
+        $price = $price * $discount;
+    }
+
+    return number_format($price, 2);
+}
+
+function checkDiscount($stockItemID = null, $stockGroupID = null) {
+    if ($stockItemID != null){
+        $discount = getDiscount($stockItemID);
+    } else {
+        $discount = getDiscount(null , $stockGroupID);
+    }
+    return $discount;
+}
+
 //Default van het search veld,
 //Als er niks is gezocht: 'Type hier om te zoeken'
 //Als er wel gezocht is 'laten zie van het zoekwoord'
@@ -61,5 +83,7 @@ function catImageIDs($stockitemID)
     return $newNames;
 
 }
+
+
 
 ?>
