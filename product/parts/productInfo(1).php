@@ -7,10 +7,10 @@
             <i class="fas fa-certificate fa-stack-2x"></i>
             <i class="fas fa-percent fa-stack-1x fa-inverse"></i>
         </span>
-        <div class="€discount"> € <?= price($product["UnitPrice"], $product["TaxRate"], $_GET['view']) ?>,-</div>
+        <div class="€discount"> € <?= price($product["UnitPrice"], $product["TaxRate"], $_GET['view']) ?></div>
     </div>
     <?php else: ?>
-        <div class="€"> € <?= price($product["UnitPrice"], $product["TaxRate"], $_GET['view']) ?>,-</div>
+        <div class="€"> € <?= price($product["UnitPrice"], $product["TaxRate"], $_GET['view']) ?></div>
     <?php endif; ?>
     <div class="opmerking"> incl. btw (<?= $product["TaxRate"] / 100 ?>%)</div>
     <!--    <div class="opmerking"> --><? //= $stock ?><!--</div>-->

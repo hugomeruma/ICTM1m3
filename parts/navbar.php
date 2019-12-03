@@ -68,14 +68,15 @@
             </a>
 
             <?php if (getDiscount(null, $stockgroup['StockGroupID']) != null): ?>
-                <div class="discount-icon-div-on-stockgroup">
-                    <span class="fa-stack discount-icon-on-stockgroup">
+                <div class="discount-icon">
+                    <span class="fa-stack ">
                         <i class="fas fa-certificate fa-stack-2x"></i>
                         <i class="fas fa-percent fa-stack-1x fa-inverse"></i>
                     </span>
                 </div>
             <?php endif; ?>
-
+            <!--discount-icon-div-on-stockgroup-->
+            <!--            discount-icon-on-stockgroup-->
         </div>
 
     <?php endforeach; ?>
