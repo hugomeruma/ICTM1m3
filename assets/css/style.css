@@ -223,3 +223,23 @@
     border: none;
 }
 
+.teller_form {
+    height: 38px;
+    width: 30%;
+    display: flex;
+    direction: rtl;
+}
+
+.button_winkelmandje_verw {
+    background-color: var(--blue);
+    border: 1px solid var(--blue);
+    margin-right: 20px;
+}
+
+.winkelmandje_form_group {
+    direction: rtl;
+}
+.opslaan_winkelmandje {
+    background-color: var(--blue);
+    border: 1px solid var(--blue);
+}
