@@ -29,7 +29,7 @@ if (isset($_POST['opslaan'])) {
             $_SESSION['producten'][$key] = $value;
         }
     }
-//    redirect('winkelmandje/');
+    redirect('winkelmandje/');
 }
 
 if (isset($_POST['StockItemID'])) {
@@ -42,7 +42,7 @@ if (isset($_POST['StockItemID'])) {
     }
     $_SESSION['producten'][$_POST['StockItemID']] = $i;
 
-//    redirect('winkelmandje/');
+    redirect('winkelmandje/');
 }
 
 
