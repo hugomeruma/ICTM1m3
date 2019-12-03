@@ -33,7 +33,6 @@ if (isset($_POST['opslaan'])) {
 }
 
 if (isset($_POST['StockItemID'])) {
-    echo $_POST['StockItemID'];
     print_r($_SESSION['producten'][$_POST['StockItemID']]);
     if (isset($_SESSION['producten'][$_POST['StockItemID']])) {
         $i = $_SESSION['producten'][$_POST['StockItemID']] + 1;

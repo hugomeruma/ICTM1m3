@@ -1,6 +1,3 @@
-<?php
-?>
-
 <div class="col-2" style="">
 
     <!--  DIT IS HET BEGIN VAN DE AFBEELDING  -->
@@ -30,25 +27,27 @@ $subTotaal = $prijs_per_stuk * $teller;
 
 ?>
 <div class="col-3 product_prijs" style="text-align: right">
-    <h6>Prijs per stuk: € <?= $prijs_per_stuk ?>,-
-        <h6>
-            <h5>Sub-Totaal: € <?= $subTotaal ?>,-</h5>
+    <h6>
+        Prijs per stuk: € <?= $prijs_per_stuk ?>,-
+    </h6>
+    <h5>Sub-Totaal: € <?= $subTotaal ?>,-</h5>
+    <div class="winkelmandje_form_group">
+        <form method="post">
+            <button type="Submit" name="StockItemID<?= $product['StockItemID'] ?>" value="0"
+                    class="btn btn-primary button_winkelmandje_verw"><i class="fa fa-trash"
+                                                                        aria-hidden="true"></i></button>
+            <input type="hidden" name="opslaan" value="opslaan"
+                   class="form teller_form">
+        </form>
 
-<!--                <div class="form-group form-inline winkelmandje_form_group" role="group" aria-label="Basic example"><p></p>-->
-<!--                    <form method="post">-->
-<!--                        <button type="Submit" name="StockItemID--><?//= $product['StockItemID'] ?><!--" value="0"-->
-<!--                                class="btn btn-primary button_winkelmandje_verw"><i class="fa fa-trash" aria-hidden="true"></i></button>-->
-<!--                        <input type="hidden" name="opslaan" value="opslaan"-->
-<!--                               class="form teller_form">-->
-<!--                    </form>-->
-                    <form method="post">
-                    <input type="number" value="<?= $teller ?>" name="StockItemID<?= $product['StockItemID'] ?>"
-                           class="form teller_form">
-                    <input type="hidden" name="opslaan" value="opslaan"
-                           class="form teller_form">
+        <form method="post">
+            <input type="number" value="<?= $teller ?>" name="StockItemID<?= $product['StockItemID'] ?>"
+                   class="form teller_form">
+            <input type="hidden" name="opslaan" value="opslaan"
+                   class="form teller_form">
+            <!--                </div>-->
 
-
-<!--                </div>-->
-
+    </div>
 </div>
+
 
