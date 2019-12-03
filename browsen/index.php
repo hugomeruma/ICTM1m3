@@ -68,17 +68,10 @@ if (isset($_GET['page'])) {
             <br> Er zijn geen producten gevonden <br>
         <?php endif; ?>
         <?php if (!empty($producten)) {
-            foreach ($producten
-                     as $product): ?>
-                <div class="container row product_kaart my-4">
-                    <?php
-                    //                    require __DIR__ . "/../functies/productFuncties.php";
-                    require "parts/item.php"
-
-                    ?>
-                </div>
-
-            <?php endforeach;
+            foreach ($producten as $product) {
+                $stock = getStockHolding($product["StockItemID"]);
+                require "parts/item.php";
+            }
         }
         ?>
     </div>

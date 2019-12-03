@@ -7,32 +7,27 @@
         </a>
     </div>
     <div class="col d-flex justify-content-center">
-<!--        <div class="input-group mb-3">-->
-<!--            <input type="text" class="form-control search-bar" placeholder="--><?//= searchFor() ?><!--" name='searchFor'-->
-<!--                   aria-describedby="basic-addon1">-->
-<!--            <div class="input-group-prepend">-->
-<!--                <button class="btn btn-outline-success my-2 my-sm-0 btn-search" type="submit">Search</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        -->
         <form action="<?= getBaseUrl() ?>browsen" method='get' class="">
-            <div class="input-group-prepend">
-                <input type="text" class="form-control search-bar" placeholder="<?= searchFor() ?>" name='searchFor'
+            <div class="input-group-prepend search-bar">
+                <input type="text" class="form-control search-input" placeholder="<?= searchFor() ?>" name='searchFor'
                        aria-describedby="basic-addon1">
-
                 <div class="input-group-prepend">
                     <button class="btn btn-outline-success my-2 my-sm-0 btn-search" type="submit">Search</button>
                 </div>
             </div>
             <!--                <input type="text" name='searchFor' class="form-control search-bar"-->
-            <!--                       placeholder="--><?//= searchFor() ?><!--">-->
+            <!--                       placeholder="--><? //= searchFor() ?><!--">-->
             <input type="hidden" name="page" value="1">
             <input type="hidden" name="in" value="<?= $_GET['in'] ?>">
             <input type="hidden" name="pp" value="<?= $_GET['pp'] ?>">
             <!--                <button class="btn btn-outline-success my-2 my-sm-0 btn-search" type="submit">Search</button>-->
         </form>
     </div>
-    <div class="col d-flex justify-content-end">
+    <div class="col d-flex justify-content-end mr-3">
+        <a class="navbar-dropdown icon-navbar" href="<?= getBaseUrl() ?>winkelmandje" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-shopping-basket"></i>
+        </a>
         <?php if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd'] == true): ?>
             <div class="dropdown">
                 <a class="dropdown-toggle navbar-dropdown" href="#" role="button"
@@ -49,9 +44,10 @@
                 </ul>
             </div>
         <?php else: ?>
-            <li class="nav-item">
-                <a class="nav-link" href="<?= getBaseUrl() ?>/login.php">Login</a>
-            </li>
+            <a class="navbar-dropdown" href="<?= getBaseUrl() ?>/login.php">Login &nbsp;<i
+                        class="fas fa-user icon-navbar"></i>
+
+            </a>
         <?php endif; ?>
     </div>
 </div>

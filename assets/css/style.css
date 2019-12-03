@@ -53,6 +53,7 @@
 }
 
 .btn-search {
+    font-size: 18px;
     color: white;
     background-color: var(--blue);
     border: 1px solid var(--blue);
@@ -159,7 +160,6 @@
 .product_kaart {
     height: 100%;
     max-height: 120px;
-    posistion: relative;
 }
 
 .img-product .discount-icon-div .discount-icon {

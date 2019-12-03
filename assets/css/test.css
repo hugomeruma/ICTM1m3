@@ -7,23 +7,16 @@
     margin: 0px;
 }
 
-.search-bar {
+.search-input {
+    font-size: 18px;
     width: 700px !important;
     border: 1px solid var(--blue);
     border-radius: 7px 0px 0px 7px;
 }
 
-.search-bar:hover {
-    color: #495057;
-    background-color: #fff;
-    outline: none;
-    box-shadow: none;
-}
-
 .navbar-image {
     max-height: 75px;
 }
-
 
 .navbar-dropdown {
     margin-right: 20px !important;
@@ -41,6 +34,15 @@
     font-weight: 400;
 }
 
+.StockIsRed {
+    color: red;
+    font-weight: 500;
+}
+
+.StockIsDanger {
+    color: orange;
+    font-weight: 500;
+}
 
 .dropdown:hover .dropdown-menu {
     display: block;
@@ -145,4 +147,14 @@ bounceAnimation {
     -ms-animation: bounce 3s infinite ease-in-out;
     -moz-animation: bounce 3s infinite ease-in-out;
     animation: bounce 3s infinite ease-in-out;
+}
+
+.icon-navbar {
+    font-size: 20px;
+}
+
+#wrapper {
+    opacity: 0.4;
+    filter: alpha(opacity=40); /* msie */
+    /*background-color: #000;*/
 }
