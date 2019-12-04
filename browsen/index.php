@@ -63,6 +63,7 @@ if (isset($_GET['page'])) {
     <div class="container my-3">
         <?php
         $producten = opvragenProducten();
+
         if (empty($producten)): ?>
             <br> Er zijn geen producten gevonden <br>
         <?php endif; ?>
