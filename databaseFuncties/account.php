@@ -41,17 +41,6 @@ function ophalenOpID(int $id)
     return $result;
 }
 
-function heeftNAW()
-{
-    $conn = maakVerbinding();
-    $stmt = $conn->prepare('SELECT firstName, tussenvoegsel, lastName, email, city, postalCode, houseNumber FROM accounts WHERE ID = ? LIMIT 1');
-    $stmt->bind_param('i', $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $stmt->fetch();
-    $stmt->close();
-    return $result;
-}
 
 function wijzigEmail($email, $id)
 {
@@ -110,7 +99,7 @@ function login($mail, $password, $noSessions = false)
         $stmt->close();
         $account = mysqli_fetch_all($result, MYSQLI_ASSOC);
         if (isset($account[0])) {
-            if ($_POST['wachtwoord'] === $password) {
+            if (password_verify($password, $account[0]['password'])) {
                 if (!$noSessions) {
                     $_SESSION['name'] = getFullName($account[0]['firstName'], $account[0]['tussenvoegsel'], $account[0]['lastName']);
                     $_SESSION['ingelogd'] = TRUE;
