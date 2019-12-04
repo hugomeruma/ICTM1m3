@@ -130,6 +130,13 @@ function getStockItem($stockItemID)
     return mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC);
 }
 
+function getStockItems($stockItemsArray)
+{
+    $stockItemsArray = implode(',', array_keys($stockItemsArray));
+    $sql = "SELECT * FROM stockitems WHERE StockItemID IN ($stockItemsArray)";
+    return mysqli_fetch_all(getFromDB($sql, null), MYSQLI_ASSOC);
+}
+
 function getStockHolding($stockItemID)
 {
     $sql = "SELECT QuantityOnHand FROM stockitemholdings WHERE StockItemID = ?";
