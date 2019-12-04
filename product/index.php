@@ -3,7 +3,6 @@ require __dir__ . "/../functies/algemeneFuncties.php";
 require __dir__ . "/../functies/helpers.php";
 require __dir__ . "/../functies/contentFuncties.php";
 require __dir__ . "/../parts/head.php";
-require __dir__ . "/../parts/navbar.php";
 
 require __dir__ . "/../Deals/discountBanner.php";
 require __dir__ . "/../functies/productFuncties.php";

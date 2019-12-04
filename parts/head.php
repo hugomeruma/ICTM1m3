@@ -23,4 +23,5 @@ if (!isset($_SESSION)) {
 </head>
 <body>
 <?php
+require __DIR__ . '\navbar.php';
 ?>
