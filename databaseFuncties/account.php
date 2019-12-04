@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . "/databaseFuncties.php";
+//require __DIR__ . "/databaseFuncties.php";
 
 function maakAccount($firstName, $tussenvoegsel, $lastName, $email, $password, $city, $postalCode, $houseNumber, $streetName, $phoneNumber)
 {
@@ -33,7 +33,7 @@ function SelecteerAccount($connection, $id)
 function ophalengegevens($id)
 {
 
-    $conn = MaakVerbinding();
+    $conn = maakVerbinding();
     $sql = "SELECT * FROM accounts WHERE ID = ?";
     mysqli_stmt_bind_param($sql, 'i', $id);
     mysqli_stmt_execute($sql);

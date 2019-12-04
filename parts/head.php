@@ -1,6 +1,7 @@
 <?php
 if (!isset($_SESSION)) {
     session_start();
+    ob_start();
 }
 ?>
     <!doctype html>
@@ -14,10 +15,11 @@ if (!isset($_SESSION)) {
           type="text/css">
     <link rel="stylesheet" href="<?= getBaseUrl() ?>/assets/css/style.css"
           type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?= getBaseUrl() ?>/assets/css/test.css"
+          type="text/css">
+    <link rel="stylesheet" href="<?= getBaseUrl() ?>/assets/css/fontawesome-free-5.11.2-web/css/all.css">
     <title>WWI</title>
 </head>
 <body>
 <?php
-require __DIR__ . "/navbar.php";
 ?>
