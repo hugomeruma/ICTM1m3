@@ -23,7 +23,6 @@ require __dir__ . "/../functies/productFuncties.php";
         ?>
 
     </div>
-
     <div class="container my-2 mb-5">
         <div class="row">
             <div class="col-6">
@@ -116,5 +115,6 @@ require __dir__ . "/../functies/productFuncties.php";
 
 <?php
 //print_r (imgIDs($product['StockItemID']));
+
 require __dir__ . "/../parts/footer.php";
 ?>

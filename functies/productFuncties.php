@@ -4,29 +4,6 @@ require __DIR__ . "/../databaseFuncties/Reviews.php";
 $product = getStockItem($_GET['view']);
 $stock = getStockHolding($product['StockItemID']);
 
-//function price($priceExcl, $taxrate, $stockItemID = null)
-//{
-//    $price = $priceExcl * (($taxrate / 100) + 1);
-//
-//    $off = checkDiscount($stockItemID);
-//    if ($off != null) {
-//        $discount = (100 - $off) / 100;
-//        $price = $price * $discount;
-//    }
-//
-//    return number_format($price, 2);
-//}
-//
-//function checkDiscount($stockItemID = null, $stockGroupID = null)
-//{
-//    if ($stockItemID != null) {
-//        $discount = getDiscount($stockItemID);
-//    } else {
-//        $discount = getDiscount(null, $stockGroupID);
-//    }
-//    return $discount;
-//}
-
 function stars($stop)
 {
     for ($nr = 1; $nr < $stop; $nr = $nr + 2): ?>
