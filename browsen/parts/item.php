@@ -37,7 +37,10 @@
                     <h6><?= $product['MarketingComments'] ?></h6>
                 <?php else: ?>
                     <h6><?= $product['Tags'] ?></h6>
-                <?php endif; ?>
+                <?php endif;
+                $review = getAvgReviews($product['StockItemID']);
+                echo stars($review[0]["AVG(Rating)"]);
+                ?>
                 <a href="<?= getBaseUrl() ?>product/index.php?view=<?= $product['StockItemID'] ?>&in=<?= $_GET['in'] ?>"
                    class="stretched-link"></a>
             </div>

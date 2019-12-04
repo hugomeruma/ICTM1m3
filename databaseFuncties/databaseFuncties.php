@@ -246,6 +246,17 @@ WHERE StockGroupID = ?";
     return;
 }
 
+function getReviews($stockItemID)
+{
+    $sql = "SELECT * FROM reviews WHERE StockItemID = ?";
+    $where = $stockItemID;
+    return mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC);
+}
+function getAvgReviews($stockItemID){
+    $sql = "SELECT AVG(Rating) FROM reviews WHERE StockItemID = ?";
+    $where = $stockItemID;
+    return mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC);
+}
 function insertReview($stockItemID, $UserID, $Name, $Rating, $Description){
     $sql = "INSERT INTO `reviews`(`StockItemID`, `UserID`, `Name`, `Rating`, `Description`) VALUES (?,?,?,?,?)";
     $conn = maakVerbinding();
@@ -256,4 +267,6 @@ function insertReview($stockItemID, $UserID, $Name, $Rating, $Description){
     sluitVerbinding($conn);
     return;
 }
+
+
 ?>
