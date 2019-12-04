@@ -4,7 +4,8 @@ require __dir__ . "/../functies/algemeneFuncties.php";
 require __dir__ . "/../functies/helpers.php";
 require __dir__ . "/../functies/contentFuncties.php";
 require __dir__ . "/../parts/head.php";
-
+require __dir__ . "/../parts/navbar.php";
+$_SESSION['totaalWinkelmandje'] = 0;
 ?>
 
     <!--    <div class="my-5">-->
@@ -78,11 +79,8 @@ $totaalorder = 0;
                 </button>
                 <div>
                     <h4>
-                        Totaal prijs:
-                        <?php
-
-
-                        ?>
+                        Totaal prijs: €
+                        <?= $_SESSION['totaalWinkelmandje'] ?>
                     </h4>
                 </div>
             </div>
@@ -99,7 +97,5 @@ $totaalorder = 0;
         ?>
     </div>
 <?php
-
-
 require __dir__ . "/../parts/footer.php";
 ?>

@@ -48,12 +48,12 @@
              style="text-align: right<?php if ($stock <= 0): ?>; color: darkgray <?php endif; ?>">
 
             <h5 style="margin-bottom: 0px">
-                <div class="€"> € <?= price($product["UnitPrice"], $product["TaxRate"], $product['StockItemID']) ?>,-
+                <div class="€"> € <?=    price($product["UnitPrice"], $product["TaxRate"], $product['StockItemID']) ?>,-
                 </div>
             </h5>
 
 
-            <span style="font-size: 12px">incl. btw (<?= $product["UnitPrice"] / 100 ?>%) </span>
+            <span style="font-size: 12px">incl. btw (<?= $product["TaxRate"] / 100 ?>%) </span>
             <br>
             <?php if ($stock > 0): ?>
                 <span style="font-size: 12px">nog

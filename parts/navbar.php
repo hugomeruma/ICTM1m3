@@ -23,9 +23,10 @@
             <!--                <button class="btn btn-outline-success my-2 my-sm-0 btn-search" type="submit">Search</button>-->
         </form>
     </div>
+
+
     <div class="col d-flex justify-content-end mr-3">
-        <a class="navbar-dropdown icon-navbar" href="<?= getBaseUrl() ?>winkelmandje" role="button"
-           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="navbar-dropdown icon-navbar" href="<?= getBaseUrl() ?>winkelmandje/index.php">
             <i class="fas fa-shopping-basket"></i>
         </a>
         <?php if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd'] == true): ?>

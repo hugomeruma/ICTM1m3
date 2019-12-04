@@ -9,6 +9,18 @@
          class="img">
     <a href="<?= getBaseUrl() ?>product/index.php?view=<?= $product['StockItemID'] ?>&in=<?= $_GET['in'] ?>"
        class="stretched-link"></a>
+    <?php
+    $discount = false;
+    if (getDiscount($product['StockItemID']) != null):
+        $discount = true;
+        ?>
+        <div class="discount-icon-div-on-item">
+                <span class="fa-stack discount-icon-on-item">
+                    <i class="fas fa-certificate fa-stack-2x"></i>
+                    <i class="fas fa-percent fa-stack-1x fa-inverse"></i>
+                </span>
+        </div>
+    <?php endif; ?>
 </div>
 <!-- DIT IS HET EINDE VAN DE AFBEELDING -->
 
@@ -21,10 +33,10 @@
 <?php
 $teller = $_SESSION['producten'][$product['StockItemID']];
 
-$prijs_per_stuk = price($product['UnitPrice'], $product['TaxRate']);
+$prijs_per_stuk = price($product['UnitPrice'], $product['TaxRate'], $product['StockItemID']);
 $subTotaal = $prijs_per_stuk * $teller;
 
-
+$_SESSION['totaalWinkelmandje'] = $_SESSION['totaalWinkelmandje'] + $subTotaal;
 ?>
 <div class="col-3 product_prijs" style="text-align: right">
     <h6>
