@@ -7,8 +7,8 @@ require __dir__ . "/../parts/head.php";
 
 ?>
 
-<!--    <div class="my-5">-->
-<!--        --><?php
+    <!--    <div class="my-5">-->
+    <!--        --><?php
 //        $key = "StockItemID1";
 //        if (strpos($key, 'StockItemID') !== false) {
 //            echo "$key";
@@ -17,7 +17,7 @@ require __dir__ . "/../parts/head.php";
 //            echo "<h1>$key</h1>";
 //        }
 //        ?>
-<!--    </div>-->
+    <!--    </div>-->
 
 <?php
 if (isset($_POST['opslaan'])) {
@@ -53,8 +53,8 @@ if (isset($_SESSION['producten'])) {
 $totaalorder = 0;
 
 ?>
-    <div class="container">
-        <form method="post">
+    <div class="container my-5">
+        <form method="post" class="my-5">
             <?php
             foreach ($winkelwagen as $product):
 
@@ -72,16 +72,28 @@ $totaalorder = 0;
 
 
             ?>
+            <div class="justify-content-between d-flex">
+                <button type="submit" value="opslaan" class="opslaan_winkelmandje btn btn-primary" name="opslaan">
+                    Winkelmandje opslaan
+                </button>
+                <div>
+                    <h4>
+                        Totaal prijs:
+                        <?php
 
-            <button type="submit" value="opslaan" class="opslaan_winkelmandje btn btn-primary" name="opslaan">
-                Winkelmandje opslaan
-            </button>
+
+                        ?>
+                    </h4>
+                </div>
+            </div>
         </form>
+    </div>
     </div>
 
     <div class="my-5">
         <?php
-        print_r($_SESSION);
+        print_r($_SESSION['producten']);
+
         echo "<br>";
         print_r($_POST)
         ?>
