@@ -8,9 +8,9 @@ require __DIR__ . "/../parts/admin/head.php";
 require __DIR__ . "/../parts/admin/menu.php";
 
 if (isset($_POST['submit'])) {
-    if (wijzigWachtwoordValidatie($_SESSION['email'], $_POST['huidigWachtwoord'], $_POST['huidigWachtwoord'], $_POST['nieuwWachtwoordHerhaling'])) {
+    if (wijzigWachtwoord($_SESSION['email'], $_POST['huidigWachtwoord'], $_POST['huidigWachtwoord'], $_POST['nieuwWachtwoordHerhaling'])) {
         if (wijzigWachtwoord($_SESSION['id'], $_POST['huidigWachtwoord'])) {
-            $_SESSION['alert']['succcess']['title'] = 'Succes!';
+            $_SESSION['alert']['success']['title'] = 'Succes!';
             $_SESSION['alert']['success']['message'] = 'Het wachtwoord is aangepast.';
         } else {
             $_SESSION['alert']['error']['title'] = 'Error!';
