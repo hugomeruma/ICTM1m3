@@ -35,9 +35,8 @@ if (isset($_POST['login'])) {
                 <input type="password" name="wachtwoord" class="form-control" id="password" required>
             </div>
             <button type="submit" name="login" class="btn btn-primary">Login</button>
-            <a class="mt-3" href="<?= getBaseUrl() ?>/registreren.php">Registreer</a>
+            <a class="mt-3" href="<?= getBaseUrl() ?>registreren.php">Registreer</a>
         </form>
-
     </div>
 
 <?php

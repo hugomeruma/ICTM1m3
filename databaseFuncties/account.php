@@ -1,5 +1,4 @@
 <?php
-require __DIR__ . "/databaseFuncties.php";
 
 function maakAccount($firstName, $tussenvoegsel, $lastName, $email, $password, $city, $postalCode, $houseNumber, $streetName, $phoneNumber)
 {
@@ -30,14 +29,27 @@ function SelecteerAccount($connection, $id)
     return $result;
 }
 
-function ophalengegevens($id)
+function ophalenOpID(int $id)
 {
+    $conn = maakVerbinding();
+    $stmt = $conn->prepare('SELECT * FROM accounts WHERE ID = ? LIMIT 1');
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->fetch();
+    $stmt->close();
+    return $result;
+}
 
-    $conn = MaakVerbinding();
-    $sql = "SELECT * FROM accounts WHERE ID = ?";
-    mysqli_stmt_bind_param($sql, 'i', $id);
-    mysqli_stmt_execute($sql);
-    $result = mysqli_fetch_all(mysqli_query($conn, $sql), MYSQLI_ASSOC);
+function heeftNAW()
+{
+    $conn = maakVerbinding();
+    $stmt = $conn->prepare('SELECT firstName, tussenvoegsel, lastName, email, city, postalCode, houseNumber FROM accounts WHERE ID = ? LIMIT 1');
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->fetch();
+    $stmt->close();
     return $result;
 }
 
@@ -75,7 +87,7 @@ function AccountGegevensWijzigen($gegevens)
     return $gegevens;
 }
 
-function  AccountGegevensOpvragen($gegevens)
+function AccountGegevensOpvragen($gegevens)
 {
     if (!empty($gegevens["id"])) {
         $connection = MaakVerbinding();
@@ -86,6 +98,35 @@ function  AccountGegevensOpvragen($gegevens)
     return $gegevens;
 }
 
+function login($mail, $password, $noSessions = false)
+{
+    $conn = maakVerbinding();
+
+    if ($stmt = $conn->prepare('SELECT * FROM accounts WHERE email = ? LIMIT 1')) {
+        $stmt->bind_param('s', $mail);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->fetch();
+        $stmt->close();
+        $account = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        if (isset($account[0])) {
+            if ($_POST['wachtwoord'] === $password) {
+                if (!$noSessions) {
+                    $_SESSION['name'] = getFullName($account[0]['firstName'], $account[0]['tussenvoegsel'], $account[0]['lastName']);
+                    $_SESSION['ingelogd'] = TRUE;
+                    $_SESSION['email'] = $account[0]['email'];
+                    $_SESSION['id'] = $account[0]['id'];
+                    $_SESSION['isAdmin'] = $account[0]['isAdmin'];
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    return false;
+}
+
 //function accountGegevensToevoegen(array $account)
 //{
 //    $connection = MaakVerbinding();
@@ -94,9 +135,4 @@ function  AccountGegevensOpvragen($gegevens)
 //    else $gegevens["melding"] = "Het registreren is mislukt.";
 //    SluitVerbinding($connection);
 //    return $gegevens;
-//}
-
-//function SluitVerbinding($connection)
-//{
-//    mysqli_close($connection);
 //}
