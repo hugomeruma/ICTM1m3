@@ -37,10 +37,8 @@ function page()
 //aantalPaginas voor de resultaten
 function telPaginas($aantalProducten, $pp)
 {
-    echo "<br>$aantalProducten<br>";
     $prodPagina = $pp;
     $aantalPaginas = ceil($aantalProducten / $prodPagina);
-    echo "$aantalPaginas";
     return $aantalPaginas;
 }
 

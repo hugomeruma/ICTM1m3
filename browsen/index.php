@@ -3,6 +3,9 @@ require __dir__ . "/../functies/algemeneFuncties.php";
 require __dir__ . "/../functies/helpers.php";
 require __dir__ . "/../functies/contentFuncties.php";
 require __dir__ . "/../parts/head.php";
+require __DIR__ . "/../parts/navbar.php";
+require __dir__ . "/../Deals/discountBanner.php";
+
 
 if (!isset($_GET['searchFor'])) {
     $_GET['searchFor'] = null;
@@ -65,13 +68,10 @@ if (isset($_GET['page'])) {
             <br> Er zijn geen producten gevonden <br>
         <?php endif; ?>
         <?php if (!empty($producten)) {
-            foreach ($producten
-                     as $product): ?>
-                <div class="container row product_kaart my-4">
-                    <?php require "parts/item.php" ?>
-                </div>
-
-            <?php endforeach;
+            foreach ($producten as $product) {
+                $stock = getStockHolding($product["StockItemID"]);
+                require "parts/item.php";
+            }
         }
         ?>
     </div>

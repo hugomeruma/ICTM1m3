@@ -66,20 +66,16 @@ function tellenProducten($where = null, $search = null)
         $count = "SELECT count(*) as amount FROM StockItems as SI JOIN stockitemstockgroups as SG
 ON SI.StockItemID = SG.StockItemID
 WHERE SG.StockGroupID = ?;";
-        echo "<br>Catagorie: Aan<br> Zoeken uit<br>";
         $result = getFromDB($count, $where);
-    }
-//   tellen alle producten helemaal niks.
+    } //   tellen alle producten helemaal niks.
     elseif ($where == null && $search == null) {
         $count = "SELECT count(*) as amount FROM StockItems;";
-        echo "<br>Alle producten<br>";
         $result = getFromDB($count);
 
     }
 //    tellen in alle resultaten. Alleen een search.
     if ($where == null && $search != null) {
         $count = "SELECT count(*) as amount FROM StockItems WHERE SearchDetails like ? ";
-        echo "Catagorie: uit<br> Zoeken: aan";
         $result = getFromDB($count, null, null, null, $search);
     }
 //    tellen in een catagorie, een where en een search
@@ -87,7 +83,6 @@ WHERE SG.StockGroupID = ?;";
         $count = "SELECT count(*) as amount FROM StockItems as I JOIN stockitemstockgroups as G
 ON I.StockItemID = G.StockItemID
 WHERE  G.StockGroupID = ? and SearchDetails like ?";
-        echo "<br>Catagorie: aan <br> Zoeken: aan<br>";
         $result = getFromDB($count, $where, null, null, $search);
     }
     $aantalProd = (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['amount']);
@@ -188,7 +183,6 @@ function zoekenProducten()
         $search = "%" . $_GET['searchFor'] . "%";
 
         $count = tellenProducten(null, $search);
-        echo "<br>Aantal producten $count<br>";
         $limit = productenPerPagina($count);
         $offset = offset($limit);
 
@@ -202,7 +196,6 @@ OFFSET ?";
         $search = "%" . $_GET['searchFor'] . "%";
 
         $count = tellenProducten($where, $search);
-        echo "<br>Aantal producten $count<br>";
         $limit = productenPerPagina($count);
         $offset = offset($limit);
 
@@ -214,5 +207,53 @@ LIMIT ? OFFSET ? ";
     }
 }
 
+function getSpecialDeals()
+{
+    $sql = "SELECT * FROM specialdeals;";
+    return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
+}
 
+function getDiscount($stockItemID = null, $stockGroupID = null)
+{
+    if ($stockItemID !=null) {
+        $sql = "SELECT DiscountPercentage
+FROM specialdeals
+WHERE StockItemID = ?";
+        $where = $stockItemID;
+        $discount = (mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC)["DiscountPercentage"]);
+        if (!empty($discount['DiscountPercentage'])) {
+
+            return $discount['DiscountPercentage'];
+        } else {
+            foreach (getStockGroup($stockItemID, true) as $id) {
+                $sql = "SELECT DiscountPercentage
+FROM specialdeals
+WHERE StockGroupID = " . $id['StockGroupID'];
+                $discount = (mysqli_fetch_array(getFromDB($sql), MYSQLI_ASSOC)["DiscountPercentage"]);
+                if ($discount) {
+                    return $discount;
+                }
+            }
+        }
+    } else {
+        $sql = "SELECT DiscountPercentage
+FROM specialdeals
+WHERE StockGroupID = ?";
+        $where = $stockGroupID;
+        $discount = (mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC)["DiscountPercentage"]);
+        return $discount;
+    }
+    return;
+}
+
+function insertReview($stockItemID, $UserID, $Name, $Rating, $Description){
+    $sql = "INSERT INTO `reviews`(`StockItemID`, `UserID`, `Name`, `Rating`, `Description`) VALUES (?,?,?,?,?)";
+    $conn = maakVerbinding();
+    $stmt = mysqli_stmt_init($conn);
+    mysqli_stmt_prepare($stmt, $sql);
+    mysqli_stmt_bind_param($stmt, 'iisis', $stockItemID, $UserID, $Name, $Rating, $Description);
+    mysqli_stmt_execute($stmt);
+    sluitVerbinding($conn);
+    return;
+}
 ?>
