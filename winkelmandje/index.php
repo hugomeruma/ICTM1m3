@@ -4,7 +4,7 @@ require __dir__ . "/../functies/algemeneFuncties.php";
 require __dir__ . "/../functies/helpers.php";
 require __dir__ . "/../functies/contentFuncties.php";
 require __dir__ . "/../parts/head.php";
-require __dir__ . "/../parts/navbar.php";
+//require __dir__ . "/../parts/navbar.php";
 $_SESSION['totaalWinkelmandje'] = 0;
 ?>
 
