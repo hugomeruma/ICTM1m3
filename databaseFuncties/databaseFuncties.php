@@ -1,5 +1,5 @@
 <?php
-//default functies verbinden
+// default functies verbinden
 function maakVerbinding($user = null, $pass = null)
 {
     $host = "localhost";
@@ -92,7 +92,7 @@ WHERE  G.StockGroupID = ? and SearchDetails like ?";
 //stockGroups
 function selecterenStockgroups()
 {
-    $sql = "SELECT SG.StockGroupID, SG.StockGroupName 
+    $sql = "SELECT SG.StockGroupID, SG.StockGroupName
 FROM stockgroups as SG  WHERE SG.StockGroupID IN (SELECT StockGroupId FROM stockitemstockgroups)";
     return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
 }
@@ -186,8 +186,8 @@ function zoekenProducten()
         $limit = productenPerPagina($count);
         $offset = offset($limit);
 
-        $sql = "SELECT * FROM StockItems WHERE SearchDetails like ? 
-LIMIT ? 
+        $sql = "SELECT * FROM StockItems WHERE SearchDetails like ?
+LIMIT ?
 OFFSET ?";
         return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset, $search), MYSQLI_ASSOC);
     }
@@ -200,7 +200,7 @@ OFFSET ?";
         $offset = offset($limit);
 
         $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
-ON I.StockItemID = G.StockItemID 
+ON I.StockItemID = G.StockItemID
 WHERE  G.StockGroupID = ? and SearchDetails like ?
 LIMIT ? OFFSET ? ";
         return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset, $search), MYSQLI_ASSOC);

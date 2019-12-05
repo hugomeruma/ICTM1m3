@@ -1,4 +1,5 @@
 <?php
+require_once 'databaseFuncties/account.php';
 function login($mail, $password)
 {
     $conn = maakVerbinding();
@@ -16,7 +17,7 @@ function login($mail, $password)
                 $_SESSION['name'] = getFullName($account[0]['firstName'], $account[0]['tussenvoegsel'], $account[0]['lastName']);
                 $_SESSION['ingelogd'] = TRUE;
                 $_SESSION['email'] = $_POST[0]['email'];
-                $_SESSION['id'] = $_POST[0]['id'];
+                $_SESSION['id'] = $account[0]['id'];
                 return true;
             } else {
                 return false;
