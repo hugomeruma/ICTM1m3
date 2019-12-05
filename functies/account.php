@@ -1,4 +1,5 @@
 <?php
+require_once 'databaseFuncties/account.php';
 function login($mail, $password)
 {
     $conn = maakVerbinding();

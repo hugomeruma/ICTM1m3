@@ -29,6 +29,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="<?= getBaseUrl() . '/uitloggen.php' ?>">Uitloggen</a>
+                            <a class="dropdown-item" href="<?= getBaseUrl() . '/account-bewerken.php' ?>">Profiel</a>
                         </div>
                     </li>
                 <?php else: ?>

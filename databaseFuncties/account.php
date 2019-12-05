@@ -1,4 +1,5 @@
 <?php
+require_once 'databaseFuncties.php';
 
 //function MaakVerbinding()
 //{
@@ -9,6 +10,8 @@
 //    $connection = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 //    return $connection;
 //}
+
+$gegevens = array("id" => 0, "voornaam" => "", "tussenvoegsel" => "", "achternaam" => "", "email" => "", "wachtwoord" => "", "woonplaats" => "", "postcode" => "", "huisnummer" => "", "straatnaam" => "", "telefoonnr" => "", "melding" => "");
 
 function maakAccount($firstName, $tussenvoegsel, $lastName, $email, $password, $city, $postalCode, $houseNumber, $streetName, $phoneNumber)
 {
@@ -39,15 +42,38 @@ function SelecteerAccount($connection, $id)
     return $result;
 }
 
-function ophalengegevens($id)
-{
+//function ophalengegevens($id)
+//{
+//
+//    $conn = MaakVerbinding();
+//    $sql = "SELECT * FROM accounts WHERE ID = ?";
+//    mysqli_stmt_bind_param($sql, 'i', $id);
+//    mysqli_stmt_execute($sql);
+//    $result = mysqli_fetch_all(mysqli_query($conn, $sql), MYSQLI_ASSOC);
+//    return $result;
+//}
 
-    $conn = MaakVerbinding();
-    $sql = "SELECT * FROM accounts WHERE ID = ?";
-    mysqli_stmt_bind_param($sql, 'i', $id);
-    mysqli_stmt_execute($sql);
-    $result = mysqli_fetch_all(mysqli_query($conn, $sql), MYSQLI_ASSOC);
-    return $result;
+function AccountGegevensWijzigen($gegevens)
+{
+    if (!empty($gegevens["id"])) {
+        $connection = MaakVerbinding();
+        if (WijzigAccount($connection, $gegevens["id"], $gegevens["voornaam"], $gegevens["tussenvoegsel"], $gegevens["achternaam"], $gegevens["email"], $gegevens["woonplaats"], $gegevens["postcode"], $gegevens["huisnummer"], $gegevens["straatnaam"], $gegevens["telefoonnr"]) == 1)
+            $gegevens["melding"] = "De gegevens zijn gewijzigd en opgeslagen";
+        else $gegevens["melding"] = "De gegevens zijn niet gewijzigd!";
+        SluitVerbinding($connection);
+    } else $gegevens["melding"] = "Het id ontbreekt";
+    return $gegevens;
+}
+
+function  AccountGegevensOpvragen($gegevens)
+{
+    if (!empty($gegevens["id"])) {
+        $connection = MaakVerbinding();
+        $gegevens = SelecteerAccount($connection, $gegevens["id"]);
+        $gegevens["melding"] = "";
+        SluitVerbinding($connection);
+    } else $gegevens["melding"] = "Het id ontbreekt";
+    return $gegevens;
 }
 
 //function accountGegevensToevoegen(array $account)
