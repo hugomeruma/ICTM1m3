@@ -1,5 +1,5 @@
-<div class="container-fluid">
-    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+<div class="container-fluid120">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="">
         <div class="carousel-inner">
             <?php
             $first = true;
@@ -13,12 +13,14 @@
                 <div class="carousel-item deal-carousel-item <?php if ($first == true) {
                     echo "active";
                 } ?>">
-                    <div class="jumbotron-item jumbotron-deals">
+                    <div class="jumbotron jumbotron-item jumbotron-deals">
                         <div class="jumbotron-info">
                             <h1><?= $deal["DealDescription"] ?></h1>
                             <h2><?php
-                                if (empty($deal["StockItemID"])): echo getMaxDiscountStockGroup($deal["StockGroupID"], $deal["DiscountPercentage"]) ?>
-
+                                if (empty($deal["StockItemID"])):?>
+                                    Nu tot wel &nbsp; €
+                                    <?= getMaxDiscountStockGroup($deal["StockGroupID"], $deal["DiscountPercentage"]) ?>
+                                    ,- &nbsp; korting
                                 <?php endif ?>
                             </h2>
                         </div>
@@ -30,7 +32,6 @@
                             ?>">
                         </div>
                     </div>
-                    <!--                    <a class="stretched-link" href=""></a>-->
                 </div>
                 <?php
                 $first = false;

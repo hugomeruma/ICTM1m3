@@ -1,6 +1,10 @@
 <div class="startpagina_header container-fluid">
-    <h1 class="startpagina_header_medium fly-in">Welkom bij</h1>
-    <h1 class="startpagina_header_large startpagina_header fly-in-rtl">Wide World<span style="color: #8F8F8E">  Importers</span>
+    <h2 class="startpagina_header_medium fly-in">
+        Welkom bij</h2>
+    <h1 class="startpagina_header_large fly-in-rtl">
+        Wide World <span style="font-size: 100px">&nbsp;</span>
+        <span style="color: #8F8F8E">
+         Importers</span>
     </h1>
     <!--    <h2 class="region__header-title" data-test="region-header-title"> Onze aanraders</h2>-->
 </div>
