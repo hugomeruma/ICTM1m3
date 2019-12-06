@@ -1,0 +1,132 @@
+.startpagina_header_large {
+    font-size: 90px;
+    margin: 0px 40px 40px 40px;
+}
+
+.startpagina_header_medium {
+    font-size: 70px;
+    margin-top: 40px;
+}
+
+.startpagina_header {
+    overflow: hidden;
+    position: relative;
+    font-family: "BigNoodleTitling Oblique";
+    text-align: center;
+    color: var(--blue);
+}
+
+.startpagina_header span span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.fly-in {
+    animation: fly-in 1.2s ease-out;
+}
+
+.fly-in-rtl {
+    animation: fly-in-rtl 1.2s ease-out;
+}
+
+@keyframes fly-in-rtl {
+    0% {
+        transform: translateX(200%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+@keyframes fly-in {
+    0% {
+        transform: translateX(-200%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+.divider {
+    background-color: var(--blue);
+    /*max-height: 50px;*/
+    height: 60px !important;
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.divider-text {
+    font-family: "BigNoodleTitling Oblique";
+    display: inline-flex;
+    justify-content: space-between;
+    color: white;
+    font-size: 40px;
+    line-height: 0 !important;
+}
+
+
+/*.startpagina {*/
+/*    font-family: "BigNoodleTitling Oblique";*/
+/*    font-size: 60px;*/
+/*    vertical-align: central;*/
+/*    background: -webkit-radial-gradient(circle, #00ADEF, #929aa8);*/
+/*    -webkit-background-clip: text;*/
+/*    -webkit-text-fill-color: transparent;*/
+/*    !*text-shadow: 15px 15px 15px darkgray;*!*/
+/*    !*padding-top: 15px;*!*/
+/*}*/
+
+
+.carousel-inner > .deal-carousel-item {
+    transition: -webkit-transform 1.7s ease-in-out;
+    transition: transform 1.7s ease-in-out;
+    transition: transform 1.7s ease-in-out, -webkit-transform 1.7s ease-in-out
+}
+
+.jumbotron-deals {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: white;
+    border-radius: .3rem;
+    padding: 150px;
+    /*width: 95%;*/
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.jumbotron-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border: 1px solid black;
+}
+
+.jumbotron-info h1 {
+    font-size: 100px;
+    color: var(--blue);
+    font-style: italic;
+}
+
+.jumbotron-info {
+    font-family: "BigNoodleTitling Oblique";
+    flex-grow: 5;
+
+    /*max-height: 275px;*/
+    height: 275px !important;
+}
+
+.jumbotron-deals-images {
+    flex-grow: 1;
+}
+
+.jumbotron-deals-images img {
+    max-height: 275px;
+    height: 100%;
+
+    object-fit: contain;
+}

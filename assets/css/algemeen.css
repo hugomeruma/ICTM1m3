@@ -1,0 +1,33 @@
+:root {
+    /*use =  var(--$)*/
+
+    /*Colors*/
+    --blue: #00adef;
+    --grey: #f1f1f1;
+    /*Font*/
+}
+
+@font-face {
+    font-family: 'BigNoodleTitling';
+    font-style: normal;
+    font-weight: normal;
+    src: local('BigNoodleTitling'), url('http://localhost/ICTM1m3/assets/fonts/big_noodle_titling.woff') format('woff');
+
+}
+
+
+@font-face {
+    font-family: 'BigNoodleTitling Oblique';
+    font-style: normal;
+    font-weight: normal;
+    src: local('BigNoodleTitling Oblique'), url('http://localhost/ICTM1m3/assets/fonts/big_noodle_titling_oblique.woff') format('woff');
+}
+
+.centerd {
+    text-align: center;
+}
+
+
+.discount-icon i {
+    vertical-align: middle;
+}

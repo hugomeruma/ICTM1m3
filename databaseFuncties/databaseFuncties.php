@@ -1,5 +1,5 @@
 <?php
-//default functies verbinden
+// default functies verbinden
 function maakVerbinding($user = null, $pass = null)
 {
     $host = "localhost";
@@ -92,7 +92,7 @@ WHERE  G.StockGroupID = ? and SearchDetails like ?";
 //stockGroups
 function selecterenStockgroups()
 {
-    $sql = "SELECT SG.StockGroupID, SG.StockGroupName 
+    $sql = "SELECT SG.StockGroupID, SG.StockGroupName
 FROM stockgroups as SG  WHERE SG.StockGroupID IN (SELECT StockGroupId FROM stockitemstockgroups)";
     return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
 }
@@ -186,8 +186,8 @@ function zoekenProducten()
         $limit = productenPerPagina($count);
         $offset = offset($limit);
 
-        $sql = "SELECT * FROM StockItems WHERE SearchDetails like ? 
-LIMIT ? 
+        $sql = "SELECT * FROM StockItems WHERE SearchDetails like ?
+LIMIT ?
 OFFSET ?";
         return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset, $search), MYSQLI_ASSOC);
     }
@@ -200,7 +200,7 @@ OFFSET ?";
         $offset = offset($limit);
 
         $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
-ON I.StockItemID = G.StockItemID 
+ON I.StockItemID = G.StockItemID
 WHERE  G.StockGroupID = ? and SearchDetails like ?
 LIMIT ? OFFSET ? ";
         return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset, $search), MYSQLI_ASSOC);
@@ -248,7 +248,7 @@ WHERE StockGroupID = ?";
 
 function getReviews($stockItemID)
 {
-    $sql = "SELECT * FROM reviews WHERE StockItemID = ?";
+    $sql = "SELECT * FROM reviews WHERE StockItemID = ? ORDER BY ReviewID desc";
     $where = $stockItemID;
     return mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC);
 }
@@ -268,5 +268,15 @@ function insertReview($stockItemID, $UserID, $Name, $Rating, $Description){
     return;
 }
 
+function getMaxDiscountStockGroup($stockgroupID, $discount)
+{
+    $sql = "SELECT max(UnitPrice) from stockitems as S 
+JOIN stockitemstockgroups as G on S.StockItemID = G.StockItemID
+WHERE G.StockGroupID = ?";
+    $where = $stockgroupID;
+    $maxPrice = mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC)[0]["max(UnitPrice)"];
+    return ceil($maxPrice * ($discount / 100));
+
+}
 
 ?>

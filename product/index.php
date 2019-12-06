@@ -19,7 +19,7 @@ require __dir__ . "/../functies/productFuncties.php";
         if (isset($_POST['rating'])) {
             print_r($_POST);
             insertReview($_POST['stockItemID'], $_POST['userID'], $_POST['name'], $_POST['rating'], $_POST['Description']);
-            redirect('product/index.php?view=' . $_GET['view'] . '&in=' . $_GET['in'] . "&opgeslagen=opgeslagen");
+            redirect('product/index.php?view=' . $_GET['view'] . '&in=' . $_GET['in'] . "&opgeslagen=opgeslagen#show-reviews");
         }
         ?>
 
@@ -63,7 +63,7 @@ require __dir__ . "/../functies/productFuncties.php";
                 </button>
             <?php else: ?>
                 <button class="btn btn-secondary w-auto" type="button" data-toggle="collapse"
-                        data-target="#plaats-een-review"
+                        data-target="#plaats-een-review" href="#show-reviews"
                         aria-expanded="false" aria-controls="collapseExample">
                     Plaats een review &nbsp;<i class="fas fa-pencil-alt"></i>
                 </button>
@@ -76,7 +76,7 @@ require __dir__ . "/../functies/productFuncties.php";
             </div>
         </div>
 
-        <div class="collapse" id="show-reviews" class="show-review">
+        <div class="collapse in" id="show-reviews" class="show-review">
             <div class="card card-body">
                 <?php
                 $reviews = getReviews($_GET['view']);
