@@ -1,0 +1,84 @@
+.img {
+    height: 100%;
+    max-height: 110px;
+    width: 100%;
+    max-width: 100px;
+    object-fit: contain;
+
+    vertical-align: middle;
+}
+
+.product_per_pagina_form {
+    text-align: left;
+    width: 17%;
+}
+
+.page-item.active .page-link {
+    background-color: var(--blue);
+    border: 1px solid #E2E6E9;
+}
+
+.page-link:hover {
+    color: var(--blue);
+}
+
+.page-link {
+    color: var(--blue);
+    border: 1px solid #E2E6E9;
+}
+
+.disabled-card {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1;
+
+    position: absolute;
+    height: 100%;
+    font-size: 40px;
+    font-weight: bold;
+    color: orange;
+}
+.product_kaart {
+    height: 100%;
+    max-height: 120px;
+    position: relative;
+}
+
+.img-product .discount-icon-div .discount-icon {
+    right: -4px;
+    top: -2px;
+    /*position: relative;*/
+    font-size: 10px;
+    color: green;
+}
+
+.product_kaart:hover {
+    -moz-box-shadow: inset 0 0 1px #000000;
+    -webkit-box-shadow: inset 0 0 1px #000000;
+    box-shadow: inset 0 0 1px #000000;
+}
+
+
+.discount-icon-div-on-item {
+    position: relative;
+}
+
+.discount-icon-div-on-item .discount-icon-on-item {
+    position: absolute;
+    right: 20px;
+    top: -100px;
+    color: green;
+}
+.button-toevoegen {
+    background-color: var(--blue);
+    border: none;
+}
+
+#wrapper {
+    opacity: 0.4;
+    filter: alpha(opacity=40); /* msie */
+    /*background-color: #000;*/
+}

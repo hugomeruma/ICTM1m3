@@ -41,8 +41,13 @@
                     <?= $_SESSION['name'] ?? '' ?>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="<?= getBaseUrl() . '/uitloggen.php' ?>">Uitloggen</a></li>
-                    <li><a class="dropdown-item" href="<?= getBaseUrl() . '/uitloggen.php' ?>">Account beheren</a></li>
+                    <li>
+                        <a class="dropdown-item" href="<?= getBaseUrl() . '/uitloggen.php' ?>">Uitloggen</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="<?= getBaseUrl() . '/account-bewerken.php' ?>">Account
+                            beheren</a>
+                    </li>
                 </ul>
             </div>
         <?php else: ?>
