@@ -18,3 +18,10 @@
 }
 
 
+.teller_form {
+    height: 38px;
+    width: 30%;
+    display: flex;
+    direction: rtl;
+}
+

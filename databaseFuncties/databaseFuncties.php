@@ -248,7 +248,7 @@ WHERE StockGroupID = ?";
 
 function getReviews($stockItemID)
 {
-    $sql = "SELECT * FROM reviews WHERE StockItemID = ?";
+    $sql = "SELECT * FROM reviews WHERE StockItemID = ? ORDER BY ReviewID desc";
     $where = $stockItemID;
     return mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC);
 }
@@ -268,5 +268,15 @@ function insertReview($stockItemID, $UserID, $Name, $Rating, $Description){
     return;
 }
 
+function getMaxDiscountStockGroup($stockgroupID, $discount)
+{
+    $sql = "SELECT max(UnitPrice) from stockitems as S 
+JOIN stockitemstockgroups as G on S.StockItemID = G.StockItemID
+WHERE G.StockGroupID = ?";
+    $where = $stockgroupID;
+    $maxPrice = mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC)[0]["max(UnitPrice)"];
+    return ceil($maxPrice * ($discount / 100));
+
+}
 
 ?>

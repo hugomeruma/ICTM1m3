@@ -79,11 +79,11 @@
 }
 
 .review-box {
-    width: 900px;
-
+    width: 90%;
     border: 1px solid var(--blue);
     border-radius: 15px;
-    margin: 40px;
+    margin: auto;
+    margin-top: 40px;
 }
 
 .review-header-row {

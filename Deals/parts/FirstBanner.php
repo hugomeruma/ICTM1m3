@@ -19,7 +19,6 @@
                 <i class="fas fa-percent fa-stack-1x fa-inverse"></i>
             </span>
             <div>
-                test
             </div>
         </div>
         <!--        <a class="stretched-link" href="#" > </a>-->
