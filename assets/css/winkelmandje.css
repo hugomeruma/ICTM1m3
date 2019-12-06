@@ -1,0 +1,20 @@
+
+.button_winkelmandje_verw {
+    background-color: var(--blue);
+    border: 1px solid var(--blue);
+    margin-left: 20px;
+}
+
+.winkelmandje_form_group {
+    display: inline-flex;
+    direction: rtl;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.opslaan_winkelmandje {
+    background-color: var(--blue);
+    border: 1px solid var(--blue);
+}
+
+

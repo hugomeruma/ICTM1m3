@@ -1,5 +1,5 @@
 <?php
-require_once 'databaseFuncties.php';
+//require 'databaseFuncties.php';
 
 //function MaakVerbinding()
 //{

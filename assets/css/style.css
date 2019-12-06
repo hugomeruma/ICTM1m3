@@ -129,6 +129,7 @@
     color: var(--blue);
 }
 
+/*!!*/
 .button-toevoegen {
     background-color: var(--blue);
     border: none;
@@ -184,9 +185,6 @@
     -webkit-text-fill-color: transparent;
     text-shadow: 15px 15px 15px darkgray;
     padding-top: 15px;
-}
-
-.carousel-inner {
 }
 
 .carousel-image {

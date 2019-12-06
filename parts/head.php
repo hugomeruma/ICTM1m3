@@ -5,7 +5,7 @@ if (!isset($_SESSION)) {
     ob_start();
 }
 ?>
-    <!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -22,5 +22,3 @@ if (!isset($_SESSION)) {
     <title>WWI</title>
 </head>
 <body>
-<?php
-?>

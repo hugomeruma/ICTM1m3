@@ -1,0 +1,31 @@
+
+.startpagina {
+    font-size: 41px;
+    vertical-align: central;
+    background: -webkit-radial-gradient(circle, #00ADEF, #929aa8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 15px 15px 15px darkgray;
+    padding-top: 15px;
+}
+
+
+.carousel-inner > .deal-carousel-item {
+    transition: -webkit-transform 1.7s ease-in-out;
+    transition: transform 1.7s ease-in-out;
+    transition: transform 1.7s ease-in-out, -webkit-transform 1.7s ease-in-out
+}
+
+.jumbotron {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: #e9ecef;
+    border-radius: .3rem
+}
+
+.teller_form {
+    height: 38px;
+    width: 30%;
+    display: flex;
+    direction: rtl;
+}
