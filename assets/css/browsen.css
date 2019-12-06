@@ -72,7 +72,10 @@
     top: -100px;
     color: green;
 }
-
+.button-toevoegen {
+    background-color: var(--blue);
+    border: none;
+}
 
 #wrapper {
     opacity: 0.4;
