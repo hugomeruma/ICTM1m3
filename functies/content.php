@@ -28,15 +28,6 @@ function checkDiscount($stockItemID = null, $stockGroupID = null) {
 //Default van het search veld,
 //Als er niks is gezocht: 'Type hier om te zoeken'
 //Als er wel gezocht is 'laten zie van het zoekwoord'
-function searchFor()
-{
-    if (!empty($_GET['searchFor'])) {
-        $searchFor = $_GET['searchFor'];
-        return $_GET['searchFor'];
-    } else {
-        return 'Zoeken...';
-    }
-}
 
 function imgIDs($stockitemID, $isThubmnail = null)
 {
@@ -83,17 +74,4 @@ function catImageIDs($stockitemID)
     return $newNames;
 
 }
-
-function getCurrentURL() {
-    if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
-        $link = "https";
-    else
-        $link = "http";
-    $link .= "://";
-    $link .= $_SERVER['HTTP_HOST'];
-    $link .= $_SERVER['REQUEST_URI'];
-//    echo $link;
-    return $link;
-}
-
 ?>

@@ -1,12 +1,7 @@
 <?php
-ob_start();
-require __DIR__ . "/functies/algemeneFuncties.php";
-require __DIR__ . "/functies/helpers.php";
-require __DIR__ . "/functies/contentFuncties.php";
-require __DIR__ . "/functies/account.php";
+require __DIR__ . '/init.php';
 require __DIR__ . "/parts/head.php";
-
-
+require __DIR__ . "/functies/account.php";
 
 if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd']) {
     redirect('');

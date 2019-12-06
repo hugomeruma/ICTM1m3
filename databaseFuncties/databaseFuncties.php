@@ -89,13 +89,6 @@ WHERE  G.StockGroupID = ? and SearchDetails like ?";
     return $aantalProd;
 }
 
-//stockGroups
-function selecterenStockgroups()
-{
-    $sql = "SELECT SG.StockGroupID, SG.StockGroupName 
-FROM stockgroups as SG  WHERE SG.StockGroupID IN (SELECT StockGroupId FROM stockitemstockgroups)";
-    return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
-}
 
 function currentStockGroup()
 {
@@ -177,74 +170,44 @@ WHERE G.StockGroupID = ? LIMIT ? OFFSET ?";
     return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset), MYSQLI_ASSOC);
 }
 
-function zoekenProducten()
-{
-    if (empty($_GET['in'])) {
-        $search = "%" . $_GET['searchFor'] . "%";
-
-        $count = tellenProducten(null, $search);
-        $limit = productenPerPagina($count);
-        $offset = offset($limit);
-
-        $sql = "SELECT * FROM StockItems WHERE SearchDetails like ? 
-LIMIT ? 
-OFFSET ?";
-        return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset, $search), MYSQLI_ASSOC);
-    }
-    if (!empty($_GET['in'])) {
-        $where = $_GET['in'];
-        $search = "%" . $_GET['searchFor'] . "%";
-
-        $count = tellenProducten($where, $search);
-        $limit = productenPerPagina($count);
-        $offset = offset($limit);
-
-        $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
-ON I.StockItemID = G.StockItemID 
-WHERE  G.StockGroupID = ? and SearchDetails like ?
-LIMIT ? OFFSET ? ";
-        return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset, $search), MYSQLI_ASSOC);
-    }
-}
-
 function getSpecialDeals()
 {
     $sql = "SELECT * FROM specialdeals;";
     return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
 }
 
-function getDiscount($stockItemID = null, $stockGroupID = null)
-{
-    if ($stockItemID !=null) {
-        $sql = "SELECT DiscountPercentage
-FROM specialdeals
-WHERE StockItemID = ?";
-        $where = $stockItemID;
-        $discount = (mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC)["DiscountPercentage"]);
-        if (!empty($discount['DiscountPercentage'])) {
-
-            return $discount['DiscountPercentage'];
-        } else {
-            foreach (getStockGroup($stockItemID, true) as $id) {
-                $sql = "SELECT DiscountPercentage
-FROM specialdeals
-WHERE StockGroupID = " . $id['StockGroupID'];
-                $discount = (mysqli_fetch_array(getFromDB($sql), MYSQLI_ASSOC)["DiscountPercentage"]);
-                if ($discount) {
-                    return $discount;
-                }
-            }
-        }
-    } else {
-        $sql = "SELECT DiscountPercentage
-FROM specialdeals
-WHERE StockGroupID = ?";
-        $where = $stockGroupID;
-        $discount = (mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC)["DiscountPercentage"]);
-        return $discount;
-    }
-    return;
-}
+//function getDiscount($stockItemID = null, $stockGroupID = null)
+//{
+//    if ($stockItemID !=null) {
+//        $sql = "SELECT DiscountPercentage
+//FROM specialdeals
+//WHERE StockItemID = ?";
+//        $where = $stockItemID;
+//        $discount = (mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC)["DiscountPercentage"]);
+//        if (!empty($discount['DiscountPercentage'])) {
+//
+//            return $discount['DiscountPercentage'];
+//        } else {
+//            foreach (getStockGroup($stockItemID, true) as $id) {
+//                $sql = "SELECT DiscountPercentage
+//FROM specialdeals
+//WHERE StockGroupID = " . $id['StockGroupID'];
+//                $discount = (mysqli_fetch_array(getFromDB($sql), MYSQLI_ASSOC)["DiscountPercentage"]);
+//                if ($discount) {
+//                    return $discount;
+//                }
+//            }
+//        }
+//    } else {
+//        $sql = "SELECT DiscountPercentage
+//FROM specialdeals
+//WHERE StockGroupID = ?";
+//        $where = $stockGroupID;
+//        $discount = (mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC)["DiscountPercentage"]);
+//        return $discount;
+//    }
+//    return;
+//}
 
 function insertReview($stockItemID, $UserID, $Name, $Rating, $Description){
     $sql = "INSERT INTO `reviews`(`StockItemID`, `UserID`, `Name`, `Rating`, `Description`) VALUES (?,?,?,?,?)";

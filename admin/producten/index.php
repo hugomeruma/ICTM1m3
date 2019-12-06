@@ -89,7 +89,7 @@ if (isset($_GET['zoek-opdracht'])) {
         <!-- Pagination -->
 
         <?php
-        $aantalPaginas = telPaginas(15) ?? 0;
+        $aantalPaginas = telProductenPagina(15) ?? 0;
         if (isset($_GET['pagina'])) {
             $vorige = $_GET['pagina'] - 1;
             $volgende = $_GET['pagina'] + 1;

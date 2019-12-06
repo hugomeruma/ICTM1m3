@@ -1,16 +1,4 @@
 <?php
-//opvragen van browsen
-function opvragenProducten()
-{
-    //alleproducten laten zien.
-    if (empty($_GET['in']) && empty($_GET['searchFor'])) {
-        return alleProducten();
-    } elseif (!empty($_GET['in']) && empty($_GET['searchFor'])) {
-        return selecterenProducten();
-    } elseif (!empty($_GET['searchFor'])) {
-        return zoekenProducten();
-    }
-}
 
 //browsen per pagina
 function productenPerPagina()

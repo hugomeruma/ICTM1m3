@@ -1,9 +1,7 @@
 <?php
-require __DIR__ . "/functies/algemeneFuncties.php";
-require __DIR__ . "/functies/helpers.php";
-require __DIR__ . "/functies/contentFuncties.php";
-require __DIR__ . "/databaseFuncties/account.php";
+require __DIR__ . '/init.php';
 require __DIR__ . "/parts/head.php";
+require __DIR__ . "/databaseFuncties/account.php";
 
 $_SESSION['winkelwagen']['producten'] = [
     4 => 5,

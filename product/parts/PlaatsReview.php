@@ -1,6 +1,4 @@
 <?php
-
-
 if (!isset($_SESSION['ingelogd'])):?>
     <h6 class="review-form-NA-text">Je bent nog niet ingelogd.</h6>
     <div class="button centerd">
@@ -15,13 +13,8 @@ if (!isset($_SESSION['ingelogd'])):?>
     <div class="review-form-NA justify-content-center">
         <h6 class="review-form-NA-text">Je hebt het product nog niet gekocht.</h6>
     </div>
-    <?php
-else:
-    print_r($_SESSION);
-
-    ?>
-
-    <form action="<?php getCurrentURL() ?>" method="POST">
+<?php else: ?>
+    <form method="POST">
         <input type="hidden" name="stockItemID" value="<?= $_GET['view'] ?>">
         <input type="hidden" name="userID" value="<?= $_SESSION['id'] ?>">
         <input type="hidden" name="name" value="<?= $_SESSION['name'] ?>">
@@ -40,10 +33,3 @@ else:
 <?php
 endif;
 ?>
-
-
-<!--    <div class="justify-content-around">-->
-<!--        <a href="--><? //= getBaseUrl()
-?><!--login.php" class="btn btn-primary review-NA-btn centerd"> Klik hier om in te-->
-<!--            loggen</a>-->
-<!--    </div>-->

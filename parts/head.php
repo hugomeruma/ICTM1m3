@@ -1,11 +1,4 @@
-<?php
-ob_start();
-if (!isset($_SESSION)) {
-    session_start();
-    ob_start();
-}
-?>
-    <!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -16,12 +9,11 @@ if (!isset($_SESSION)) {
           type="text/css">
     <link rel="stylesheet" href="<?= getBaseUrl() ?>/assets/css/style.css"
           type="text/css">
-    <link rel="stylesheet" href="<?= getBaseUrl() ?>/assets/css/test.css"
-          type="text/css">
     <link rel="stylesheet" href="<?= getBaseUrl() ?>/assets/css/fontawesome-free-5.11.2-web/css/all.css">
     <title>WWI</title>
 </head>
 <body>
 <?php
+require __DIR__ . '/../databaseFuncties/categorie.php';
 require __DIR__ . '/navbar.php';
 ?>

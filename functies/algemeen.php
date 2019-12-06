@@ -28,3 +28,29 @@ function getBaseUrl($base = 'localhost:8080')
     return 'http://' . $base . '/';
 }
 
+function redirect($path)
+{
+    echo "Location:" . getBaseURL() . $path;
+    header("Location:" . getBaseURL() . $path);
+    exit();
+}
+
+function standaardProductenPerPagina()
+{
+    return '10';
+}
+
+function haalGetVariabelenOpVoorUrl($getWaardes)
+{
+    $url = '?';
+    $aantalWaardes = count($getWaardes);
+    $aantalLoops = 1;
+    foreach ($getWaardes as $key => $getWaarde) {
+        $url .= $key . '=' . $getWaarde;
+        if ($aantalLoops != $aantalWaardes) {
+            $url .= '&';
+        }
+        $aantalLoops++;
+    }
+    return $url;
+}
