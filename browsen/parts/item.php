@@ -28,7 +28,7 @@
             <?php endif; ?>
         </div>
 
-        <div class="col-7 product-item_content py-2">
+        <div class="col-6 product-item_content py-2">
 
             <div class="product_info" style="<?php if ($stock <= 0): ?>color: darkgray <?php endif; ?>">
                 <h5><?= $product['StockItemName'] ?></h5>
@@ -70,8 +70,19 @@
         ?>
         op vooraad.</span>
             <?php endif; ?>
-            <!--    <toevoegen aan winkelmandje><button> met icon /button>-->
+        </div>
+        <div class="col-1">
+            <div class="SmallBasket">
+                <form action="<?= getBaseUrl() ?>winkelmandje/index.php" method="post" class="form-inline my-2 my-lg-0 d-flex">
+                    <input type="hidden" name="StockItemID" value="<?= $product['StockItemID'] ?>">
 
+
+                    <button type="submit" class="btn btn-primary button-toevoegen justify-content-around">
+                        <i class="fas fa-shopping-basket button-icon"></i>
+                    </button>
+
+                </form>
+            </div>
         </div>
     </div>
     <!--    --><?php //if ($stock <= 0): ?>

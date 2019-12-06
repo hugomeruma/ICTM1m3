@@ -103,12 +103,6 @@
     border-bottom-color: var(--blue);
 }
 
-.divStockGroup:hover .divStockGroup-selected {
-    background: var(--blue);
-    border-width: 0 2px 2px 2px;
-    border-bottom-color: var(--blue);
-}
-
 .stockGroup {
     font-size: 17px;
     font-weight: 500;

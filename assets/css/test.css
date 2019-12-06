@@ -158,3 +158,27 @@ bounceAnimation {
     filter: alpha(opacity=40); /* msie */
     /*background-color: #000;*/
 }
+
+.SmallBasket {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 25%;
+}
+
+.divStockGroup:hover ~ .divStockGroup-selected {
+    background: var(--blue);
+    border-width: 0px 2px 2px 2px;
+    border-radius: 0px;
+}
+.divStockGroup:hover ~ .divStockGroup-selected .stockGroup {
+    color: white;
+}
+
+/*.divStockGroup:hover ~ .divStockGroup-selected {*/
+    /*background: var(--blue);*/
+    /*border-width: 0 2px 2px 2px;*/
+    /*border-bottom-color: var(--blue);*/
+}
+
