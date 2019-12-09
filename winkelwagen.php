@@ -57,7 +57,7 @@ if (isset($_GET['te-verwijderen-product'])) {
                         <div class="row">
                             <div class="col-3">
                                 <img src="<?= getBaseUrl() ?>assets/afbeeldingen/image_not_available.png"
-                                     class="winkelwagen-product-afbeelding" alt="">
+                                     class="winkelwagen-product-afbeelding w-100" alt="">
                             </div>
                             <div class="col-7 py-2">
                                 <a href="<?= getBaseUrl() ?>product.php?product=<?= $product['StockItemID'] ?>">
