@@ -19,6 +19,11 @@ if (isset($_POST['login'])) {
     }
 }
 
+// Haal de gegevens van de ingelogde op als een gebruiker ingelogd en hij de gegevens automatisch ingevuld wil hebben
+if(isset($_GET['automatisch-invullen']) && $_GET['automatisch-invullen'] === 'ja') {
+    $account = haalAccountOpID($_SESSION['id'])[0];
+}
+
 // Als de winkelwagen leeg is: redirect met alert
 if (empty($_SESSION['winkelwagen']['producten'])) {
     $_SESSION['alert']['info']['title'] = 'Geen producten!';
@@ -28,7 +33,7 @@ if (empty($_SESSION['winkelwagen']['producten'])) {
 
 // Als het get formulier is verstuurd haal waardes op voor naw velden
 if (isset($_GET['automatisch-invullen']) && $_GET['automatisch-invullen'] === 'ja') {
-    $account = ophalenOpID($_SESSION['id']);
+    $account = haalAccountOpID($_SESSION['id'])[0];
 }
 
 // Handle order
@@ -40,7 +45,7 @@ if (isset($_POST['bestelling-afronden'])) {
     }
 }
 ?>
-<div class="container mt-3">
+<div class="container">
     <h1>Bestelling afronden</h1>
     <div class="row">
         <div class="col-sm-6 col-md-6 col-lg-4">
@@ -79,17 +84,17 @@ if (isset($_POST['bestelling-afronden'])) {
                 <div class="form-group">
                     <label for="">Voornaam*</label>
                     <input type="text" class="form-control" id="" name="voornaam"
-                           value="<?= $account["voornaam"] ?? '' ?>" required>
+                           value="<?= $account["firstName"] ?? '' ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="tussenvoegsel">Tussenvoegsel*</label>
                     <input type="text" class="form-control" id="tussenvoegsel" name="tussenvoegsel"
-                           value="<?= $account["voornaam"] ?? '' ?>">
+                           value="<?= $account["tussenvoegsel"] ?? '' ?>">
                 </div>
                 <div class="form-group">
                     <label for="achternaam">Achternaam*</label>
                     <input type="text" class="form-control" id="achternaam" name="achternaam"
-                           value="<?= $account["achternaam"] ?? '' ?>" required>
+                           value="<?= $account["lastName"] ?? '' ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="email">E-mail*</label>
@@ -99,27 +104,27 @@ if (isset($_POST['bestelling-afronden'])) {
                 <div class="form-group">
                     <label for="woonplaats">Woonplaats*</label>
                     <input type="text" class="form-control" id="woonplaats" name="woonplaats"
-                           value="<?= $account["woonplaats"] ?? '' ?>" required>
+                           value="<?= $account["city"] ?? '' ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="postcode">Postcode*</label>
                     <input type="text" class="form-control" id="postcode" name="postcode"
-                           value="<?= $account["postcode"] ?? '' ?>" required>
+                           value="<?= $account["postalCode"] ?? '' ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="huisnummer">Huisnummer*</label>
                     <input type="text" class="form-control" id="huisnummer" name="huisnummer"
-                           value="<?= $account["huisnummer"] ?? '' ?>" required>
+                           value="<?= $account["houseNumber"] ?? '' ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="straatnaam">Straatnaam*</label>
                     <input type="text" class="form-control" id="straatnaam" name="straatnaam"
-                           value="<?= $account["straatnaam"] ?? '' ?>" required>
+                           value="<?= $account["streetName"] ?? '' ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="telefoonnummer">Telefoonnummer</label>
                     <input type="text" class="form-control" id="telefoonnummer" name="telefoonnummer"
-                           value="<?= $account["telefoonnummer"] ?? '' ?>">
+                           value="<?= $account["phoneNumber"] ?? '' ?>">
                 </div>
                 <button type="submit" name="bestelling-afronden" class="btn btn-primary mb-3">Bestelling afronden
                 </button>
@@ -130,4 +135,3 @@ if (isset($_POST['bestelling-afronden'])) {
 <?php
 require __DIR__ . "/parts/footer.php";
 ?>
-

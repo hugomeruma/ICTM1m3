@@ -1,7 +1,4 @@
 <?php
-require __DIR__ . '/init.php';
-require __DIR__ . "/parts/head.php";
-
 // Als het bestand niet via de index wordt ingeladen
 if (strpos($_SERVER['REQUEST_URI'], 'home.php') !== false) {
     redirect('');
@@ -13,6 +10,3 @@ if (strpos($_SERVER['REQUEST_URI'], 'home.php') !== false) {
 
     <div class="container my-5" style="vertical-align:middle">
     </div>
-
-<?php
-require __DIR__ . "/parts/footer.php";

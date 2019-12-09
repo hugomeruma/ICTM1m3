@@ -1,9 +1,4 @@
 <?php
-require __DIR__ . '/init.php';
-require __DIR__ . "/parts/head.php";
-require __DIR__ . "/databaseFuncties/product.php";
-require __DIR__ . "/parts/discountBanner.php";
-
 // Als het bestand niet via de index wordt ingeladen
 if (strpos($_SERVER['REQUEST_URI'], 'categorie.php') !== false) {
     redirect('');
@@ -31,7 +26,10 @@ if (isset($_GET['zoek-opdracht']) && !empty($_GET['zoek-opdracht'])) { // Zoeken
 }
 
 // Haal pagina nummering op
-$paginaNummering = paginaNummering($pagina, telProductenPagina($productenPerPagina));
+$categorieID = ($_GET['categorie'] !== 'alle') ? $_GET['categorie'] : null;
+$aantalProducten = (isset($_GET['zoek-opdracht']) && !empty($_GET['zoek-opdracht'])) ? telGezochteProducten($_GET['zoek-opdracht'], $categorieID) : telProducten($categorieID);
+$aantalPaginas = ceil($aantalProducten / $productenPerPagina);
+$paginaNummering = paginaNummering($pagina, $aantalPaginas);
 if (isset($_GET['pagina'])) {
     $vorige = $_GET['pagina'] - 1;
     $volgende = $_GET['pagina'] + 1;
@@ -40,36 +38,41 @@ if (isset($_GET['pagina'])) {
     $volgende = 2;
 }
 
+
 // Haal get variabelen op in url voormaat om waardes te behouden bij het klikken op een link
 unset($_GET['pagina']);
 $getVariabelenVoorUrl = haalGetVariabelenOpVoorUrl($_GET);
 
 // Als er een knop is ingedrukt om een product in de winkelwagen te gooien
 if (isset($_POST['toevoegenAanWinkelwagen'])) {
-    if (isset($_SESSION['winkelwagen']) && array_key_exists($_POST['productID'], $_SESSION['winkelwagen'])) {
-        $_SESSION['winkelwagen'][$_POST['productID']] += 1;
+    if (isset($_SESSION['winkelwagen']) && array_key_exists($_POST['productID'], $_SESSION['winkelwagen']['producten'])) {
+        $_SESSION['winkelwagen']['producten'][$_POST['productID']] += 1;
     } else {
-        $_SESSION['winkelwagen'][$_POST['productID']] = 1;
+        $_SESSION['winkelwagen']['producten'][$_POST['productID']] = 1;
     }
 }
-
 ?>
 
 <div class="container">
     <div class="row">
-        <div class="col-12">
-            <h5>Producten
-                > <?= ($_GET['categorie'] === 'alle') ? 'Alle' : haalCategorieNaamOpID($_GET['categorie']) ?></h5>
+        <div class="col-6 align-self-center">
+            <h3 class="">Producten
+                > <?= ($_GET['categorie'] === 'alle') ? 'Alle' : haalCategorieNaamOpID($_GET['categorie']) ?></h3>
         </div>
+        <div class="col-6 align-self-center">
+            <strong class="float-right"><?= $aantalProducten ?> resultaten</strong>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-6">
             <!-- Resultaten per pagina -->
             <form method='get'>
                 <div class="form-inline">
                     Resultaten per pagina
-                    <input type="number" name="pp" min="10" max="50" step="5"
+                    <input type="number" min="10" max="50" step="5"
                            class="mx-3 product_per_pagina_form form-control"
-                           name="products-per-pagina"
-                           value="<?= $_GET['products-per-pagina'] ?? standaardProductenPerPagina() ?>">
+                           name="producten-per-pagina"
+                           value="<?= $_GET['producten-per-pagina'] ?? standaardProductenPerPagina() ?>">
                 </div>
                 <!-- Verborgen velden om waardes van get variabelen te behouden -->
                 <input type="hidden" name="categorie" value="<?= $_GET['categorie'] ?? 'alle' ?>">
@@ -80,29 +83,7 @@ if (isset($_POST['toevoegenAanWinkelwagen'])) {
             </form>
         </div>
         <div class="col-6">
-            <!-- Pagination bovenaan de pagina -->
-            <nav aria-label="navigation pagination">
-                <ul class="pagination justify-content-end">
-                    <li class="page-item<?= ($vorige < 1) ? ' disabled' : '' ?>">
-                        <a class="page-link"
-                           href="<?= getBaseUrl() . (!empty($getVariabelenVoorUrl)) ? $getVariabelenVoorUrl . '&' : '?' ?>pagina=<?= $vorige ?>"
-                           tabindex="-1"
-                           aria-disabled="true">Vorige</a>
-                    </li>
-                    <?php foreach ($paginaNummering as $key => $paginaNummer): ?>
-                        <li class="page-item<?= ($key === 'selected') ? ' active' : '' ?>">
-                            <a class="page-link"
-                               href="<?= getBaseUrl() . (!empty($getVariabelenVoorUrl)) ? $getVariabelenVoorUrl . '&' : '?' ?>pagina=<?= $paginaNummer ?>">
-                                <?= $paginaNummer ?>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                    <li class="page-item<?= ($volgende >= $aantalPaginas) ? ' disabled' : '' ?>">
-                        <a class="page-link"
-                           href="<?= getBaseUrl() . (!empty($getVariabelenVoorUrl)) ? $getVariabelenVoorUrl . '&' : '?' ?>pagina=<?= $volgende ?>">Volgende</a>
-                    </li>
-                </ul>
-            </nav>
+            <?php require __DIR__ . '/parts/paginering.php'; ?>
         </div>
         <div class="col-12">
             <div class="row">
@@ -119,10 +100,10 @@ if (isset($_POST['toevoegenAanWinkelwagen'])) {
             <form method='get'>
                 <div class="form-inline">
                     Resultaten per pagina
-                    <input type="number" name="pp" min="10" max="50" step="5"
+                    <input type="number" min="10" max="50" step="5"
                            class="mx-3 product_per_pagina_form form-control"
-                           name="products-per-pagina"
-                           value="<?= $_GET['products-per-pagina'] ?? standaardProductenPerPagina() ?>">
+                           name="producten-per-pagina"
+                           value="<?= $_GET['producten-per-pagina'] ?? standaardProductenPerPagina() ?>">
                 </div>
                 <!-- Verborgen velden om waardes van get variabelen te behouden -->
                 <input type="hidden" name="categorie" value="<?= $_GET['categorie'] ?? 'alle' ?>">
@@ -133,29 +114,7 @@ if (isset($_POST['toevoegenAanWinkelwagen'])) {
             </form>
         </div>
         <div class="col-6">
-            <!-- Pagination bovenaan de pagina -->
-            <nav aria-label="navigation pagination">
-                <ul class="pagination justify-content-end">
-                    <li class="page-item<?= ($vorige < 1) ? ' disabled' : '' ?>">
-                        <a class="page-link"
-                           href="<?= getBaseUrl() . (!empty($getVariabelenVoorUrl)) ? $getVariabelenVoorUrl . '&' : '?' ?>pagina=<?= $vorige ?>"
-                           tabindex="-1"
-                           aria-disabled="true">Vorige</a>
-                    </li>
-                    <?php foreach ($paginaNummering as $key => $paginaNummer): ?>
-                        <li class="page-item<?= ($key === 'selected') ? ' active' : '' ?>">
-                            <a class="page-link"
-                               href="<?= getBaseUrl() . (!empty($getVariabelenVoorUrl)) ? $getVariabelenVoorUrl . '&' : '?' ?>pagina=<?= $paginaNummer ?>">
-                                <?= $paginaNummer ?>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                    <li class="page-item<?= ($volgende >= $aantalPaginas) ? ' disabled' : '' ?>">
-                        <a class="page-link"
-                           href="<?= getBaseUrl() . (!empty($getVariabelenVoorUrl)) ? $getVariabelenVoorUrl . '&' : '?' ?>pagina=<?= $volgende ?>">Volgende</a>
-                    </li>
-                </ul>
-            </nav>
+            <?php require __DIR__ . '/parts/paginering.php'; ?>
         </div>
     </div>
 </div>

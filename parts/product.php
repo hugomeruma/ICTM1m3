@@ -1,5 +1,5 @@
 <div class="card mb-3">
-    <img src="<?= getBaseUrl() ?>assets/afbeeldingen/16a.png" class="card-img-top" alt="...">
+    <img src="<?= getBaseUrl() ?>assets/afbeeldingen/image_not_available.png" class="card-img-top" alt="...">
     <div class="card-body">
         <h5 class="card-title"><?= $product['StockItemName'] ?></h5>
         <h5><strong><?= $product['UnitPrice'] ?></strong></h5>

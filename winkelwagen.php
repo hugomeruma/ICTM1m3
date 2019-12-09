@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/init.php';
 require __DIR__ . "/parts/head.php";
+require __DIR__ . "/databaseFuncties/product.php";
 
 // Sla producten op in sessie array
 if (isset($_POST['opslaan'])) {
@@ -13,101 +14,80 @@ if (isset($_POST['opslaan'])) {
     redirect('winkelwagen.php');
 }
 
-// Haal de producten uit de database
+// Haal de producten uit de database en bereken de totaalprijs
+$totaalPrijs = 0;
 $winkelwagen = [];
-if (isset($_SESSION['winkelwagen'])) {
-    $winkelwagen = getStockItems($_SESSION['winkelwagen']);
+if (isset($_SESSION['winkelwagen']['producten'])) {
+    foreach ($_SESSION['winkelwagen']['producten'] as $productID => $aantal) {
+        $product = haalWinkelwagenProductOp($productID)[0];
+        $winkelwagen[] = $product;
+        $totaalPrijs += $aantal * $product['UnitPrice'];
+    }
 }
 
-$totaalorder = 0;
-
+// Verwijder een product uit de winkelwagen
+if (isset($_GET['te-verwijderen-product'])) {
+    if (isset($_SESSION['winkelwagen']['producten'][$_GET['te-verwijderen-product']])) {
+        unset($_SESSION['winkelwagen']['producten'][$_GET['te-verwijderen-product']]);
+    }
+}
 ?>
-    <div class="container my-5">
-        <form method="post" class="my-5">
-            <?php foreach ($winkelwagen as $product): ?>
-                <div class="container row product_kaart my-4">
-                    <div class="col-2" style="">
-
-                        <!--  DIT IS HET BEGIN VAN DE AFBEELDING  -->
-                        <img src="<?= getBaseUrl() ?>assets/afbeeldingen/16a.png" class="img">
-                        <a href="<?= getBaseUrl() ?>product/index.php?view=<?= $product['StockItemID'] ?>&in=<?= $_GET['in'] ?>"
-                           class="stretched-link"></a>
-                        <!--                    --><?php
-                        //                    $discount = false;
-                        //                    if (getDiscount($product['StockItemID']) != null):
-                        //                        $discount = true;
-                        //                        ?>
-                        <!--                        <div class="discount-icon-div-on-item">-->
-                        <!--                <span class="fa-stack discount-icon-on-item">-->
-                        <!--                    <i class="fas fa-certificate fa-stack-2x"></i>-->
-                        <!--                    <i class="fas fa-percent fa-stack-1x fa-inverse"></i>-->
-                        <!--                </span>-->
-                        <!--                        </div>-->
-                        <!--                    --><?php //endif; ?>
-                    </div>
-                    <!-- DIT IS HET EINDE VAN DE AFBEELDING -->
-
-
-                    <div class="col-7 product-item_content py-2">
-                        <div class="product_info">
-                            <h5><?= $product['StockItemName'] ?></h5>
-                        </div>
-                    </div>
-                    <?php
-                    $teller = $_SESSION['producten'][$product['StockItemID']];
-
-                    $prijs_per_stuk = price($product['UnitPrice'], $product['TaxRate'], $product['StockItemID']);
-                    $subTotaal = $prijs_per_stuk * $teller;
-
-                    $_SESSION['totaalWinkelmandje'] = $_SESSION['totaalWinkelmandje'] + $subTotaal;
-                    ?>
-                    <div class="col-3 product_prijs" style="text-align: right">
-                        <h6>
-                            Prijs per stuk: € <?= $prijs_per_stuk ?>,-
-                        </h6>
-                        <h5>Sub-Totaal: € <?= $subTotaal ?>,-</h5>
-                        <div class="winkelmandje_form_group">
-                            <form method="post">
-                                <button type="Submit" name="StockItemID<?= $product['StockItemID'] ?>" value="0"
-                                        class="btn btn-primary button_winkelmandje_verw"><i class="fa fa-trash"
-                                                                                            aria-hidden="true"></i>
-                                </button>
-                                <input type="hidden" name="opslaan" value="opslaan"
-                                       class="form teller_form">
-                            </form>
-
-                            <form method="post">
-                                <input type="number" value="<?= $teller ?>"
-                                       name="StockItemID<?= $product['StockItemID'] ?>"
-                                       class="form teller_form">
-                                <input type="hidden" name="opslaan" value="opslaan"
-                                       class="form teller_form">
-                                <!--                </div>-->
-
-                        </div>
-                    </div>
-
-
-                </div>
-            <?php
-
-
-            endforeach;
-
-
-            ?>
-            <div class="justify-content-between d-flex">
-                <button type="submit" value="opslaan" class="opslaan_winkelmandje btn btn-primary" name="opslaan">
-                    Winkelmandje opslaan
-                </button>
-                <div>
-                    <h4>
-                        Totaal prijs: €
-                        <?= $_SESSION['totaalWinkelmandje'] ?>
-                    </h4>
-                </div>
+    <form method="post">
+        <div class="row">
+            <div class="col-6 align-self-center">
+                <h1>Winkelwagen</h1>
             </div>
-        </form>
-    </div>
+            <div class="col-6 align-self-center">
+                <!-- Laat alleen zien als er producten in de winkelwagen zitten -->
+                <?php if (isset($_SESSION['winkelwagen']['producten']) || !empty($_SESSION['winkelwagen']['producten'])): ?>
+                    <a class="btn btn-success float-right"
+                       href="<?= getBaseUrl() ?>bestelling-afronden.php">Bestellen</a>
+                <?php endif; ?>
+            </div>
+            <!-- Laat zien als er producten in de winkelwagen zitten -->
+            <?php if (!isset($_SESSION['winkelwagen']['producten']) || empty($_SESSION['winkelwagen']['producten'])): ?>
+                <div class="col-12 text-center">
+                    <p>Uw heeft nog geen producten in uw winkelwagen.</p>
+                    <a class="btn btn-primary" href="<?= getBaseUrl() ?>?categorie=alle">Winkelen</a>
+                </div>
+            <?php endif;
+            foreach ($winkelwagen as $product): ?>
+                <div class="col-12 mb-2">
+                    <div class="border">
+                        <div class="row">
+                            <div class="col-3">
+                                <img src="<?= getBaseUrl() ?>assets/afbeeldingen/image_not_available.png"
+                                     class="winkelwagen-product-afbeelding" alt="">
+                            </div>
+                            <div class="col-7 py-2">
+                                <a href="<?= getBaseUrl() ?>product.php?product=<?= $product['StockItemID'] ?>">
+                                    <h5 class="text-primary"><?= $product['StockItemName'] ?></h5>
+                                </a>
+                                <strong><?= $product['UnitPrice'] ?></strong>
+                            </div>
+                            <div class="col-2 py-2 text-right">
+                                <div class="form-group text-left mr-2">
+                                    <label for="aantal">Aantal</label>
+                                    <input type="number" id="aantal"
+                                           value="<?= $_SESSION['winkelwagen']['producten'][$product['StockItemID']] ?>"
+                                           name="StockItemID<?= $product['StockItemID'] ?>"
+                                           class="form-control">
+                                </div>
+                                <a class="btn btn-danger mr-2"
+                                   href="<?= getBaseUrl() ?>winkelwagen.php?te-verwijderen-product=<?= $product['StockItemID'] ?>">Verwijderen</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+            <!-- Laat alleen zien als er producten in de winkelwagen zitten -->
+            <?php if (isset($_SESSION['winkelwagen']['producten']) || !empty($_SESSION['winkelwagen']['producten'])): ?>
+                <div class="col-12 text-right">
+                    <strong>Totaalbedrag:</strong> € <?= $totaalPrijs ?><br>
+                    <button class="btn btn-primary mt-1" type="submit" name="opslaan">Opslaan</button>
+                </div>
+            <?php endif; ?>
+        </div>
+    </form>
 <?php
 require __DIR__ . "/parts/footer.php";

@@ -12,8 +12,12 @@ function paginaNummering($huidigePagina, $totaalPaginas)
             $paginaNummers[2] = 3;
         }
     } elseif ($huidigePagina >= ceil($totaalPaginas)) { // Wanneer je aan het einde van de pagina's bent
-        $paginaNummers[0] = $huidigePagina - 2;
-        $paginaNummers[1] = $huidigePagina - 1;
+        if ($huidigePagina > 2) {
+            $paginaNummers[0] = $huidigePagina - 2;
+        }
+        if ($huidigePagina > 1) {
+            $paginaNummers[1] = $huidigePagina - 1;
+        }
         $paginaNummers['selected'] = $huidigePagina;
     } else { // De 'normal case'
         $paginaNummers[0] = $huidigePagina - 1;
@@ -53,4 +57,16 @@ function haalGetVariabelenOpVoorUrl($getWaardes)
         $aantalLoops++;
     }
     return $url;
+}
+
+function getFullName($firstName, $insertion, $lastName)
+{
+    $name = $firstName;
+    $name .= " ";
+    if ($insertion != "") {
+        $name .= $insertion;
+        $name .= " ";
+    }
+    $name .= $lastName;
+    return $name;
 }
