@@ -13,7 +13,7 @@ function maakAccount($voornaam, $tussenvoegsel, $achternaam, $email, $wachtwoord
 
 function werkAccountGegevensBij($ID, $voornaam, $tussenvoegsel, $achternaam, $plaats, $postcode, $huisnummer, $straat, $telefoonnummer) {
     $conn = maakVerbinding();
-    $stmt = $conn->prepare("UPDATE accounts SET firstName=?, tussenvoegsel=?, lastName=?, email=?, city=?, postalCode=?, houseNumber=?, streetName=?, phoneNumber=? WHERE id=?");
+    $stmt = $conn->prepare("UPDATE accounts SET firstName=?, tussenvoegsel=?, lastName=?, city=?, postalCode=?, houseNumber=?, streetName=?, phoneNumber=? WHERE id=?");
     $stmt->bind_param( 'ssssssssi', $voornaam, $tussenvoegsel, $achternaam, $plaats, $postcode, $huisnummer, $straat, $telefoonnummer, $ID);
     $result = $stmt->execute();
     $stmt->fetch();

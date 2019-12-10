@@ -1,7 +1,6 @@
 <?php
 require __DIR__ . "/../databaseFuncties/databaseFuncties.php";
-include "klantFuncties.php";
-include "URL.php";
+
 
 function price($priceExcl, $taxrate, $stockItemID = null)
 {

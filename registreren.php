@@ -1,8 +1,8 @@
 <?php
 ob_start();
-require __DIR__ . "/functies/algemeneFuncties.php";
+require __DIR__ . "/functies/algemeen.php";
 require __DIR__ . "/functies/helpers.php";
-require __DIR__ . "/functies/contentFuncties.php";
+require __DIR__ . "/functies/content.php";
 require __DIR__ . '/parts/head.php';
 require __DIR__ . '/databaseFuncties/account.php';
 
