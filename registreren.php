@@ -29,7 +29,7 @@ if (isset($_POST["registreren"])) {
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 form-group">
-                    <label for="">Voornaam</label>
+                    <label for="">Voornaam*</label>
                     <input type="text" class="form-control" id="" name="voornaam"
                            value="<?= $_POST["voornaam"] ?? '' ?>" required>
                 </div>
@@ -39,42 +39,42 @@ if (isset($_POST["registreren"])) {
                            value="<?= $_POST["tussenvoegsel"] ?? '' ?>">
                 </div>
                 <div class="col-lg-6 form-group">
-                    <label for="achternaam">Achternaam</label>
+                    <label for="achternaam">Achternaam*</label>
                     <input type="text" class="form-control" id="achternaam" name="achternaam"
                            value="<?= $_POST["achternaam"] ?? '' ?>" required>
                 </div>
                 <div class="col-lg-6 form-group">
-                    <label for="email">E-mail</label>
+                    <label for="email">E-mail*</label>
                     <input type="email" class="form-control" id="email" name="email"
                            value="<?= $_POST["email"] ?? '' ?>" required>
                 </div>
                     <div class="col-lg-6 form-group">
-                        <label for="wachtwoord">Wachtwoord</label>
+                        <label for="wachtwoord">Wachtwoord*</label>
                         <input type="password" class="form-control" id="wachtwoord" name="wachtwoord"
                                value="<?= $_POST["wachtwoord"] ?? '' ?>" required>
                     </div>
                 <div class="col-lg-6 form-group">
-                    <label for="land">Land</label>
+                    <label for="land">Land*</label>
                     <input type="text" class="form-control" id="land" name="land"
                            value="<?= $_POST["land"] ?? '' ?>">
                 </div>
                     <div class="col-lg-6 form-group">
-                        <label for="woonplaats">Woonplaats</label>
+                        <label for="woonplaats">Woonplaats*</label>
                         <input type="text" class="form-control" id="woonplaats" name="woonplaats"
                                value="<?= $_POST["woonplaats"] ?? '' ?>" required>
                     </div>
                     <div class="col-lg-6 form-group">
-                        <label for="postcode">Postcode</label>
+                        <label for="postcode">Postcode*</label>
                         <input type="text" class="form-control" id="postcode" name="postcode"
                                value="<?= $_POST["postcode"] ?? '' ?>" required>
                     </div>
                     <div class="col-lg-6 form-group">
-                        <label for="huisnummer">Huisnummer</label>
+                        <label for="huisnummer">Huisnummer*</label>
                         <input type="number" class="form-control" id="huisnummer" name="huisnummer"
                                value="<?= $_POST["huisnummer"] ?? '' ?>" required>
                     </div>
                     <div class="col-lg-6 form-group">
-                        <label for="straatnaam">Straatnaam</label>
+                        <label for="straatnaam">Straatnaam*</label>
                         <input type="text" class="form-control" id="straatnaam" name="straatnaam"
                                value="<?= $_POST["straatnaam"] ?? '' ?>" required>
                     </div>

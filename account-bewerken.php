@@ -40,7 +40,7 @@ if (isset($_POST['bewerken'])) {
                    value="<?= $account["lastName"] ?? '' ?>" required>
         </div>
             <div class="col-lg-6 form-group">
-                <label for="land">Land</label>
+                <label for="land">Land*</label>
                 <input type="text" class="form-control" id="land" name="land"
                        value="<?= $account["country"] ?? '' ?>">
             </div>
