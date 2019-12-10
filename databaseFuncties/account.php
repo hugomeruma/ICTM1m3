@@ -1,20 +1,20 @@
 <?php
 
-function maakAccount($voornaam, $tussenvoegsel, $achternaam, $email, $wachtwoord, $plaats, $postcode, $huisnummer, $straat, $telefoonnummer)
+function maakAccount($voornaam, $tussenvoegsel, $achternaam, $email, $wachtwoord,$land , $plaats, $postcode, $huisnummer, $straat, $telefoonnummer)
 {
     $conn = maakVerbinding();
-    $stmt = $conn->prepare("INSERT INTO accounts (firstName, tussenvoegsel, lastName, email, password, city, postalCode, houseNumber, streetName, phoneNumber) VALUES(?,?,?,?,?,?,?,?,?,?)");
-    $stmt->bind_param( 'ssssssssss', $voornaam, $tussenvoegsel, $achternaam, $email, $wachtwoord, $plaats, $postcode, $huisnummer, $straat, $telefoonnummer);
+    $stmt = $conn->prepare("INSERT INTO accounts (firstName, tussenvoegsel, lastName, email, password,country,city, postalCode, houseNumber, streetName, phoneNumber) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+    $stmt->bind_param( 'sssssssssss', $voornaam, $tussenvoegsel, $achternaam, $email, $wachtwoord, $land , $plaats, $postcode, $huisnummer, $straat, $telefoonnummer);
     $result = $stmt->execute();
     $stmt->fetch();
     $stmt->close();
     return $result;
 }
 
-function werkAccountGegevensBij($ID, $voornaam, $tussenvoegsel, $achternaam, $plaats, $postcode, $huisnummer, $straat, $telefoonnummer) {
+function werkAccountGegevensBij($ID, $voornaam, $tussenvoegsel, $achternaam, $land, $plaats, $postcode, $huisnummer, $straat, $telefoonnummer) {
     $conn = maakVerbinding();
-    $stmt = $conn->prepare("UPDATE accounts SET firstName=?, tussenvoegsel=?, lastName=?, city=?, postalCode=?, houseNumber=?, streetName=?, phoneNumber=? WHERE id=?");
-    $stmt->bind_param( 'ssssssssi', $voornaam, $tussenvoegsel, $achternaam, $plaats, $postcode, $huisnummer, $straat, $telefoonnummer, $ID);
+    $stmt = $conn->prepare("UPDATE accounts SET firstName=?, tussenvoegsel=?, lastName=?, country=? , city=?, postalCode=?, houseNumber=?, streetName=?, phoneNumber=? WHERE id=?");
+    $stmt->bind_param( 'sssssssssi', $voornaam, $tussenvoegsel, $achternaam, $land , $plaats, $postcode, $huisnummer, $straat, $telefoonnummer, $ID);
     $result = $stmt->execute();
     $stmt->fetch();
     $stmt->close();

@@ -13,7 +13,7 @@ $account = haalAccountOpID($_SESSION['id'])[0];
 
 // Sla de nieuwe gegevens op
 if (isset($_POST['bewerken'])) {
-    if (werkAccountGegevensBij($_SESSION['id'], $_POST['voornaam'], $_POST['tussenvoegsel'], $_POST['achternaam'], $_POST['woonplaats'], $_POST['postcode'], $_POST['huisnummer'], $_POST['straatnaam'], $_POST['telefoonnummer'])) {
+    if (werkAccountGegevensBij($_SESSION['id'], $_POST['voornaam'], $_POST['tussenvoegsel'], $_POST['achternaam'], $_POST['land'],  $_POST['woonplaats'], $_POST['postcode'], $_POST['huisnummer'], $_POST['straatnaam'], $_POST['telefoonnummer'])) {
     redirect('account-bewerken.php');
     } else {
         die('fout');
@@ -39,6 +39,11 @@ if (isset($_POST['bewerken'])) {
             <input type="text" class="form-control" id="achternaam" name="achternaam"
                    value="<?= $account["lastName"] ?? '' ?>" required>
         </div>
+            <div class="col-lg-6 form-group">
+                <label for="land">Land</label>
+                <input type="text" class="form-control" id="land" name="land"
+                       value="<?= $account["country"] ?? '' ?>">
+            </div>
         <div class="col-lg-6 form-group">
             <label for="woonplaats">Woonplaats*</label>
             <input type="text" class="form-control" id="woonplaats" name="woonplaats"

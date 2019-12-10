@@ -13,7 +13,7 @@ if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd']) {
 
 // Registreer de gebruiker
 if (isset($_POST["registreren"])) {
-    if (maakAccount($_POST['voornaam'], $_POST['tussenvoegsel'], $_POST['achternaam'], $_POST['email'], password_hash($_POST['wachtwoord'], PASSWORD_DEFAULT), $_POST['woonplaats'], $_POST['postcode'], $_POST['huisnummer'], $_POST['straatnaam'], $_POST['telefoonnummer'])) {
+    if (maakAccount($_POST['voornaam'], $_POST['tussenvoegsel'], $_POST['achternaam'], $_POST['email'], password_hash($_POST['wachtwoord'], PASSWORD_DEFAULT), $_POST['land'], $_POST['woonplaats'], $_POST['postcode'], $_POST['huisnummer'], $_POST['straatnaam'], $_POST['telefoonnummer'])) {
         redirect('login.php');
     } else {
         die('#gaatfout');
@@ -53,6 +53,11 @@ if (isset($_POST["registreren"])) {
                         <input type="password" class="form-control" id="wachtwoord" name="wachtwoord"
                                value="<?= $_POST["wachtwoord"] ?? '' ?>" required>
                     </div>
+                <div class="col-lg-6 form-group">
+                    <label for="land">Land</label>
+                    <input type="text" class="form-control" id="land" name="land"
+                           value="<?= $_POST["land"] ?? '' ?>">
+                </div>
                     <div class="col-lg-6 form-group">
                         <label for="woonplaats">Woonplaats</label>
                         <input type="text" class="form-control" id="woonplaats" name="woonplaats"
