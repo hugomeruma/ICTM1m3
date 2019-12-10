@@ -1,6 +1,7 @@
 <?php
-require "AccountFuncties.php";
-require "authenticatie.php";
+session_start();
+require "functies\account.php";
+require_once "databaseFuncties\account.php";
 ?>
 
 <!DOCTYPE html>
@@ -14,9 +15,9 @@ require "authenticatie.php";
 
 <?php
 
-$gegevens["id"] = $_SESSION["id"];
+$gegevens['id'] = $_SESSION['id'];
 $gegevens = AccountGegevensOpvragen($gegevens);
-
+print_r($gegevens);
 
 ?>
 <h1>Account bewerken </h1><br><br>
@@ -24,8 +25,8 @@ $gegevens = AccountGegevensOpvragen($gegevens);
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">id</label>
         <div class="col-sm-10">
-            <input class="form-control" type="text" name="nummer" readonly placeholder="<?= $gegevens["id"] ?>"
-                   required/>
+            <input class="form-control" type="text" name="nummer" readonly="<?= $gegevens["id"] ?>"
+            />
         </div>
     </div>
     <div class="form-group row">
@@ -93,7 +94,7 @@ $gegevens = AccountGegevensOpvragen($gegevens);
         <label class="col-sm-2 col-form-label"></label>
         <div class="col-sm-10">
             <input class="form-control" type="hidden" name="wachtwoord" readonly
-                   placeholder="<?php print(md5($gegevens["wachtwoord"])); ?>" required/>
+                   placeholder="<?php print(md5($gegevens["wachtwoord"])); ?>"/>
         </div>
     </div>
     <div class="form-group row">
@@ -124,7 +125,7 @@ if (isset($_POST["opslaan"])) {
 }
 ?>
 <br><?php print($gegevens["melding"]); ?><br>
-<a href="home.php">Terug naar de startpagina</a>
+<a href="hoofdpagina.php">Terug naar de hoofdpagina</a>
 
 </body>
 </html>
