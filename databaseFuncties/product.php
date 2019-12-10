@@ -32,7 +32,7 @@ function telProducten($categorieID)
     return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['totaal']);
 }
 
-function telGezochteProducten(string $zoekOpdracht, int $categorieID)
+function telGezochteProducten(string $zoekOpdracht, $categorieID = null)
 {
     $conn = maakVerbinding();
     $zoekOpdracht = "%{$zoekOpdracht}%";
