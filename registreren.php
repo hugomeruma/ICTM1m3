@@ -5,30 +5,18 @@ require __DIR__ . "/functies/helpers.php";
 require __DIR__ . "/functies/contentFuncties.php";
 require __DIR__ . '/parts/head.php';
 require __DIR__ . '/databaseFuncties/account.php';
-require __DIR__ . '/functies/account.php';
 
-
-//if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd']) {
-//  redirect('');
-//}
-
-if (isset($_POST['email'])) {
-    $email = $_POST['email'];
-    $conn = maakVerbinding();
-    $sql = "SELECT email FROM accounts WHERE email = ?";
-    $result = mysqli_fetch_all(getFromDB($sql, $email), MYSQLI_ASSOC);
-
-    if (!empty(($result))) {
-        $emailDubbel = "Het emailadress wordt al gebruikt. ";
-    } else redirect('');
-
+// Als een gebruiker al is ingelogd wordt hij doorgestuurd naar de home pagina
+if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd']) {
+    redirect('');
 }
 
+// Registreer de gebruiker
 if (isset($_POST["registreren"])) {
     if (maakAccount($_POST['voornaam'], $_POST['tussenvoegsel'], $_POST['achternaam'], $_POST['email'], password_hash($_POST['wachtwoord'], PASSWORD_DEFAULT), $_POST['woonplaats'], $_POST['postcode'], $_POST['huisnummer'], $_POST['straatnaam'], $_POST['telefoonnummer'])) {
         redirect('login.php');
     } else {
-        $message = 'Er is iets fout gegaan, controleer de velden en probeer het opnieuw.';
+        die('#gaatfout');
     }
 }
 ?>
@@ -97,6 +85,5 @@ if (isset($_POST["registreren"])) {
 
     </div>
 <?php
-
 require __DIR__ . "/parts/footer.php";
 ?>

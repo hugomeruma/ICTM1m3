@@ -1,16 +1,12 @@
 <?php
-require __DIR__ . "/functies/algemeneFuncties.php";
-require __DIR__ . "/functies/helpers.php";
-require __DIR__ . "/functies/contentFuncties.php";
+require __DIR__ . '/init.php';
 require __DIR__ . "/parts/head.php";
-//body
-?>
+require __DIR__ . "/databaseFuncties/product.php";
 
-<div class="container my-5" style="vertical-align:middle">
+if (isset($_GET['categorie']) && !empty($_GET['categorie'])) {
+    require 'categorie.php';
+} else {
+    require 'home.php';
+}
 
-</div>
-
-<?php
 require __DIR__ . "/parts/footer.php";
-?>
-

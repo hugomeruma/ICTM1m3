@@ -1,131 +1,69 @@
 <?php
-session_start();
-require "functies\account.php";
-require_once "databaseFuncties\account.php";
-?>
+require __DIR__ . '/init.php';
+require __DIR__ . "/parts/head.php";
+require __DIR__ . '/databaseFuncties/account.php';
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-</head>
-<body>
+// De gebruiker wordt doorgestuurd naar de home pagina als hij niet is ingelogd
+if (!isset($_SESSION['ingelogd']) || !$_SESSION['ingelogd']) {
+    redirect('login.php');
+}
 
-<?php
+// Haal de gegevens van het account op
+$account = haalAccountOpID($_SESSION['id'])[0];
 
-$gegevens['id'] = $_SESSION['id'];
-$gegevens = AccountGegevensOpvragen($gegevens);
-print_r($gegevens);
+// Sla de nieuwe gegevens op
+if (isset($_POST['registreren'])) {
+    if (werkAccountGegevensBij($_SESSION['id'], $_POST['voornaam'], $_POST['tussenvoegsel'], $_POST['achternaam'], $_POST['woonplaats'], $_POST['postcode'], $_POST['huisnummer'], $_POST['straatnaam'], $_POST['telefoonnummer'])) {
 
-?>
-<h1>Account bewerken </h1><br><br>
-<form method="post" action="">
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">id</label>
-        <div class="col-sm-10">
-            <input class="form-control" type="text" name="nummer" readonly="<?= $gegevens["id"] ?>"
-            />
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Voornaam</label>
-        <div class="col-sm-10">
-            <input class="form-control" type="text" name="voornaam" value="<?php print($gegevens["voornaam"]); ?>"
-                   required/>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Tussenvoegsel</label>
-        <div class="col-sm-10">
-            <input class="form-control" type="text" name="tussenvoegsel"
-                   value="<?php print($gegevens["tussenvoegsel"]); ?> "/>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Achternaam</label>
-        <div class="col-sm-10">
-            <input class="form-control" type="text" name="achternaam" value="<?php print($gegevens["achternaam"]); ?>"
-                   required/>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">E-mail</label>
-        <div class="col-sm-10">
-            <input class="form-control" type="text" name="email" value="<?php print($gegevens["email"]); ?>" required/>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Woonplaats</label>
-        <div class="col-sm-10">
-            <input class="form-control" type="text" name="woonplaats" value="<?php print($gegevens["woonplaats"]); ?>"
-                   required/>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Postcode</label>
-        <div class="col-sm-10">
-            <input class="form-control" type="text" name="postcode" value="<?php print($gegevens["postcode"]); ?>"
-                   required/>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Huisnummer</label>
-        <div class="col-sm-10">
-            <input class="form-control" type="text" name="huisnummer" value="<?php print($gegevens["huisnummer"]); ?>"
-                   required/>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Straatnaam</label>
-        <div class="col-sm-10">
-            <input class="form-control" type="text" name="straatnaam" value="<?php print($gegevens["straatnaam"]); ?>"
-                   required/>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Telefoonnr</label>
-        <div class="col-sm-10">
-            <input class="form-control" type="text" name="telefoonnr" value="<?php print($gegevens["telefoonnr"]); ?>"/>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label"></label>
-        <div class="col-sm-10">
-            <input class="form-control" type="hidden" name="wachtwoord" readonly
-                   placeholder="<?php print(md5($gegevens["wachtwoord"])); ?>"/>
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="offset-sm-2 col-sm-10">
-
-            <input class="btn btn-primary" type="submit" name="opslaan" value="Opslaan"/>
-        </div>
-    </div>
-
-</form>
-
-<?php
-$gegevens["id"] = isset($_SESSION["id"]) ? $_SESSION["id"] : 0;
-if (isset($_POST["opslaan"])) {
-    $gegevens["voornaam"] = $_POST["voornaam"] ?? "";
-    $gegevens["tussenvoegsel"] = $_POST["tussenvoegsel"] ?? "";
-    $gegevens["achternaam"] = $_POST["achternaam"] ?? "";
-    $gegevens["email"] = $_POST["email"] ?? "";
-    $gegevens["woonplaats"] = $_POST["woonplaats"] ?? "";
-    $gegevens["postcode"] = $_POST["postcode"] ?? "";
-    $gegevens["huisnummer"] = $_POST["huisnummer"] ?? "";
-    $gegevens["straatnaam"] = $_POST["straatnaam"] ?? "";
-    $gegevens["telefoonnr"] = $_POST["telefoonnr"] ?? "";
-    // $gegevens["wachtwoord"] = $_POST["wachtwoord"] ?? "";
-    $gegevens = AccountGegevensWijzigen($gegevens);
-} else {
-    AccountGegevensOpvragen($gegevens);
+    } else {
+        die('fout');
+    }
 }
 ?>
-<br><?php print($gegevens["melding"]); ?><br>
-<a href="hoofdpagina.php">Terug naar de hoofdpagina</a>
-
-</body>
-</html>
+    <h1>Mijn gegevens</h1>
+    <form method="post">
+        <div class="form-group">
+            <label for="">Voornaam*</label>
+            <input type="text" class="form-control" id="" name="voornaam"
+                   value="<?= $account["firstName"] ?? '' ?>" required>
+        </div>
+        <div class="form-group">
+            <label for="tussenvoegsel">Tussenvoegsel</label>
+            <input type="text" class="form-control" id="tussenvoegsel" name="tussenvoegsel"
+                   value="<?= $account["tussenvoegsel"] ?? '' ?>">
+        </div>
+        <div class="form-group">
+            <label for="achternaam">Achternaam*</label>
+            <input type="text" class="form-control" id="achternaam" name="achternaam"
+                   value="<?= $account["lastName"] ?? '' ?>" required>
+        </div>
+        <div class="form-group">
+            <label for="woonplaats">Woonplaats*</label>
+            <input type="text" class="form-control" id="woonplaats" name="woonplaats"
+                   value="<?= $account["city"] ?? '' ?>" required>
+        </div>
+        <div class="form-group">
+            <label for="postcode">Postcode*</label>
+            <input type="text" class="form-control" id="postcode" name="postcode"
+                   value="<?= $account["postalCode"] ?? '' ?>" required>
+        </div>
+        <div class="form-group">
+            <label for="huisnummer">Huisnummer*</label>
+            <input type="number" class="form-control" id="huisnummer" name="huisnummer"
+                   value="<?= $account["houseNumber"] ?? '' ?>" required>
+        </div>
+        <div class="form-group">
+            <label for="straatnaam">Straatnaam*</label>
+            <input type="text" class="form-control" id="straatnaam" name="straatnaam"
+                   value="<?= $account["streetName"] ?? '' ?>" required>
+        </div>
+        <div class="form-group">
+            <label for="telefoonnummer">Telefoonnummer</label>
+            <input type="text" class="form-control" id="telefoonnummer" name="telefoonnummer"
+                   value="<?= $account["phoneNumber"] ?? '' ?>">
+        </div>
+        <button type="submit" name="registreren" class="btn btn-primary mb-3">Registreren</button>
+    </form>
+<?php
+require __DIR__ . "/parts/footer.php";
+?>

@@ -9,4 +9,15 @@ $(document).ready(function () {
         }
     });
 
+    // Crud overview execute button on enter in input
+    $("#crudSearch").on('keydown', function (e) {
+        if (e.key === 'Enter') {
+            var value = $('input[name=zoeken]').val();
+            url = window.location.href;
+            url = url.substring(0, url.indexOf('?'));
+            var url = url + '?zoek-opdracht=' + value;
+            window.location.href = url;
+            return false;
+        }
+    });
 });

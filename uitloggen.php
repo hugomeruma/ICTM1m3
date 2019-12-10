@@ -1,7 +1,6 @@
 <?php
-session_start();
-require __DIR__ . '/functies/algemeneFuncties.php';
-require __DIR__ . '/functies/helpers.php';
+require __DIR__ . '/init.php';
+require __DIR__ . "/parts/head.php";
 
 if (isset($_SESSION)) {
     session_destroy();
