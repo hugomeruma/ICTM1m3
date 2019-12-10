@@ -29,6 +29,7 @@ if (isset($_SESSION['winkelwagen']['producten'])) {
 if (isset($_GET['te-verwijderen-product'])) {
     if (isset($_SESSION['winkelwagen']['producten'][$_GET['te-verwijderen-product']])) {
         unset($_SESSION['winkelwagen']['producten'][$_GET['te-verwijderen-product']]);
+        redirect('winkelwagen.php');
     }
 }
 ?>
