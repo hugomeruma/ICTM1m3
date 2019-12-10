@@ -102,6 +102,11 @@ if (isset($_POST['bestelling-afronden'])) {
                            value="<?= $account["email"] ?? '' ?>" required>
                 </div>
                 <div class="form-group">
+                    <label for="land">land*</label>
+                    <input type="text" class="form-control" id="land" name="land"
+                           value="<?= $account["country"] ?? '' ?>" required>
+                </div>
+                <div class="form-group">
                     <label for="woonplaats">Woonplaats*</label>
                     <input type="text" class="form-control" id="woonplaats" name="woonplaats"
                            value="<?= $account["city"] ?? '' ?>" required>
