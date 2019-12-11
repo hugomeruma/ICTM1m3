@@ -35,7 +35,8 @@
         </li>
         <?php if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd'] == true): ?>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                   aria-expanded="false">
                     <?= $_SESSION['name'] ?? '' ?>
                 </a>
                 <ul class="dropdown-menu">
@@ -58,13 +59,14 @@
 <div class="button-group d-flex justify-content-around">
     <!-- Alle categorieën menu item -->
     <a href="<?= getBaseUrl() ?>?categorie=alle&producten-per-pagina=<?= $_GET['producten-per-pagina'] ?? standaardProductenPerPagina() ?>"
-       class="btn btn-primary col rounded-0<?= (isset($_GET['categorie']) && $_GET['categorie'] == 'alle') ? ' active' : '' ?>">Alle
-        producten</a>
+       class="btn btn-primary col rounded-0 d-flex justify-content-center align-items-center<?= (isset($_GET['categorie']) && $_GET['categorie'] == 'alle') ? ' active' : '' ?>">
+        Alle producten
+    </a>
     <!-- Categorieën uit de database -->
     <?php foreach (haalCategorieënOp() as $categorie): ?>
         <a href="<?= getBaseUrl() ?>?categorie=<?= $categorie['StockGroupID'] ?>&pagina=1&producten-per-pagina=<?= $_GET['producten-per-pagina'] ?? standaardProductenPerPagina() ?>"
-           class="btn btn-primary col rounded-0<?= (isset($_GET['categorie']) && $_GET['categorie'] == $categorie['StockGroupID']) ? ' active' : '' ?>">
-            <?= $categorie['StockGroupName'] ?>
+           class="btn btn-primary col  d-flex justify-content-center align-items-center rounded-0<?= (isset($_GET['categorie']) && $_GET['categorie'] == $categorie['StockGroupID']) ? ' active' : '' ?>">
+            <div><?= $categorie['StockGroupName'] ?></div>
         </a>
     <?php endforeach; ?>
 </div>
