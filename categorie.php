@@ -56,8 +56,7 @@ if (isset($_POST['toevoegenAanWinkelwagen'])) {
 <div class="container">
     <div class="row">
         <div class="col-6 align-self-center">
-            <h3 class="">Producten
-                > <?= ($_GET['categorie'] === 'alle') ? 'Alle' : haalCategorieNaamOpID($_GET['categorie']) ?></h3>
+            <h3><?= ($_GET['categorie'] === 'alle') ? 'Alle' : haalCategorieNaamOpID($_GET['categorie']) ?></h3>
         </div>
         <div class="col-6 align-self-center">
             <strong class="float-right"><?= $aantalProducten ?> resultaten</strong>

@@ -1,7 +1,7 @@
 <?php
-require __DIR__ . "/../databaseFuncties/databaseFuncties.php";
-include "klantFuncties.php";
-include "URL.php";
+//require __DIR__ . "/../databaseFuncties/databaseFuncties.php";
+//include "klantFuncties.php";
+//include "URL.php";
 
 function price($priceExcl, $taxrate, $stockItemID = null)
 {
@@ -9,18 +9,19 @@ function price($priceExcl, $taxrate, $stockItemID = null)
 
     $off = checkDiscount($stockItemID);
     if ($off != null) {
-        $discount = (100 - $off)/100;
+        $discount = (100 - $off) / 100;
         $price = $price * $discount;
     }
 
     return number_format($price, 2);
 }
 
-function checkDiscount($stockItemID = null, $stockGroupID = null) {
-    if ($stockItemID != null){
+function checkDiscount($stockItemID = null, $stockGroupID = null)
+{
+    if ($stockItemID != null) {
         $discount = getDiscount($stockItemID);
     } else {
-        $discount = getDiscount(null , $stockGroupID);
+        $discount = getDiscount(null, $stockGroupID);
     }
     return $discount;
 }
@@ -75,8 +76,9 @@ function catImageIDs($stockitemID)
 
 }
 
-function getCurrentURL() {
-    if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+function getCurrentURL()
+{
+    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
         $link = "https";
     else
         $link = "http";
@@ -89,6 +91,9 @@ function getCurrentURL() {
 
 function stars($stop)
 {
+    ?>
+    <span style="color: green; font-size: 16px">
+    <?php
     for ($nr = 1; $nr < $stop; $nr = $nr + 2): ?>
         <i class="fas fa-star"></i>
     <?php
@@ -105,6 +110,9 @@ function stars($stop)
         <i class="far fa-star"></i>
     <?php
     endfor;
+    ?>
+    </span>
+    <?php
 }
 
 

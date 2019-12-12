@@ -41,7 +41,7 @@ function redirect($path)
 
 function standaardProductenPerPagina()
 {
-    return '10';
+    return '12';
 }
 
 function haalGetVariabelenOpVoorUrl($getWaardes)

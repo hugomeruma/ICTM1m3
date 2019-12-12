@@ -216,9 +216,10 @@ function getReviews($stockItemID)
     return mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC);
 }
 function getAvgReviews($stockItemID){
-    $sql = "SELECT AVG(Rating) FROM reviews WHERE StockItemID = ?";
+    $sql = "SELECT AVG(Rating) as 'avg', count(Rating) as 'count' FROM reviews WHERE StockItemID = ?";
     $where = $stockItemID;
-    return mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC);
+    $array = mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC)[0];
+    return $array;
 }
 function insertReview($stockItemID, $UserID, $Name, $Rating, $Description){
     $sql = "INSERT INTO `reviews`(`StockItemID`, `UserID`, `Name`, `Rating`, `Description`) VALUES (?,?,?,?,?)";

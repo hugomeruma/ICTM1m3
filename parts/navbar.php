@@ -66,7 +66,7 @@
     <?php foreach (haalCategorieënOp() as $categorie): ?>
         <a href="<?= getBaseUrl() ?>?categorie=<?= $categorie['StockGroupID'] ?>&pagina=1&producten-per-pagina=<?= $_GET['producten-per-pagina'] ?? standaardProductenPerPagina() ?>"
            class="btn btn-primary col  d-flex justify-content-center align-items-center rounded-0<?= (isset($_GET['categorie']) && $_GET['categorie'] == $categorie['StockGroupID']) ? ' active' : '' ?>">
-            <div><?= $categorie['StockGroupName'] ?></div>
+            <?= $categorie['StockGroupName'] ?>
         </a>
     <?php endforeach; ?>
 </div>
