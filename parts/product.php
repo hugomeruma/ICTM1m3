@@ -4,11 +4,18 @@ $review = getAvgReviews($product['StockItemID']);
 ?>
 
 <div class="card mb-3">
-    <img src="<?= getBaseUrl() ?>assets/afbeeldingen/image_not_available.png" class="card-img-top" alt="...">
+
+    <img src="<?= getBaseUrl() ?>assets/afbeeldingen/<?= imgIDs($product["StockItemID"], "true") ?>"
+         class="card-img-top" alt="...">
+
     <div class="card-body">
-        <h5 class="card-title"><?= $product['StockItemName'] ?></h5>
+        <div style="height: 10ex">
+            <h5 class="card-title"><?= $product['StockItemName'] ?></h5>
+        </div>
         <h5><strong><?= $product['UnitPrice'] ?></strong><span
-                    class="float-right"><?= stars($review['avg']) ?>&nbsp;(<?= $review['count'] ?>)</span></h5>
+                    class="float-right"><div class="d-inline-flex"
+                                             style="align-items: center"><?= stars($review['avg']) ?></div>
+                &nbsp;(<?= $review['count'] ?>)</span></h5>
         <form method="post">
             <input type="hidden" name="productID" value="<?= $product['StockItemID'] ?>">
             <button type="submit" name="toevoegenAanWinkelwagen"

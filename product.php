@@ -29,7 +29,7 @@ require __dir__ . "/../functies/productFuncties.php";
                 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
                     <div class="carousel-inner">
                         <?php
-                        $imageIDs = imgIDs($product["StockItemID"]);
+                        $imageIDs = imgIDs($product["StockItemID"], "true");
                         $first = true;
                         foreach ($imageIDs as $imgID): ?>
                             <div class="carousel-item <?php if ($first == true) {
