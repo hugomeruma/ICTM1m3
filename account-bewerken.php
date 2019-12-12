@@ -20,6 +20,7 @@ if (isset($_POST['bewerken'])) {
     }
 }
 ?>
+    <a href="wachtwoordWijzigen.php"> Wachtwoord wijzigen </a>
     <h1>Mijn gegevens</h1>
     <form method="post">
         <div class="container">

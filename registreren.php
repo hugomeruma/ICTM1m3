@@ -56,7 +56,7 @@ if (isset($_POST["registreren"])) {
                 <div class="col-lg-6 form-group">
                     <label for="land">Land*</label>
                     <input type="text" class="form-control" id="land" name="land"
-                           value="<?= $_POST["land"] ?? '' ?>">
+                           value="<?= $_POST["land"] ?? '' ?>" required>
                 </div>
                     <div class="col-lg-6 form-group">
                         <label for="woonplaats">Woonplaats*</label>

@@ -1,5 +1,5 @@
 <?php
-function wijzigWachtwoord($mail, $huidigWachtwoord, $nieuwWachtwoord, $nieuwWachtwoordHerhaling)
+function HerhaalWachtwoord($mail, $huidigWachtwoord, $nieuwWachtwoord, $nieuwWachtwoordHerhaling)
 {
     if (login($mail, $huidigWachtwoord, true)) {
         if ($nieuwWachtwoord == $nieuwWachtwoordHerhaling) {
