@@ -2,3 +2,13 @@
     position: relative;
     bottom: 0;
 }
+
+.image-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.product-image {
+    width: 220px;
+    width: 100%;
+}

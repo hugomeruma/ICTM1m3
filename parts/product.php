@@ -4,10 +4,10 @@ $review = getAvgReviews($product['StockItemID']);
 ?>
 
 <div class="card mb-3">
-
-    <img src="<?= getBaseUrl() ?>assets/afbeeldingen/<?= imgIDs($product["StockItemID"], "true") ?>"
-         class="card-img-top" alt="...">
-
+    <div class="image-div">
+        <img src="<?= getBaseUrl() ?>assets/afbeeldingen/dummy/<?= imgIDs($product["StockItemID"], "true") ?>.png"
+             class="card-img-top product-image" alt="...">
+    </div>
     <div class="card-body">
         <div style="height: 10ex">
             <h5 class="card-title"><?= $product['StockItemName'] ?></h5>
