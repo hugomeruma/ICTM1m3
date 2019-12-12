@@ -42,17 +42,17 @@ if (isset($message)) {
     </div>
     <div class="col-lg-6 form-group">
         <label for="">voer uw huidige wachtwoord in*</label>
-        <input type="text" class="form-control" id="" name="huidigWW"
+        <input type="password" class="form-control" id="" name="huidigWW"
                value="" required>
     </div>
     <div class="col-lg-6 form-group">
         <label for="">Nieuw wachtwoord*</label>
-        <input type="text" class="form-control" id="" name="nieuwWW"
+        <input type="password" class="form-control" id="" name="nieuwWW"
                value="" required>
     </div>
     <div class="col-lg-6 form-group">
         <label for="">Herhaal nieuw wachtwoord *</label>
-        <input type="text" class="form-control" id="" name="herhaalWW"
+        <input type="password" class="form-control" id="" name="herhaalWW"
                value="" required>
     </div>
 
