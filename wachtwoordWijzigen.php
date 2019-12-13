@@ -36,7 +36,7 @@ if (isset($message)) {
 ?>
 <form method="post">
     <div class="col-lg-6 form-group">
-        <label for="">email*</label>
+        <label for="">e<Email*</label>
         <input type="text" class="form-control" id="" name="email"
                value="<?= $account['email'] ?? '' ?>" readonly required>
     </div>
