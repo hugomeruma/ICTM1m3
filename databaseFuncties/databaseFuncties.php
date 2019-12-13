@@ -37,8 +37,6 @@ function getFromDB($sql, $where = null, $limit = null, $offset = null, $search =
     if ($where != null && $limit == null && $search != null) {
         mysqli_stmt_bind_param($stmt, 'is', $where, $search);
     }
-
-
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     sluitVerbinding($conn);
@@ -101,19 +99,12 @@ function currentStockGroup()
     }
 }
 
-function getStockGroup($where, $all = null)
+
+function getStockGroup($where)
 {
-    if (!empty($_GET['in']) && $all == null) {
-        return $_GET['in'];
-    } else {
-        $sql = "SELECT StockGroupID FROM stockitemstockgroups where StockItemID = ?;";
-    }
+    $sql = "SELECT StockGroupID FROM stockitemstockgroups where StockItemID = ?;";
     $result = getFromDB($sql, $where);
-    $nr = rand(0, mysqli_num_rows($result) - 1);
-    if ($all != null) {
-        return (mysqli_fetch_all($result, MYSQLI_ASSOC));
-    }
-    return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['StockGroupID']);
+    return (mysqli_fetch_all($result, MYSQLI_ASSOC));
 }
 
 function getStockItem($stockItemID)
@@ -139,7 +130,7 @@ function getStockHolding($stockItemID)
 
 function getChillerStock($IsChillerStock)
 {
-    //
+
 }
 
 function getColor($ColorID)
@@ -215,13 +206,17 @@ function getReviews($stockItemID)
     $where = $stockItemID;
     return mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC);
 }
-function getAvgReviews($stockItemID){
+
+function getAvgReviews($stockItemID)
+{
     $sql = "SELECT AVG(Rating) as 'avg', count(Rating) as 'count' FROM reviews WHERE StockItemID = ?";
     $where = $stockItemID;
     $array = mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC)[0];
     return $array;
 }
-function insertReview($stockItemID, $UserID, $Name, $Rating, $Description){
+
+function insertReview($stockItemID, $UserID, $Name, $Rating, $Description)
+{
     $sql = "INSERT INTO `reviews`(`StockItemID`, `UserID`, `Name`, `Rating`, `Description`) VALUES (?,?,?,?,?)";
     $conn = maakVerbinding();
     $stmt = mysqli_stmt_init($conn);
@@ -241,6 +236,56 @@ WHERE G.StockGroupID = ?";
     $maxPrice = mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC)[0]["max(UnitPrice)"];
     return ceil($maxPrice * ($discount / 100));
 
+}
+
+function stockItemImages($stockItemID)
+{
+    $sql = "SELECT ImageID FROM stockitem_images WHERE StockItemID = ?";
+    $where = $stockItemID;
+    return (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC));
+}
+
+function getImageID($stockItemID)
+{
+    $array = array();
+
+    $imageID = array();
+
+    $imageID = stockItemImages($stockItemID);
+    if (empty($imageID)) {
+        $stockGroupIDs = getStockGroup($stockItemID);
+        if ($_GET['categorie'] != "alle") {
+            array_unshift($stockGroupIDs, Array("StockGroupID" => $_GET['categorie']));
+        }
+
+        foreach ($stockGroupIDs as $stockGroupID) {
+            $array[] = $stockGroupID["StockGroupID"];
+        }
+
+        $array = array_unique($array);
+        foreach ($array as $stockGroupID) {
+            $imageID[] = (stockgroupImages($stockGroupID));
+        }
+    }
+    return $imageID;
+}
+
+function getImages($stockItemID, $isThumbnail = null)
+{
+    $imageIDs = getImageID($stockItemID);
+
+    $images = array();
+    $sql = "SELECT * FROM images WHERE ImageID = ?";
+    foreach ($imageIDs as $imageID) {
+        $where = $imageID[0]["ImageID"];
+        $images[] = (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC));
+    }
+
+    if ($isThumbnail != null) {
+        return $images[0];
+    } else {
+        return $images;
+    }
 }
 
 ?>

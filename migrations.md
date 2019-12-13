@@ -37,7 +37,6 @@ CREATE TABLE `images` (
 ALTER TABLE `images`
   ADD PRIMARY KEY (`ImageID`);
 
-
 CREATE TABLE `stockitem_images` (
   `StockitemImageID` int(11) NOT NULL,
   `StockitemID` int(11) NOT NULL,

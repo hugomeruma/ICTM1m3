@@ -1,11 +1,15 @@
 <?php
 require_once "functies/content.php";
 $review = getAvgReviews($product['StockItemID']);
+if (getStockHolding($product['StockItemID']) <= 0) {
+    $stock = 0;
+}
+
 ?>
 
-<div class="card mb-3">
+<div class="card mb-3" <?php if (isset($stock)): ?>style="opacity: 0.4" <?php endif; ?>>
 
-    <img src="<?= getBaseUrl() ?>assets/afbeeldingen/<?= imgIDs($product["StockItemID"], "true") ?>"
+    <img src="<?= getBaseUrl() ?>assets/afbeeldingen/dummy/<?= getImages($product['StockItemID'], "thumbnail")[0]["ImageName"] ?>"
          class="card-img-top" alt="...">
 
     <div class="card-body">
