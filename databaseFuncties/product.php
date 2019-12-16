@@ -1,17 +1,4 @@
 <?php
-function productenBeherenOverzicht(int $productenPerPagina, int $page = 0)
-{
-    $offset = $page * $productenPerPagina;
-    $conn = maakVerbinding();
-    $stmt = $conn->prepare("SELECT stockitems.StockItemID, stockitems.StockItemName, stockitems.UnitPrice FROM stockitems LIMIT ? OFFSET ?");
-    $stmt->bind_param('ii', $productenPerPagina, $offset);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $stmt->close();
-    $conn->close();
-    return mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
-
 function telProducten($categorieID)
 {
     $conn = maakVerbinding();
@@ -144,23 +131,29 @@ function haalProductenOp(int $pagina, int $productenPerPagina, $categorieID = nu
 
     $conn = maakVerbinding();
     if ($categorieID) { // Haal alle producten van een categorie
-        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.UnitPrice, s.TaxRate, h.QuantityOnHand
+        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.UnitPrice, s.TaxRate, h.QuantityOnHand, (SELECT COUNT(*) FROM reviews r WHERE r.StockItemID = s.StockItemID) as aantalBeoordelingen, AVG(r.Rating) as gemiddeldeBeoordeling
         FROM stockitems s
+        LEFT JOIN reviews r
+        ON s.StockItemID = r.StockItemID
         JOIN stockitemholdings h
         ON s.StockItemID = h.StockItemID
         LEFT JOIN stockitemstockgroups g
         ON s.StockItemID = g.StockItemID
         WHERE g.StockGroupID = ?
+        GROUP BY s.StockItemID
         LIMIT ?
         OFFSET ?");
         $stmt->bind_param('iii', $categorieID, $productenPerPagina, $offset);
     } else { // Haal alle producten
-        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.UnitPrice, s.TaxRate, h.QuantityOnHand
+        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.UnitPrice, s.TaxRate, h.QuantityOnHand, (SELECT COUNT(*) FROM reviews r WHERE r.StockItemID = s.StockItemID) as aantalBeoordelingen, AVG(r.Rating) as gemiddeldeBeoordeling
         FROM stockitems s
+        LEFT JOIN reviews r
+        ON s.StockItemID = r.StockItemID
         JOIN stockitemholdings h
         ON s.StockItemID = h.StockItemID
         LEFT JOIN stockitemstockgroups g
         ON s.StockItemID = g.StockItemID
+        GROUP BY s.StockItemID
         LIMIT ?
         OFFSET ?");
         $stmt->bind_param('ii', $productenPerPagina, $offset);
@@ -182,4 +175,14 @@ function haalWinkelwagenProductOp(int $productID)
     $stmt->close();
     $conn->close();
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
+function haalEersteProductAfbeeldingOp(int $ID)
+{
+
+}
+
+function haalEersteCategorieAfbeeldingVanProductOp(int $ID)
+{
+    
 }

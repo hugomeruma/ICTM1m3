@@ -33,18 +33,6 @@ function haalAccountOpID(int $id)
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-
-function wijzigEmail($email, $id)
-{
-    $conn = maakVerbinding();
-    $stmt = $conn->prepare('UPDATE accounts set email = ? WHERE id = ?');
-    $stmt->bind_param('si', $email, $id);
-    $result = $stmt->execute();
-    $stmt->fetch();
-    $stmt->close();
-    return $result;
-}
-
 function wijzigWachtwoord($id, $wachtwoord)
 {
     $conn = maakVerbinding();

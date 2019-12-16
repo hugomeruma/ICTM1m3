@@ -6,4 +6,3 @@ if (!isset($_SESSION)) {
 }
 require __DIR__ . "/databaseFuncties/databaseFuncties.php";
 require __DIR__ . "/functies/algemeen.php";
-require __DIR__ . "/functies/helpers.php";

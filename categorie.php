@@ -87,7 +87,11 @@ if (isset($_POST['toevoegenAanWinkelwagen'])) {
         <div class="col-12">
             <div class="row">
                 <!-- Producten -->
-                <?php foreach ($producten as $product): ?>
+                <?php foreach ($producten as $product):
+                    // Beoordeling afronden en omzetten naar integer
+                    $product['beoordeling'] = intval(round($product['gemiddeldeBeoordeling']));
+                    // Haal de afbeelding voor het product op
+                    $product['afbeelding'] = haalEersteProductAfbeeldingOp($productStockItemID) ?? haalEersteCategorieAfbeeldingVanProductOp($product['StockItemID']) ?>
                     <div class="col-sm-3">
                         <?php require __DIR__ . '/parts/product.php'; ?>
                     </div>

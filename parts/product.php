@@ -1,21 +1,37 @@
-<?php
-require_once "functies/content.php";
-$review = getAvgReviews($product['StockItemID']);
-?>
-
 <div class="card mb-3">
-
-    <img src="<?= getBaseUrl() ?>assets/afbeeldingen/<?= imgIDs($product["StockItemID"], "true") ?>"
-         class="card-img-top" alt="...">
-
+    <a href="<?= getBaseUrl() ?>product.php?id=<?= $product['StockItemID'] ?>">
+        <img src="<?= getBaseUrl() ?>assets/afbeeldingen/<?= $product['afbeeldingsLocatie'] ?>"
+             class="card-img-top" alt="...">
+    </a>
     <div class="card-body">
-        <div style="height: 10ex">
+        <a href="<?= getBaseUrl() ?>product.php?id=<?= $product['StockItemID'] ?>">
             <h5 class="card-title"><?= $product['StockItemName'] ?></h5>
-        </div>
-        <h5><strong><?= $product['UnitPrice'] ?></strong><span
-                    class="float-right"><div class="d-inline-flex"
-                                             style="align-items: center"><?= stars($review['avg']) ?></div>
-                &nbsp;(<?= $review['count'] ?>)</span></h5>
+        </a>
+
+        <!-- Gemiddelde beoordeling -->
+        <span class="text-primary">
+    <?php if ($product['aantalBeoordelingen']):
+        // for loop tot het aantal sterren
+        for ($x = 0; $x <= $product['aantalSterren']; $x++):
+            // Als het de laatste ster is en het aantal sterren oneven is: laat een half ingevulde ster zien
+            if ((($x + 1) == $product['aantalSterren']) && !(($product['aantalSterren'] % 2) == 0)): ?>
+                <i class="fas fa-star-half-alt"></i>
+                <!-- Als er vaker is geloopt dan het aantal sterren en de laatste geen halve ster is -->
+            <?php elseif (($x + 1) < $product['aantalSterren']): ?>
+                <i class="fas fa-star"></i>
+                <!-- Extra plus omdat een hele ster voor twee telt -->
+                <?php $x++; endif;
+        endfor;
+        // Vul het resterende aan met lege sterren
+        while ($x < 10): ?>
+            <i class="far fa-star"></i>
+            <?php $x += 2;
+        endwhile; ?>
+        (<?= $product['aantalBeoordelingen'] ?>)
+    <?php endif; ?>
+    </span>
+
+        <h5><strong><?= $product['UnitPrice'] ?></strong></h5>
         <form method="post">
             <input type="hidden" name="productID" value="<?= $product['StockItemID'] ?>">
             <button type="submit" name="toevoegenAanWinkelwagen"
