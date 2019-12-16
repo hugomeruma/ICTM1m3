@@ -1,5 +1,5 @@
 <?php
-function HerhaalWachtwoord($mail, $huidigWachtwoord, $nieuwWachtwoord, $nieuwWachtwoordHerhaling)
+function wachtwoordVeranderenValidatie($mail, $huidigWachtwoord, $nieuwWachtwoord, $nieuwWachtwoordHerhaling)
 {
     if (login($mail, $huidigWachtwoord, true)) {
         if ($nieuwWachtwoord == $nieuwWachtwoordHerhaling) {
