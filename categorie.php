@@ -89,9 +89,9 @@ if (isset($_POST['toevoegenAanWinkelwagen'])) {
                 <!-- Producten -->
                 <?php foreach ($producten as $product):
                     // Beoordeling afronden en omzetten naar integer
-                    $product['beoordeling'] = intval(round($product['gemiddeldeBeoordeling']));
+                    $product['gemiddeldeBeoordeling'] = intval(round($product['gemiddeldeBeoordeling']));
                     // Haal de afbeelding voor het product op
-                    $product['afbeelding'] = haalEersteProductAfbeeldingOp($productStockItemID) ?? haalEersteCategorieAfbeeldingVanProductOp($product['StockItemID']) ?>
+                    $product['afbeelding'] = haalEersteProductAfbeeldingOp($product['StockItemID']) ?? haalEersteCategorieAfbeeldingVanProductOp($product['StockGroupID']) ?? ''; ?>
                     <div class="col-sm-3">
                         <?php require __DIR__ . '/parts/product.php'; ?>
                     </div>

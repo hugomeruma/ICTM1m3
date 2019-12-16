@@ -1,6 +1,6 @@
 <div class="card mb-3">
     <a href="<?= getBaseUrl() ?>product.php?id=<?= $product['StockItemID'] ?>">
-        <img src="<?= getBaseUrl() ?>assets/afbeeldingen/<?= $product['afbeeldingsLocatie'] ?>"
+        <img src="<?= getBaseUrl() ?>assets/afbeeldingen/<?= $product['afbeelding']['location'] ?? 'afbeelding_niet_beschikbaar.png' ?>"
              class="card-img-top" alt="...">
     </a>
     <div class="card-body">
@@ -10,14 +10,14 @@
 
         <!-- Gemiddelde beoordeling -->
         <span class="text-primary">
-    <?php if ($product['aantalBeoordelingen']):
+    <?php if ($product['gemiddeldeBeoordeling']):
         // for loop tot het aantal sterren
-        for ($x = 0; $x <= $product['aantalSterren']; $x++):
+        for ($x = 0; $x <= $product['gemiddeldeBeoordeling']; $x++):
             // Als het de laatste ster is en het aantal sterren oneven is: laat een half ingevulde ster zien
-            if ((($x + 1) == $product['aantalSterren']) && !(($product['aantalSterren'] % 2) == 0)): ?>
+            if ((($x + 1) == $product['gemiddeldeBeoordeling']) && !(($product['gemiddeldeBeoordeling'] % 2) == 0)): ?>
                 <i class="fas fa-star-half-alt"></i>
                 <!-- Als er vaker is geloopt dan het aantal sterren en de laatste geen halve ster is -->
-            <?php elseif (($x + 1) < $product['aantalSterren']): ?>
+            <?php elseif (($x + 1) < $product['gemiddeldeBeoordeling']): ?>
                 <i class="fas fa-star"></i>
                 <!-- Extra plus omdat een hele ster voor twee telt -->
                 <?php $x++; endif;
