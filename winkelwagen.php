@@ -61,7 +61,7 @@ if (isset($_GET['te-verwijderen-product'])) {
                                      class="winkelwagen-product-afbeelding w-100" alt="">
                             </div>
                             <div class="col-7 py-2">
-                                <a href="<?= getBaseUrl() ?>product.php?product=<?= $product['StockItemID'] ?>">
+                                <a href="<?= getBaseUrl() ?>product.php?id=<?= $product['StockItemID'] ?>">
                                     <h5 class="text-primary"><?= $product['StockItemName'] ?></h5>
                                 </a>
                                 <strong><?= $product['UnitPrice'] ?></strong>

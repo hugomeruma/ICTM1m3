@@ -1,20 +1,23 @@
 <?php
 
-function maakAccount($voornaam, $tussenvoegsel, $achternaam, $email, $wachtwoord, $plaats, $postcode, $huisnummer, $straat, $telefoonnummer)
+function maakAccount($voornaam, $tussenvoegsel, $achternaam, $email, $wachtwoord,$land , $plaats, $postcode, $huisnummer, $straat, $telefoonnummer)
 {
+    // Hash wachtwoord
+    $wachtwoord = password_hash($wachtwoord, PASSWORD_DEFAULT);
+
     $conn = maakVerbinding();
-    $stmt = $conn->prepare("INSERT INTO accounts (firstName, tussenvoegsel, lastName, email, password, city, postalCode, houseNumber, streetName, phoneNumber) VALUES(?,?,?,?,?,?,?,?,?,?)");
-    $stmt->bind_param( 'ssssssssss', $voornaam, $tussenvoegsel, $achternaam, $email, $wachtwoord, $plaats, $postcode, $huisnummer, $straat, $telefoonnummer);
+    $stmt = $conn->prepare("INSERT INTO accounts (FirstName, Insertion, LastName, Email, Password, Country, City, PostalCode, Street, HouseNumber, phoneNumber) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+    $stmt->bind_param( 'sssssssssss', $voornaam, $tussenvoegsel, $achternaam, $email, $wachtwoord, $land , $plaats, $postcode, $huisnummer, $straat, $telefoonnummer);
     $result = $stmt->execute();
     $stmt->fetch();
     $stmt->close();
     return $result;
 }
 
-function werkAccountGegevensBij($ID, $voornaam, $tussenvoegsel, $achternaam, $plaats, $postcode, $huisnummer, $straat, $telefoonnummer) {
+function werkAccountGegevensBij($ID, $voornaam, $tussenvoegsel, $achternaam, $land, $plaats, $postcode, $huisnummer, $straat, $telefoonnummer) {
     $conn = maakVerbinding();
-    $stmt = $conn->prepare("UPDATE accounts SET firstName=?, tussenvoegsel=?, lastName=?, email=?, city=?, postalCode=?, houseNumber=?, streetName=?, phoneNumber=? WHERE id=?");
-    $stmt->bind_param( 'ssssssssi', $voornaam, $tussenvoegsel, $achternaam, $plaats, $postcode, $huisnummer, $straat, $telefoonnummer, $ID);
+    $stmt = $conn->prepare("UPDATE accounts SET FirstName=?, Insertion=?, LastName=?, Country=?, City=?, PostalCode=?, HouseNumber=?, Street=?, PhoneNumber=? WHERE ID=?");
+    $stmt->bind_param( 'sssssssssi', $voornaam, $tussenvoegsel, $achternaam, $land , $plaats, $postcode, $huisnummer, $straat, $telefoonnummer, $ID);
     $result = $stmt->execute();
     $stmt->fetch();
     $stmt->close();
@@ -33,22 +36,13 @@ function haalAccountOpID(int $id)
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-
-function wijzigEmail($email, $id)
-{
-    $conn = maakVerbinding();
-    $stmt = $conn->prepare('UPDATE accounts set email = ? WHERE id = ?');
-    $stmt->bind_param('si', $email, $id);
-    $result = $stmt->execute();
-    $stmt->fetch();
-    $stmt->close();
-    return $result;
-}
-
 function wijzigWachtwoord($id, $wachtwoord)
 {
+    // Hash wachtwoord
+    $wachtwoord = password_hash($wachtwoord, PASSWORD_DEFAULT);
+
     $conn = maakVerbinding();
-    $stmt = $conn->prepare('UPDATE accounts set password = ? WHERE id = ?');
+    $stmt = $conn->prepare('UPDATE accounts set Password = ? WHERE ID = ?');
     $stmt->bind_param('si', $wachtwoord, $id);
     $result = $stmt->execute();
     $stmt->fetch();
@@ -60,7 +54,7 @@ function login($mail, $password, $noSessions = false)
 {
     $conn = maakVerbinding();
 
-    if ($stmt = $conn->prepare('SELECT * FROM accounts WHERE email = ? LIMIT 1')) {
+    if ($stmt = $conn->prepare('SELECT * FROM accounts WHERE Email = ? LIMIT 1')) {
         $stmt->bind_param('s', $mail);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -68,13 +62,12 @@ function login($mail, $password, $noSessions = false)
         $stmt->close();
         $account = mysqli_fetch_all($result, MYSQLI_ASSOC);
         if (isset($account[0])) {
-            if (password_verify($password, $account[0]['password'])) {
+            if (password_verify($password, $account[0]['Password'])) {
                 if (!$noSessions) {
-                    $_SESSION['name'] = getFullName($account[0]['firstName'], $account[0]['tussenvoegsel'], $account[0]['lastName']);
+                    $_SESSION['name'] = getFullName($account[0]['FirstName'], $account[0]['Insertion'], $account[0]['LastName']);
                     $_SESSION['ingelogd'] = TRUE;
-                    $_SESSION['email'] = $account[0]['email'];
-                    $_SESSION['id'] = $account[0]['id'];
-                    $_SESSION['isAdmin'] = $account[0]['isAdmin'];
+                    $_SESSION['email'] = $account[0]['Email'];
+                    $_SESSION['id'] = $account[0]['ID'];
                 }
                 return true;
             } else {

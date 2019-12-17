@@ -1,82 +1,75 @@
 <?php
 require __DIR__ . '/init.php';
-require __DIR__ . '/parts/head.php';
+require __DIR__ . "/parts/head.php";
 require __DIR__ . '/databaseFuncties/account.php';
 
-// Als een gebruiker al is ingelogd wordt hij doorgestuurd naar de home pagina
-if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd']) {
-    redirect('');
+// De gebruiker wordt doorgestuurd naar de home pagina als hij niet is ingelogd
+if (!isset($_SESSION['ingelogd']) || !$_SESSION['ingelogd']) {
+    redirect('login.php');
 }
 
-// Registreer de gebruiker
-if (isset($_POST["registreren"])) {
-    if (maakAccount($_POST['voornaam'], $_POST['tussenvoegsel'], $_POST['achternaam'], $_POST['email'], $_POST['wachtwoord'], $_POST['land'], $_POST['woonplaats'], $_POST['postcode'], $_POST['huisnummer'], $_POST['straatnaam'], $_POST['telefoonnummer'])) {
-        redirect('login.php');
+// Haal de gegevens van het account op
+$account = haalAccountOpID($_SESSION['id'])[0];
+
+// Sla de nieuwe gegevens op
+if (isset($_POST['bewerken'])) {
+    if (werkAccountGegevensBij($_SESSION['id'], $_POST['voornaam'], $_POST['tussenvoegsel'], $_POST['achternaam'], $_POST['land'], $_POST['woonplaats'], $_POST['postcode'], $_POST['huisnummer'], $_POST['straatnaam'], $_POST['telefoonnummer'])) {
+        redirect('gegevens-wijzigen.php');
     } else {
-        die('#gaatfout');
+        die('fout');
     }
 }
 ?>
-    <h1 class="mt-3 mb-3">Registreren</h1>
+    <h1>Mijn gegevens</h1>
     <form method="post">
         <div class="row">
             <div class="col-lg-6 form-group">
                 <label for="">Voornaam*</label>
                 <input type="text" class="form-control" id="" name="voornaam"
-                       value="<?= $_POST["voornaam"] ?? '' ?>" required>
+                       value="<?= $account["FirstName"] ?? '' ?>" required>
             </div>
             <div class="col-lg-6 form-group">
                 <label for="tussenvoegsel">Tussenvoegsel</label>
                 <input type="text" class="form-control" id="tussenvoegsel" name="tussenvoegsel"
-                       value="<?= $_POST["tussenvoegsel"] ?? '' ?>">
+                       value="<?= $account["Insertion"] ?? '' ?>">
             </div>
             <div class="col-lg-6 form-group">
                 <label for="achternaam">Achternaam*</label>
                 <input type="text" class="form-control" id="achternaam" name="achternaam"
-                       value="<?= $_POST["achternaam"] ?? '' ?>" required>
-            </div>
-            <div class="col-lg-6 form-group">
-                <label for="email">E-mail*</label>
-                <input type="email" class="form-control" id="email" name="email"
-                       value="<?= $_POST["email"] ?? '' ?>" required>
-            </div>
-            <div class="col-lg-6 form-group">
-                <label for="wachtwoord">Wachtwoord*</label>
-                <input type="password" class="form-control" id="wachtwoord" name="wachtwoord"
-                       value="<?= $_POST["wachtwoord"] ?? '' ?>" required>
+                       value="<?= $account["LastName"] ?? '' ?>" required>
             </div>
             <div class="col-lg-6 form-group">
                 <label for="land">Land*</label>
                 <input type="text" class="form-control" id="land" name="land"
-                       value="<?= $_POST["land"] ?? '' ?>" required>
+                       value="<?= $account["Country"] ?? '' ?>">
             </div>
             <div class="col-lg-6 form-group">
                 <label for="woonplaats">Woonplaats*</label>
                 <input type="text" class="form-control" id="woonplaats" name="woonplaats"
-                       value="<?= $_POST["woonplaats"] ?? '' ?>" required>
+                       value="<?= $account["City"] ?? '' ?>" required>
             </div>
             <div class="col-lg-6 form-group">
                 <label for="postcode">Postcode*</label>
                 <input type="text" class="form-control" id="postcode" name="postcode"
-                       value="<?= $_POST["postcode"] ?? '' ?>" required>
+                       value="<?= $account["PostalCode"] ?? '' ?>" required>
             </div>
             <div class="col-lg-6 form-group">
                 <label for="huisnummer">Huisnummer*</label>
-                <input type="number" class="form-control" id="huisnummer" name="huisnummer"
-                       value="<?= $_POST["huisnummer"] ?? '' ?>" required>
+                <input type="text" class="form-control" id="huisnummer" name="huisnummer"
+                       value="<?= $account["HouseNumber"] ?? '' ?>" required>
             </div>
             <div class="col-lg-6 form-group">
                 <label for="straatnaam">Straatnaam*</label>
                 <input type="text" class="form-control" id="straatnaam" name="straatnaam"
-                       value="<?= $_POST["straatnaam"] ?? '' ?>" required>
+                       value="<?= $account["Street"] ?? '' ?>" required>
             </div>
             <div class="col-lg-6 form-group">
                 <label for="telefoonnummer">Telefoonnummer</label>
                 <input type="text" class="form-control" id="telefoonnummer" name="telefoonnummer"
-                       value="<?= $_POST["telefoonnummer"] ?? '' ?>">
+                       value="<?= $account["PhoneNumber"] ?? '' ?>">
             </div>
         </div>
-        <button type="submit" name="registreren" class="btn btn-primary mb-3">Registreren</button>
+        <button type="submit" name="bewerken" class="btn btn-primary mb-3">Bewerken</button>
     </form>
 <?php
 require __DIR__ . "/parts/footer.php";

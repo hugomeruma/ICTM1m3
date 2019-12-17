@@ -37,6 +37,8 @@ function getFromDB($sql, $where = null, $limit = null, $offset = null, $search =
     if ($where != null && $limit == null && $search != null) {
         mysqli_stmt_bind_param($stmt, 'is', $where, $search);
     }
+
+
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     sluitVerbinding($conn);
@@ -87,6 +89,13 @@ WHERE  G.StockGroupID = ? and SearchDetails like ?";
     return $aantalProd;
 }
 
+//stockGroups
+function selecterenStockgroups()
+{
+    $sql = "SELECT SG.StockGroupID, SG.StockGroupName
+FROM stockgroups as SG  WHERE SG.StockGroupID IN (SELECT StockGroupId FROM stockitemstockgroups)";
+    return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
+}
 
 function currentStockGroup()
 {
@@ -167,6 +176,36 @@ function selecterenProducten()
 ON I.StockItemID = G.StockItemID
 WHERE G.StockGroupID = ? LIMIT ? OFFSET ?";
     return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset), MYSQLI_ASSOC);
+}
+
+function zoekenProducten()
+{
+    if (empty($_GET['in'])) {
+        $search = "%" . $_GET['searchFor'] . "%";
+
+        $count = tellenProducten(null, $search);
+        $limit = productenPerPagina($count);
+        $offset = offset($limit);
+
+        $sql = "SELECT * FROM StockItems WHERE SearchDetails like ?
+LIMIT ?
+OFFSET ?";
+        return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset, $search), MYSQLI_ASSOC);
+    }
+    if (!empty($_GET['in'])) {
+        $where = $_GET['in'];
+        $search = "%" . $_GET['searchFor'] . "%";
+
+        $count = tellenProducten($where, $search);
+        $limit = productenPerPagina($count);
+        $offset = offset($limit);
+
+        $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
+ON I.StockItemID = G.StockItemID
+WHERE  G.StockGroupID = ? and SearchDetails like ?
+LIMIT ? OFFSET ? ";
+        return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset, $search), MYSQLI_ASSOC);
+    }
 }
 
 function getSpecialDeals()
@@ -319,5 +358,10 @@ function getImages($stockItemID, $isThumbnail = null)
     }
 }
 
+
+function populaireProducten(){
+    $sql = "SELECT StockItemID FROM reviews ORDER BY Rating ASC LIMIT 3";
+    return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
+}
 
 ?>
