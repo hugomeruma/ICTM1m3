@@ -74,7 +74,7 @@ require __dir__ . "/../functies/productFuncties.php";
                         incl. btw (<?= $product["TaxRate"] / 100 ?>%)<br>
                     </div>
                     <?php
-                    $stock = getStockHolding($_GET['view']);
+                    $stock = haalVooraadOp($_GET['view']);
                     if ($stock >= 0): ?>
                         Dit product is niet meer op voorraad
                     <?php endif; ?>

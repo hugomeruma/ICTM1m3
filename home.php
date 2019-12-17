@@ -14,17 +14,18 @@ if (strpos($_SERVER['REQUEST_URI'], 'home.php') !== false) {
     </h1>
     <!--    <h2 class="region__header-title" data-test="region-header-title"> Onze aanraders</h2>-->
 </div>
+
 <div class="container-fluid divider">
-    <div class="divider-text"> Our Special Deals</div>
+    <div class="divider-text"> Onze Deals</div>
 </div>
 <?php
 require __DIR__ . "/Deals/Deals.php";
 ?>
 
-<div class="container-fluid Popular-divider">
-    <div class="Popular-divider-text"> Our popular products </div>
-</div>
 
+<div class="container-fluid Popular-divider">
+    <div class="Popular-divider-text"> Onze populaire producten</div>
+</div>
 <?php
 $meestPopulair = populaireProducten();
 foreach ($meestPopulair as $product): ?>
@@ -32,10 +33,6 @@ foreach ($meestPopulair as $product): ?>
         <?php require __DIR__ . '/parts/product.php'; ?>
     </div>
 <?php endforeach; ?>
-
-<?php
-require __DIR__ . "/Deals/parts/PopularProducts.php";
-?>
 
 <?php
 require __DIR__ . "/parts/footer.php";

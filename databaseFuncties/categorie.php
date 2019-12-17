@@ -21,10 +21,3 @@ function haalCategorieNaamOpID(int $ID)
     $conn->close();
     return mysqli_fetch_all($result, MYSQLI_ASSOC)[0]["StockGroupName"];
 }
-
-function stockgroupImages($stockGroupID)
-{
-    $sql = "SELECT ImageID FROM stock_group_images WHERE StockitemGroupID = ?";
-    $where = $stockGroupID;
-    return (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC));
-}

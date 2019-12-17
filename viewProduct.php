@@ -48,7 +48,7 @@ $productData = array(
         <?php if (isset($off)): ?>
             <strong class="opmerking">Met <?= $off ?>% Korting!</strong>
         <?php endif; ?>
-        <strong class="opmerking">Nog <?= getStockHolding($product['StockItemID']) ?> op vooraad.</strong>
+        <strong class="opmerking">Nog <?= haalVooraadOp($product['StockItemID']) ?> op vooraad.</strong>
         <div>
             <form method="post" class="my-3">
                 <input type="hidden" name="productID" value="<?= $product['StockItemID'] ?>">

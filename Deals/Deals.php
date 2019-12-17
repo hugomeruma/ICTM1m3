@@ -27,8 +27,8 @@
                         <div class="jumbotron-item jumbotron-deals-images">
                             <img src="
                                  <?php
-                            $img = imgIDs($inputID, true);
-                            echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/" . $img . ".png");
+                            $img = getImages($inputID, true);
+                            echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/" . $img['ImageName'] . ".png");
                             ?>">
                         </div>
                     </div>

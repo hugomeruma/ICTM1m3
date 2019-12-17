@@ -1,16 +1,5 @@
 <?php
 // default functies verbinden
-function maakVerbinding($user = null, $pass = null)
-{
-    $host = "localhost";
-    $databasename = "wideworldimporters";
-    $port = 3306;
-    $user = "root";
-    $pass = "";
-    $connection = new mysqli($host, $user, $pass, $databasename, $port);
-    return ($connection);
-}
-
 function getFromDB($sql, $where = null, $limit = null, $offset = null, $search = null)
 {
     $conn = maakVerbinding();
@@ -38,16 +27,10 @@ function getFromDB($sql, $where = null, $limit = null, $offset = null, $search =
         mysqli_stmt_bind_param($stmt, 'is', $where, $search);
     }
 
-
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     sluitVerbinding($conn);
     return $result;
-}
-
-function sluitVerbinding($connection)
-{
-    mysqli_close($connection);
 }
 
 //selecteren Producten
@@ -123,14 +106,7 @@ function getStockItem($stockItemID)
     return mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC);
 }
 
-function getStockItems($stockItemsArray)
-{
-    $stockItemsArray = implode(',', array_keys($stockItemsArray));
-    $sql = "SELECT * FROM stockitems WHERE StockItemID IN ($stockItemsArray)";
-    return mysqli_fetch_all(getFromDB($sql, null), MYSQLI_ASSOC);
-}
-
-function getStockHolding($stockItemID)
+function haalVooraadOp($stockItemID)
 {
     $sql = "SELECT QuantityOnHand FROM stockitemholdings WHERE StockItemID = ?";
     $where = $stockItemID;
@@ -305,14 +281,24 @@ WHERE G.StockGroupID = ?";
     $where = $stockgroupID;
     $maxPrice = mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC)[0]["max(UnitPrice)"];
     return ceil($maxPrice * ($discount / 100));
+}
 
+function stockgroupImages($stockGroupID)
+{
+    $sql = "SELECT ImageID FROM stockgroups_images WHERE StockGroupID = ?";
+    $where = $stockGroupID;
+    return (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC))[0];
 }
 
 function stockItemImages($stockItemID)
 {
-    $sql = "SELECT ImageID FROM stockitem_images WHERE StockItemID = ?";
+    $sql = "SELECT ImageID FROM stockitems_images WHERE StockItemID = ?";
     $where = $stockItemID;
-    return (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC));
+    $result = (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC));
+    if (!empty($result)) {
+        return $result[0];
+    }
+    return;
 }
 
 function getImageID($stockItemID)
@@ -322,6 +308,7 @@ function getImageID($stockItemID)
     $imageID = array();
 
     $imageID = stockItemImages($stockItemID);
+
     if (empty($imageID)) {
         $stockGroupIDs = getStockGroup($stockItemID);
         if ($_GET['categorie'] != "alle") {
@@ -343,11 +330,11 @@ function getImageID($stockItemID)
 function getImages($stockItemID, $isThumbnail = null)
 {
     $imageIDs = getImageID($stockItemID);
-
     $images = array();
-    $sql = "SELECT * FROM images WHERE ImageID = ?";
+    $sql = "SELECT * FROM images WHERE ID = ?";
     foreach ($imageIDs as $imageID) {
-        $where = $imageID[0]["ImageID"];
+        echo "<br>";
+        $where = $imageID["ImageID"];
         $images[] = (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC));
     }
 
@@ -359,7 +346,8 @@ function getImages($stockItemID, $isThumbnail = null)
 }
 
 
-function populaireProducten(){
+function populaireProducten()
+{
     $sql = "SELECT StockItemID FROM reviews ORDER BY Rating ASC LIMIT 3";
     return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
 }
