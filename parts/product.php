@@ -1,13 +1,12 @@
 <?php
 require_once "functies/content.php";
 $review = getAvgReviews($product['StockItemID']);
-if (getStockHolding($product['StockItemID']) <= 0) {
-    $stock = 0;
-}
+$stock = getStockHolding($product['StockItemID']);
+$discount = "";
 
 ?>
 
-<div class="card mb-3" <?php if (isset($stock)): ?>style="opacity: 0.4" <?php endif; ?>>
+<div class="card mb-3" <?php if ($stock <= 0): ?>style="opacity: 0.4" <?php endif; ?>>
 
     <img src="<?= getBaseUrl() ?>assets/afbeeldingen/dummy/<?= getImages($product['StockItemID'], "thumbnail")[0]["ImageName"] ?>"
          class="card-img-top" alt="...">
@@ -29,4 +28,7 @@ if (getStockHolding($product['StockItemID']) <= 0) {
             </button>
         </form>
     </div>
+
+    <a class="stretched-link"
+       href="<?= getBaseUrl() ?>?product=<?= $product['StockItemID'] ?>&categorie=<?= $_GET['categorie'] ?>"></a>
 </div>

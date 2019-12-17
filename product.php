@@ -55,7 +55,6 @@ require __dir__ . "/../functies/productFuncties.php";
             </div>
 
             <div class="col-6 product-info">
-
                 <!-- <div class="col-6"> -->
 
                 <div class="prijs centerd">
