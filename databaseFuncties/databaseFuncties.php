@@ -279,4 +279,9 @@ WHERE G.StockGroupID = ?";
 
 }
 
+function populaireProducten(){
+    $sql = "SELECT StockItemID FROM reviews ORDER BY Rating ASC LIMIT 3";
+    return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
+}
+
 ?>

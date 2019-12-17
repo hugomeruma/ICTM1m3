@@ -15,8 +15,22 @@
 require __DIR__ . "/Deals/Deals.php";
 ?>
 
-
+<div class="container-fluid Popular-divider">
+    <div class="Popular-divider-text"> Our popular products </div>
+</div>
 
 <?php
+$meestPopulair = populaireProducten();
+foreach ($meestPopulair as $product): ?>
+    <div class="col-sm-3">
+        <?php require __DIR__ . '/parts/product.php'; ?>
+    </div>
+<?php endforeach; ?>
+
+<?php
+require __DIR__ . "/Deals/parts/PopularProducts.php";
+?>
+
+    <?php
 require __DIR__ . "/parts/footer.php";
 ?>
