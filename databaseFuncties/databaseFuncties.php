@@ -128,13 +128,21 @@ function getStockHolding($stockItemID)
     return (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC)[0]['QuantityOnHand']);
 }
 
-function getChillerStock($IsChillerStock)
+function haalTempOp($IsChillerStock)
 {
-
+    if (empty($IsChillerStock)) {
+        return;
+    }
+    $sql = "SELECT AVG(Temperature) as 'avgTemp' FROM coldroomtemperatures";
+    return number_format((mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC)[0]['avgTemp']), 2) . " &degC";
 }
 
-function getColor($ColorID)
+
+function haalKleurOp($ColorID)
 {
+    if (empty($ColorID)) {
+        return;
+    }
     $sql = "SELECT ColorName FROM colors WHERE ColorID = ?";
     $where = $ColorID;
     return (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC)[0]['ColorName']);
@@ -167,38 +175,61 @@ function getSpecialDeals()
     return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
 }
 
-//function getDiscount($stockItemID = null, $stockGroupID = null)
-//{
-//    if ($stockItemID !=null) {
-//        $sql = "SELECT DiscountPercentage
-//FROM specialdeals
-//WHERE StockItemID = ?";
-//        $where = $stockItemID;
-//        $discount = (mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC)["DiscountPercentage"]);
-//        if (!empty($discount['DiscountPercentage'])) {
-//
-//            return $discount['DiscountPercentage'];
-//        } else {
-//            foreach (getStockGroup($stockItemID, true) as $id) {
-//                $sql = "SELECT DiscountPercentage
-//FROM specialdeals
-//WHERE StockGroupID = " . $id['StockGroupID'];
-//                $discount = (mysqli_fetch_array(getFromDB($sql), MYSQLI_ASSOC)["DiscountPercentage"]);
-//                if ($discount) {
-//                    return $discount;
-//                }
-//            }
-//        }
-//    } else {
-//        $sql = "SELECT DiscountPercentage
-//FROM specialdeals
-//WHERE StockGroupID = ?";
-//        $where = $stockGroupID;
-//        $discount = (mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC)["DiscountPercentage"]);
-//        return $discount;
-//    }
-//    return;
-//}
+function price($StockItemID)
+{
+    $sql = "SELECT RecommendedRetailPrice, TaxRate FROM stockitems WHERE StockItemID = ?";
+    $where = $StockItemID;
+    $price = mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC)[0];
+    $price = $price['RecommendedRetailPrice'] * ((100 + $price['TaxRate']) / 100);
+    $off = checkDiscount($StockItemID);
+    $price = $price * ((100 - $off) / 100);
+    $GLOBALS['off'] = $off;
+    return number_format($price, 2);
+}
+
+
+function checkDiscount($stockItemID = null, $stockGroupID = null)
+{
+    if ($stockItemID != null) {
+        $discount = getDiscount($stockItemID);
+    } else {
+        $discount = getDiscount(null, $stockGroupID);
+    }
+    return $discount;
+}
+
+
+function getDiscount($stockItemID = null, $stockGroupID = null)
+{
+    if ($stockItemID != null) {
+        $sql = "SELECT DiscountPercentage
+FROM specialdeals
+WHERE StockItemID = ?";
+        $where = $stockItemID;
+        $discount = (mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC)["DiscountPercentage"]);
+        if (!empty($discount['DiscountPercentage'])) {
+            return $discount['DiscountPercentage'];
+        } else {
+            foreach (getStockGroup($stockItemID, true) as $id) {
+                $sql = "SELECT DiscountPercentage
+FROM specialdeals
+WHERE StockGroupID = " . $id['StockGroupID'];
+                $discount = (mysqli_fetch_array(getFromDB($sql), MYSQLI_ASSOC)["DiscountPercentage"]);
+                if ($discount) {
+                    return $discount;
+                }
+            }
+        }
+    } else {
+        $sql = "SELECT DiscountPercentage
+FROM specialdeals
+WHERE StockGroupID = ?";
+        $where = $stockGroupID;
+        $discount = (mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC)["DiscountPercentage"]);
+        return $discount;
+    }
+    return;
+}
 
 function getReviews($stockItemID)
 {
@@ -287,5 +318,6 @@ function getImages($stockItemID, $isThumbnail = null)
         return $images;
     }
 }
+
 
 ?>

@@ -87,7 +87,7 @@ if (isset($_POST['toevoegenAanWinkelwagen'])) {
         <div class="col-12">
             <div class="row">
                 <!-- Producten -->
-                <?php foreach ($producten as $product): ?>
+                <?php foreach ($meestPopulair as $product): ?>
                     <div class="col-sm-3">
                         <?php require __DIR__ . '/parts/product.php'; ?>
                     </div>

@@ -123,7 +123,7 @@ require __dir__ . "/../functies/productFuncties.php";
                         ?>
                         <tr>
                             <th scope="row"> Kleur</th>
-                            <td><?= getColor($product['ColorID']) ?></td>
+                            <td><?= haalKleurOp($product['ColorID']) ?></td>
                         </tr>
                     <?php
                     endif;

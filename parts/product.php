@@ -15,7 +15,7 @@ $discount = "";
         <div style="height: 10ex">
             <h5 class="card-title"><?= $product['StockItemName'] ?></h5>
         </div>
-        <h5><strong><?= $product['UnitPrice'] ?></strong><span
+        <h5><strong> <?= price($product['StockItemID']) ?> </strong><span
                     class="float-right"><div class="d-inline-flex"
                                              style="align-items: center"><?= stars($review['avg']) ?></div>
                 &nbsp;(<?= $review['count'] ?>)</span></h5>

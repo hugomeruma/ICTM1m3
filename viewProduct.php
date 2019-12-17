@@ -1,5 +1,15 @@
 <?php
-$product = getStockItem($_GET['product'])
+$product = getStockItem($_GET['product']);
+//print_r(json_decode($product['CustomFields']));
+$productTags = json_decode($product['CustomFields'], true)['Tags'];
+$productData = array(
+    "Omschrijving" => $product['MarketingComments'],
+    "Merk" => $product['Brand'],
+    "Maat" => $product['Size'],
+    "Kleur" => haalKleurOp($product['ColorID']),
+    "Dit product is gekoeld" => haalTempOp($product['IsChillerStock']),
+    "Vooraad" => "",
+    "Geproduceerd in" => json_decode($product['CustomFields'], true)['CountryOfManufacture']);
 ?>
 
 <div class="d-flex flex-row">
@@ -15,8 +25,7 @@ $product = getStockItem($_GET['product'])
                     } ?>">
                         <img class="d-block w-100 carousel-image"
                              src="<?php echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/dummy/" . $image[0]['ImageName']); ?>"
-                             style="height: 450px; width: 450px; object-fit: contain"
-                        >
+                             class="carousel-image">
                     </div>
                     <?php $first = false;
                 endforeach; ?>
@@ -35,53 +44,53 @@ $product = getStockItem($_GET['product'])
         </div>
     </div>
     <div class="w-50 d-flex justify-content-center align-items-center flex-column">
+        <div class="prijs">€ <?= price($product['StockItemID']) ?></div>
+        <?php if (isset($off)): ?>
+            <strong class="opmerking">Met <?= $off ?>% Korting!</strong>
+        <?php endif; ?>
+        <strong class="opmerking">Nog <?= getStockHolding($product['StockItemID']) ?> op vooraad.</strong>
         <div>
-
-            <div class="prijs centerd">
-                <?php if (getDiscount($_GET['view']) != null): ?>
-                    <div class="price-with-discount">
-        <span class="fa-stack discount-icon">
-            <i class="fas fa-certificate fa-stack-2x"></i>
-            <i class="fas fa-percent fa-stack-1x fa-inverse"></i>
-        </span>
-                        <div class="€discount">
-                            € <?= price($product["RecommendedRetailPrice"], $product["TaxRate"], $_GET['product']) ?></div>
-                    </div>
-                <?php else: ?>
-                    <div class="€">
-                        € <?= price($product["RecommendedRetailPrice"], $product["TaxRate"], $_GET['product']) ?></div>
-                <?php endif; ?>
-                <div class="opmerking">
-                    incl. btw (<?= $product["TaxRate"] / 100 ?>%)<br>
-                </div>
-                <?php
-                $stock = getStockHolding($_GET['product']);
-                if ($stock >= 0): ?>
-                    Dit product is niet meer op voorraad
-                <?php endif; ?>
-
-                <!--    <div class="opmerking"> --><? //= $stock ?><!--</div>-->
-            </div>
-
-        </div>
-
-        <div>
-            <form method="post">
+            <form method="post" class="my-3">
                 <input type="hidden" name="productID" value="<?= $product['StockItemID'] ?>">
                 <button type="submit" name="toevoegenAanWinkelwagen"
                         class="btn btn-success btn-block justify-content-around">
-                    <i class="fas fa-plus button-icon"></i>
+                    <strong>Toevoegen aan winkelwagen</strong>
                     <i class="fas fa-shopping-cart button-icon"></i>
                 </button>
             </form>
         </div>
     </div>
-
 </div>
 
-<div class="container justify-content-end d-flex">
+<div class="mt-5 container justify-content-end d-flex">
     <div class="w-50">
-        Tabel met info van het product
+        <table class="table table-striped">
+            <?php
+            if (!empty($productTags)):
+                ?>
+                <tr>
+                    <th scope="row">Tags:</th>
+                    <td>
+                        <?php foreach ($productTags as $tag) {
+                            echo "$tag &nbsp";
+                        }
+                        ?>
+                    </td>
+                </tr>
+            <?php
+            endif;
+            foreach ($productData as $key => $value):
+                if (!empty($value) or $value != ""):
+                    ?>
+                    <tr>
+                        <th scope="row"><?= $key ?></th>
+                        <td><?= $value ?></td>
+                    </tr>
+                <?php
+                endif;
+            endforeach;
+            ?>
+        </table>
     </div>
 </div>
 
