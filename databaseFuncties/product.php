@@ -77,18 +77,6 @@ function verwijderProducten(array $productenIDs)
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-function zoekProductenOpNaam($name)
-{
-    $conn = maakVerbinding();
-    $stmt = $conn->prepare("SELECT * FROM stockitems WHERE StockItemName LIKE CONCAT('%', ?, '%')");
-    $stmt->bind_param('s', $name);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $stmt->close();
-    $conn->close();
-    return mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
-
 function zoekProducten(string $zoekOpdracht, int $pagina, int $productenPerPagina, $categorieID = null)
 {
     $offset = $pagina * $productenPerPagina - $productenPerPagina;
@@ -139,7 +127,7 @@ function haalProductenOp(int $pagina, int $productenPerPagina, $categorieID = nu
         ON s.StockItemID = h.StockItemID
         LEFT JOIN stockitemstockgroups g
         ON s.StockItemID = g.StockItemID
-        WHERE g.StockGroupID = ?
+        WHERE g.StockGroupID = ? AND h.QuantityOnHand > 0
         GROUP BY s.StockItemID
         LIMIT ?
         OFFSET ?");
@@ -153,6 +141,7 @@ function haalProductenOp(int $pagina, int $productenPerPagina, $categorieID = nu
         ON s.StockItemID = h.StockItemID
         LEFT JOIN stockitemstockgroups g
         ON s.StockItemID = g.StockItemID
+        WHERE h.QuantityOnHand > 0
         GROUP BY s.StockItemID
         LIMIT ?
         OFFSET ?");
