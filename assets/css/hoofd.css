@@ -19,6 +19,14 @@
     src: local('BigNoodleTitling Oblique'), url('http://localhost/ICTM1m3/assets/fonts/big_noodle_titling_oblique.woff') format('woff');
 }
 
+html {
+    height: 100%
+}
+
+body {
+    min-height: 100%
+}
+
 
 .footer {
     position: relative;

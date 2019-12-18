@@ -33,7 +33,3 @@ foreach ($meestPopulair as $product): ?>
         <?php require __DIR__ . '/parts/product.php'; ?>
     </div>
 <?php endforeach; ?>
-
-<?php
-require __DIR__ . "/parts/footer.php";
-?>

@@ -1,5 +1,7 @@
 <?php
-$product = getStockItem($_GET['product']);
+require_once "functies/content.php";
+$product = haalProductOpID($_GET['product'])[0];
+//dd($product);
 //print_r(json_decode($product['CustomFields']));
 $productTags = json_decode($product['CustomFields'], true)['Tags'];
 $productData = array(
@@ -9,7 +11,7 @@ $productData = array(
     "Kleur" => haalKleurOp($product['ColorID']),
     "Dit product is gekoeld" => haalTempOp($product['IsChillerStock']),
     "Vooraad" => "",
-    "Geproduceerd in" => json_decode($product['CustomFields'], true)['CountryOfManufacture']);
+    "Geproduceerd in" => json_decode($product['CustomFields'], true)['CountryOfManufacture'])
 ?>
 
 <div class="d-flex flex-row">
@@ -24,7 +26,7 @@ $productData = array(
                         echo "active";
                     } ?>">
                         <img class="d-block w-100 carousel-image"
-                             src="<?php echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/dummy/" . $image[0]['ImageName']); ?>"
+                             src="<?php echo("http://" . $_SERVER['SERVER_NAME'] . "/ICTM1m3/assets/afbeeldingen/" . $image[0]['Location']); ?>"
                              class="carousel-image">
                     </div>
                     <?php $first = false;
@@ -65,6 +67,13 @@ $productData = array(
 <div class="mt-5 container justify-content-end d-flex">
     <div class="w-50">
         <table class="table table-striped">
+            <tr>
+                <th scope="row">Reviews:</th>
+                <td>
+                    <!--                    --><?php //stars();
+                    //                    ?>
+                </td>
+            </tr>
             <?php
             if (!empty($productTags)):
                 ?>
@@ -94,3 +103,8 @@ $productData = array(
     </div>
 </div>
 
+
+<div class="mt-5 container d-flex flex-row">
+    <div class="w-50"> Laat reviews zien</div>
+    <div class="w-50"> Plaats een review</div>
+</div>

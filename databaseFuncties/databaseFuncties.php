@@ -332,6 +332,7 @@ function getImages($stockItemID, $isThumbnail = null)
     $imageIDs = getImageID($stockItemID);
     $images = array();
     $sql = "SELECT * FROM images WHERE ID = ?";
+
     foreach ($imageIDs as $imageID) {
         echo "<br>";
         $where = $imageID["ImageID"];
