@@ -91,6 +91,7 @@ function getCurrentURL()
 
 function stars($stop)
 {
+
     ?>
     <span style="color: green; font-size: 16px">
     <?php

@@ -1,8 +1,12 @@
 <?php
-require_once "functies/content.php";
+if (isset($_POST['reviewOpslaan'])) {
+//    print_r($_POST);
+    insertReview($_POST['StockItemID'], $_POST['UserID'], $_POST['Name'], $_POST['Rating'], $_POST['Description']);
+    redirect(haalGetVariabelenOpVoorUrl($_GET) . "&reviewOpslaan=true");
+}
+
 $product = haalProductOpID($_GET['product'])[0];
-//dd($product);
-//print_r(json_decode($product['CustomFields']));
+$reviews = getAvgReviews($product["StockItemID"]);
 $productTags = json_decode($product['CustomFields'], true)['Tags'];
 $productData = array(
     "Omschrijving" => $product['MarketingComments'],
@@ -11,12 +15,13 @@ $productData = array(
     "Kleur" => haalKleurOp($product['ColorID']),
     "Dit product is gekoeld" => haalTempOp($product['IsChillerStock']),
     "Vooraad" => "",
-    "Geproduceerd in" => json_decode($product['CustomFields'], true)['CountryOfManufacture'])
+    "Geproduceerd in" => json_decode($product['CustomFields'], true)['CountryOfManufacture']);
 ?>
 
-<div class="d-flex flex-row">
-    <div class="w-50 d-flex justify-content-center">
-        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+<div class="d-flex flex-row container">
+    <div class="w-50 d-flex justify-content-center justify-content-between">
+        <div id="myCarousel" class="carousel slide" style="max-width: 500px; width: 500px" data-ride="carousel"
+             data-interval="false">
             <div class="carousel-inner">
                 <?php
                 $imageInfo = getImages($product['StockItemID']);
@@ -46,8 +51,17 @@ $productData = array(
         </div>
     </div>
     <div class="w-50 d-flex justify-content-center align-items-center flex-column">
-        <div class="prijs">€ <?= price($product['StockItemID']) ?></div>
+        <div class="prijs position-relative d-flex justify-content-end">€
+            <?= price($product['StockItemID']); ?>
+            <?php if (isset($off)): ?>
+                <div class="discount-icon">
+                <span class="fa-stack discount-icon"><i class="fas fa-certificate fa-stack-2x"></i>
+                    <i class="fas fa-percent fa-stack-1x fa-inverse"></i></span>
+                </div>
+            <?php endif; ?>
+        </div>
         <?php if (isset($off)): ?>
+
             <strong class="opmerking">Met <?= $off ?>% Korting!</strong>
         <?php endif; ?>
         <strong class="opmerking">Nog <?= haalVooraadOp($product['StockItemID']) ?> op vooraad.</strong>
@@ -64,14 +78,35 @@ $productData = array(
     </div>
 </div>
 
-<div class="mt-5 container justify-content-end d-flex">
+<div class="mt-5 container d-flex">
     <div class="w-50">
-        <table class="table table-striped">
+        <strong class="px-2">Reviews</strong>
+        <?php
+        foreach (getReviews($product['StockItemID']) as $review):
+            ?>
+
+            <div class="border rounded m-2 p-2 bg-white">
+                <div class="d-flex justify-content-between">
+                    <div><?php stars($review['Rating']) ?> &nbsp; <b>(<?= $review['Rating'] ?>)</b></div>
+                    <strong><?= $review['Name'] ?>&nbsp;</strong>
+                </div>
+
+                <div class="py-3">
+                    <?= $review['Description'] ?>
+                </div>
+            </div>
+
+        <?php
+        endforeach;
+        ?>
+    </div>
+
+    <div class="w-50 flex-column d-flex justify-content-between ml-5">
+        <table class="table table-striped w-100">
             <tr>
                 <th scope="row">Reviews:</th>
                 <td>
-                    <!--                    --><?php //stars();
-                    //                    ?>
+                    <?= stars($reviews["avg"]) ?>&nbsp;&nbsp;<strong>(<?= $reviews['count'] ?>)</strong>
                 </td>
             </tr>
             <?php
@@ -100,11 +135,98 @@ $productData = array(
             endforeach;
             ?>
         </table>
+
+        <div class="">
+            <?php
+            if (!isset($_GET['ReviewOpgeslagen'])) {
+            $magReview = reviewValidatie($product['StockItemID']);
+            if ($magReview == 0):
+                ?>
+                <div class="">
+                    <form action="<?= getBaseUrl() ?>?product=<?= $_GET['product'] ?>&categorie=<?= $_GET['categorie'] ?>"
+                          method="post">
+
+                        <input type="hidden" name="StockItemID" value="<?= $product['StockItemID'] ?>">
+                        <input type="hidden" name="UserID" value="<?= $_SESSION['id'] ?> ">
+                        <input type="hidden" name="Name" value="<?= $_SESSION['name'] ?>">
+
+                        <div class="flex-column d-flex form-group">
+                            <div class="">
+                                <fieldset class="Rating">
+                                    <input type="radio" id="star5" name="Rating" value="10"/>
+                                    <label class="full" for="star5"></label>
+
+                                    <input type="radio" id="star4half" name="Rating" value="9"/>
+                                    <label class="half" for="star4half"></label>
+
+                                    <input type="radio" id="star4" name="Rating" value="8"/>
+                                    <label class="full" for="star4"></label>
+
+                                    <input type="radio" id="star3half" name="Rating" value="7"/>
+                                    <label class="half" for="star3half"></label>
+
+                                    <input type="radio" id="star3" name="Rating" value="6"/>
+                                    <label class="full" for="star3"></label>
+
+                                    <input type="radio" id="star2half" name="Rating" value="5"/>
+                                    <label class="half" for="star2half"></label>
+
+                                    <input type="radio" id="star2" name="Rating" value="4"/>
+                                    <label class="full" for="star2"></label>
+
+                                    <input type="radio" id="star1half" name="Rating" value="3"/>
+                                    <label class="half" for="star1half"></label>
+
+                                    <input type="radio" id="star1" name="Rating" value="2"/>
+                                    <label class="full" for="star1"></label>
+
+                                    <input type="radio" id="starhalf" name="Rating" value="1"/>
+                                    <label class="half" for="starhalf"></label>
+                                </fieldset>
+                            </div>
+
+                            <textarea name="Description" type="text" placeholder="Plaats hier je review..." rows="5"
+                                      class="text_review  form-control-plaintext form-control form-control-sm form"></textarea>
+                            <button type="submit" class="btn btn-success" name="reviewOpslaan">Toevoegen</button>
+                        </div>
+
+                    </form>
+                </div>
+            <?php
+            elseif ($magReview = 1):
+            ?>
+            <div class="border plaatseenreview rounded-sm">
+                <?php
+                $userReview = haalUserReviewOp($_GET['product']);
+                ?>
+                <strong style="color: white; padding-left: 10px">Je hebt al een review staan op dit product</strong>
+                <div class="border rounded m-2 p-2 bg-white">
+                    <div class="d-flex justify-content-between">
+                        <?php stars($userReview['Rating']) ?>
+                        <strong><?= $userReview['Name'] ?></strong>
+                    </div>
+
+                    <div class="py-3">
+                        <?= $userReview['Description'] ?>
+                    </div>
+                </div>
+                <?php
+                elseif ($magReview = 2):
+                    ?>
+                    <div class="w-50">
+                        Je bent nog niet ingelogd
+                    </div>
+                <?php
+                endif;
+                } else { ?>
+                    <div class="plaats_review" id="opgeslagen">
+
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+
     </div>
+
 </div>
 
-
-<div class="mt-5 container d-flex flex-row">
-    <div class="w-50"> Laat reviews zien</div>
-    <div class="w-50"> Plaats een review</div>
-</div>
