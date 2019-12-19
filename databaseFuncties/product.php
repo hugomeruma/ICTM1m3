@@ -62,21 +62,6 @@ function haalProductOpID(int $id)
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-function verwijderProducten(array $productenIDs)
-{
-
-    foreach ($productenIDs as $productID) {
-        dd(haalProductOpID($productID));
-        $stmt = $conn->prepare("DELETE");
-        $stmt->bind_param('ii', $limit, $offset);
-    }
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $stmt->close();
-    $conn->close();
-    return mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
-
 function zoekProducten(string $zoekOpdracht, int $pagina, int $productenPerPagina, $categorieID = null)
 {
     $offset = $pagina * $productenPerPagina - $productenPerPagina;
