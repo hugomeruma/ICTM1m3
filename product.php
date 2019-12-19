@@ -55,7 +55,6 @@ require __dir__ . "/../functies/productFuncties.php";
             </div>
 
             <div class="col-6 product-info">
-
                 <!-- <div class="col-6"> -->
 
                 <div class="prijs centerd">
@@ -75,7 +74,7 @@ require __dir__ . "/../functies/productFuncties.php";
                         incl. btw (<?= $product["TaxRate"] / 100 ?>%)<br>
                     </div>
                     <?php
-                    $stock = getStockHolding($_GET['view']);
+                    $stock = haalVooraadOp($_GET['view']);
                     if ($stock >= 0): ?>
                         Dit product is niet meer op voorraad
                     <?php endif; ?>
@@ -124,7 +123,7 @@ require __dir__ . "/../functies/productFuncties.php";
                         ?>
                         <tr>
                             <th scope="row"> Kleur</th>
-                            <td><?= getColor($product['ColorID']) ?></td>
+                            <td><?= haalKleurOp($product['ColorID']) ?></td>
                         </tr>
                     <?php
                     endif;
