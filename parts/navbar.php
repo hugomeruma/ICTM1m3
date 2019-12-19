@@ -41,7 +41,12 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a class="dropdown-item" href="<?= getBaseUrl() . 'account-bewerken.php' ?>">Gegevens</a>
+                        <a class="dropdown-item" href="<?= getBaseUrl() . 'gegevens-wijzigen.php' ?>">Gegevens
+                            wijzigen</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="<?= getBaseUrl() . 'wachtwoord-veranderen.php' ?>">Wachtwoord
+                            veranderen</a>
                     </li>
                     <li>
                         <a class="dropdown-item" href="<?= getBaseUrl() . 'uitloggen.php' ?>">Uitloggen</a>

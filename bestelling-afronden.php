@@ -2,11 +2,9 @@
 require __DIR__ . '/init.php';
 require __DIR__ . "/parts/head.php";
 require __DIR__ . "/databaseFuncties/account.php";
-
-$_SESSION['winkelwagen']['producten'] = [
-    4 => 5,
-    107 => 8
-];
+require __DIR__ . "/databaseFuncties/product.php";
+require __DIR__ . "/databaseFuncties/klant.php";
+require __DIR__ . "/databaseFuncties/bestelling.php";
 
 // Als de gebruiker vanaf deze pagina wil inloggen
 if (isset($_POST['login'])) {
@@ -36,12 +34,15 @@ if (isset($_GET['automatisch-invullen']) && $_GET['automatisch-invullen'] === 'j
     $account = haalAccountOpID($_SESSION['id'])[0];
 }
 
-// Handle order
+
+// Bestelling opslaan in database
 if (isset($_POST['bestelling-afronden'])) {
-    if (maakOrder() && maakKlant()) {
+    $klantID = maakKlant($_POST['voornaam'], $_POST['tussenvoegsel'], $_POST['achternaam'], $_POST['telefoonnummer'], $_POST['email']);
+    $bestellingID = maakBestelling($klantID, $_POST['plaats'], $_POST['postcode'], $_POST['huisnummer'], $_POST['postcode']);
 
-    } else {
-
+    foreach ($_SESSION['winkelwagen']['producten'] as $productID => $aantal) {
+        $product = haalProductOpID($productID);
+        maakBestellingsRegel($bestellingID, $productID, $aantal, $product[0]['StockItemName'], $product[0]['UnitPrice'], $product[0]['TaxRate']);
     }
 }
 ?>
@@ -84,47 +85,52 @@ if (isset($_POST['bestelling-afronden'])) {
                 <div class="form-group">
                     <label for="">Voornaam*</label>
                     <input type="text" class="form-control" id="" name="voornaam"
-                           value="<?= $account["firstName"] ?? '' ?>" required>
+                           value="<?= $account["FirstName"] ?? '' ?>" required>
                 </div>
                 <div class="form-group">
-                    <label for="tussenvoegsel">Tussenvoegsel*</label>
+                    <label for="tussenvoegsel">Tussenvoegsel</label>
                     <input type="text" class="form-control" id="tussenvoegsel" name="tussenvoegsel"
-                           value="<?= $account["tussenvoegsel"] ?? '' ?>">
+                           value="<?= $account["Tussenvoegsel"] ?? '' ?>">
                 </div>
                 <div class="form-group">
                     <label for="achternaam">Achternaam*</label>
                     <input type="text" class="form-control" id="achternaam" name="achternaam"
-                           value="<?= $account["lastName"] ?? '' ?>" required>
+                           value="<?= $account["LastName"] ?? '' ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="email">E-mail*</label>
                     <input type="email" class="form-control" id="email" name="email"
-                           value="<?= $account["email"] ?? '' ?>" required>
+                           value="<?= $account["Email"] ?? '' ?>" required>
                 </div>
                 <div class="form-group">
-                    <label for="woonplaats">Woonplaats*</label>
-                    <input type="text" class="form-control" id="woonplaats" name="woonplaats"
-                           value="<?= $account["city"] ?? '' ?>" required>
+                    <label for="land">land*</label>
+                    <input type="text" class="form-control" id="land" name="land"
+                           value="<?= $account["Country"] ?? '' ?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="plaats">Woonplaats*</label>
+                    <input type="text" class="form-control" id="plaats" name="plaats"
+                           value="<?= $account["City"] ?? '' ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="postcode">Postcode*</label>
                     <input type="text" class="form-control" id="postcode" name="postcode"
-                           value="<?= $account["postalCode"] ?? '' ?>" required>
+                           value="<?= $account["PostalCode"] ?? '' ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="huisnummer">Huisnummer*</label>
                     <input type="text" class="form-control" id="huisnummer" name="huisnummer"
-                           value="<?= $account["houseNumber"] ?? '' ?>" required>
+                           value="<?= $account["HouseNumber"] ?? '' ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="straatnaam">Straatnaam*</label>
                     <input type="text" class="form-control" id="straatnaam" name="straatnaam"
-                           value="<?= $account["streetName"] ?? '' ?>" required>
+                           value="<?= $account["StreetName"] ?? '' ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="telefoonnummer">Telefoonnummer</label>
                     <input type="text" class="form-control" id="telefoonnummer" name="telefoonnummer"
-                           value="<?= $account["phoneNumber"] ?? '' ?>">
+                           value="<?= $account["PhoneNumber"] ?? '' ?>">
                 </div>
                 <button type="submit" name="bestelling-afronden" class="btn btn-primary mb-3">Bestelling afronden
                 </button>

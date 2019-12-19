@@ -1,18 +1,20 @@
 <?php
 require_once "functies/content.php";
 $review = getAvgReviews($product['StockItemID']);
+$stock = haalVooraadOp($product['StockItemID']);
+$discount = "";
+$thumbnail = getImages($product['StockItemID'], "thumbnail")[0]["Location"];
 ?>
 
-<div class="card mb-3">
-    <div class="image-div">
-        <img src="<?= getBaseUrl() ?>assets/afbeeldingen/dummy/<?= imgIDs($product["StockItemID"], "true") ?>.png"
-             class="card-img-top product-image" alt="...">
-    </div>
+<div class="card mb-3" <?php if ($stock <= 0): ?>style="opacity: 0.4" <?php endif; ?>>
+    <img src="<?= getBaseUrl() ?>assets/afbeeldingen/<?= $thumbnail ?>"
+         class="card-img-top" alt="...">
+
     <div class="card-body">
         <div style="height: 10ex">
             <h5 class="card-title"><?= $product['StockItemName'] ?></h5>
         </div>
-        <h5><strong><?= $product['UnitPrice'] ?></strong><span
+        <h5><strong> <?= price($product['StockItemID']) ?> </strong><span
                     class="float-right"><div class="d-inline-flex"
                                              style="align-items: center"><?= stars($review['avg']) ?></div>
                 &nbsp;(<?= $review['count'] ?>)</span></h5>
@@ -25,4 +27,7 @@ $review = getAvgReviews($product['StockItemID']);
             </button>
         </form>
     </div>
+
+    <a class="stretched-link"
+       href="<?= getBaseUrl() ?>?product=<?= $product['StockItemID'] ?>&categorie=<?= $_GET['categorie'] ?>"></a>
 </div>

@@ -1,17 +1,4 @@
 <?php
-function productenBeherenOverzicht(int $productenPerPagina, int $page = 0)
-{
-    $offset = $page * $productenPerPagina;
-    $conn = maakVerbinding();
-    $stmt = $conn->prepare("SELECT stockitems.StockItemID, stockitems.StockItemName, stockitems.UnitPrice FROM stockitems LIMIT ? OFFSET ?");
-    $stmt->bind_param('ii', $productenPerPagina, $offset);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $stmt->close();
-    $conn->close();
-    return mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
-
 function telProducten($categorieID)
 {
     $conn = maakVerbinding();
@@ -75,33 +62,6 @@ function haalProductOpID(int $id)
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-function verwijderProducten(array $productenIDs)
-{
-
-    foreach ($productenIDs as $productID) {
-        dd(haalProductOpID($productID));
-        $stmt = $conn->prepare("DELETE");
-        $stmt->bind_param('ii', $limit, $offset);
-    }
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $stmt->close();
-    $conn->close();
-    return mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
-
-function zoekProductenOpNaam($name)
-{
-    $conn = maakVerbinding();
-    $stmt = $conn->prepare("SELECT * FROM stockitems WHERE StockItemName LIKE CONCAT('%', ?, '%')");
-    $stmt->bind_param('s', $name);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $stmt->close();
-    $conn->close();
-    return mysqli_fetch_all($result, MYSQLI_ASSOC);
-}
-
 function zoekProducten(string $zoekOpdracht, int $pagina, int $productenPerPagina, $categorieID = null)
 {
     $offset = $pagina * $productenPerPagina - $productenPerPagina;
@@ -144,23 +104,30 @@ function haalProductenOp(int $pagina, int $productenPerPagina, $categorieID = nu
 
     $conn = maakVerbinding();
     if ($categorieID) { // Haal alle producten van een categorie
-        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.UnitPrice, s.TaxRate, h.QuantityOnHand
+        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.UnitPrice, s.TaxRate, h.QuantityOnHand, g.StockGroupID, (SELECT COUNT(*) FROM reviews r WHERE r.StockItemID = s.StockItemID) as aantalBeoordelingen, AVG(r.Rating) as gemiddeldeBeoordeling
         FROM stockitems s
+        LEFT JOIN reviews r
+        ON s.StockItemID = r.StockItemID
         JOIN stockitemholdings h
         ON s.StockItemID = h.StockItemID
         LEFT JOIN stockitemstockgroups g
         ON s.StockItemID = g.StockItemID
-        WHERE g.StockGroupID = ?
+        WHERE g.StockGroupID = ? AND h.QuantityOnHand > 0
+        GROUP BY s.StockItemID
         LIMIT ?
         OFFSET ?");
         $stmt->bind_param('iii', $categorieID, $productenPerPagina, $offset);
     } else { // Haal alle producten
-        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.UnitPrice, s.TaxRate, h.QuantityOnHand
+        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.UnitPrice, s.TaxRate, h.QuantityOnHand, g.StockGroupID, (SELECT COUNT(*) FROM reviews r WHERE r.StockItemID = s.StockItemID) as aantalBeoordelingen, AVG(r.Rating) as gemiddeldeBeoordeling
         FROM stockitems s
+        LEFT JOIN reviews r
+        ON s.StockItemID = r.StockItemID
         JOIN stockitemholdings h
         ON s.StockItemID = h.StockItemID
         LEFT JOIN stockitemstockgroups g
         ON s.StockItemID = g.StockItemID
+        WHERE h.QuantityOnHand > 0
+        GROUP BY s.StockItemID
         LIMIT ?
         OFFSET ?");
         $stmt->bind_param('ii', $productenPerPagina, $offset);
@@ -182,4 +149,28 @@ function haalWinkelwagenProductOp(int $productID)
     $stmt->close();
     $conn->close();
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
+function haalEersteProductAfbeeldingOp(int $productID)
+{
+    $conn = maakVerbinding();
+    $stmt = $conn->prepare("SELECT i.location, i.alt, i.title FROM stockitems_images s LEFT JOIN images i ON i.ID = s.ImageID WHERE s.StockItemID = ? LIMIT 1");
+    $stmt->bind_param('i', $productID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+    $conn->close();
+    return mysqli_fetch_all($result, MYSQLI_ASSOC)[0] ?? null;
+}
+
+function haalEersteCategorieAfbeeldingVanProductOp(int $categorieID)
+{
+    $conn = maakVerbinding();
+    $stmt = $conn->prepare("SELECT i.location, i.alt, i.title FROM stockgroups_images s LEFT JOIN images i ON i.ID = s.imageID WHERE s.StockgroupID = ? LIMIT 1");
+    $stmt->bind_param('i', $categorieID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+    $conn->close();
+    return mysqli_fetch_all($result, MYSQLI_ASSOC)[0] ?? '';
 }

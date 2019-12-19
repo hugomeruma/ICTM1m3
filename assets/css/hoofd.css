@@ -1,14 +1,34 @@
+@import "banner.css";
+@import "start-pagina.css";
+@import "productPagina.css";
+
+
+@font-face {
+    font-family: 'BigNoodleTitling';
+    font-style: normal;
+    font-weight: normal;
+    src: local('BigNoodleTitling'), url('http://localhost/ICTM1m3/assets/fonts/big_noodle_titling.woff') format('woff');
+
+}
+
+
+@font-face {
+    font-family: 'BigNoodleTitling Oblique';
+    font-style: normal;
+    font-weight: normal;
+    src: local('BigNoodleTitling Oblique'), url('http://localhost/ICTM1m3/assets/fonts/big_noodle_titling_oblique.woff') format('woff');
+}
+
+html {
+    height: 100%
+}
+
+body {
+    min-height: 100%
+}
+
+
 .footer {
     position: relative;
     bottom: 0;
-}
-
-.image-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.product-image {
-    width: 220px;
-    width: 100%;
 }

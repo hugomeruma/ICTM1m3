@@ -39,6 +39,12 @@ function redirect($path)
     exit();
 }
 
+function dd($var)
+{
+    var_dump($var);
+    die();
+}
+
 function standaardProductenPerPagina()
 {
     return '12';
