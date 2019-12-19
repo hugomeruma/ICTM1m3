@@ -5,16 +5,12 @@ fieldset, label {
     padding: 0;
 }
 
-body {
-    margin: 20px;
+.icon {
+    color: blue;
+    font-size: 50px;
+    font-weight: 200;
 }
 
-h1 {
-    font-size: 1.5em;
-    margin: 10px;
-}
-
-/****** Style Star Rating Widget *****/
 
 .Rating {
     border: none;
@@ -27,14 +23,16 @@ h1 {
 
 .Rating > label:before {
     margin: 5px;
-    font-size: 1.25em;
+    font-size: 22px;
     font-family: FontAwesome;
     display: inline-block;
+    font-weight: 200;
     content: "\f005";
 }
 
 .Rating > .half:before {
     content: "\f089";
+    font-weight: 200;
     position: absolute;
 }
 
@@ -48,6 +46,7 @@ h1 {
 .Rating > input:checked ~ label, /* show gold star when clicked */
 .Rating:not(:checked) > label:hover, /* hover current star */
 .Rating:not(:checked) > label:hover ~ label {
+    transition: all .25s;
     color: green;
 }
 
@@ -57,5 +56,7 @@ h1 {
 .Rating > input:checked ~ label:hover,
 .Rating > label:hover ~ input:checked ~ label, /* lighten current selection */
 .Rating > input:checked ~ label:hover ~ label {
+    font-weight: 900;
+    transition: all .25s;
     color: green;
 }

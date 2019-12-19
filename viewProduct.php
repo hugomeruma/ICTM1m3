@@ -194,39 +194,34 @@ $productData = array(
                 </div>
             <?php
             elseif ($magReview = 1):
-            ?>
-            <div class="border plaatseenreview rounded-sm">
-                <?php
-                $userReview = haalUserReviewOp($_GET['product']);
                 ?>
-                <strong style="color: white; padding-left: 10px">Je hebt al een review staan op dit product</strong>
-                <div class="border rounded m-2 p-2 bg-white">
-                    <div class="d-flex justify-content-between">
-                        <?php stars($userReview['Rating']) ?>
-                        <strong><?= $userReview['Name'] ?></strong>
-                    </div>
+                <div class="border plaatseenreview rounded-sm">
+                    <?php
+                    $userReview = haalUserReviewOp($_GET['product']);
+                    ?>
+                    <strong style="color: white; padding-left: 10px">Je hebt al een review staan op dit product</strong>
+                    <div class="border rounded m-2 p-2 bg-white">
+                        <div class="d-flex justify-content-between">
+                            <?php stars($userReview['Rating']) ?>
+                            <strong><?= $userReview['Name'] ?></strong>
+                        </div>
 
-                    <div class="py-3">
-                        <?= $userReview['Description'] ?>
+                        <div class="py-3">
+                            <?= $userReview['Description'] ?>
+                        </div>
                     </div>
                 </div>
-                <?php
-                elseif ($magReview = 2):
-                    ?>
-                    <div class="w-50">
-                        Je bent nog niet ingelogd
-                    </div>
-                <?php
-                endif;
-                } else { ?>
-                    <div class="plaats_review" id="opgeslagen">
-
-                    </div>
-                <?php } ?>
-            </div>
+            <?php
+            elseif ($magReview = 2):
+                ?>
+                <div class="">
+                    <a href="<?= getBaseURL() ?>login.php">
+                        <button></button>
+                    </a>
+                </div>
+            <?php
+            endif;
+            ?>
         </div>
-
     </div>
-
 </div>
-
