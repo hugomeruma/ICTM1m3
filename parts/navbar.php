@@ -29,7 +29,7 @@
     <!-- Login menu item & winkelwagen -->
     <ul class="col-3 d-flex justify-content-end my-auto nav">
         <li class="nav-item">
-            <a class="nav-link" href="<?= getBaseUrl() ?>winkelwagen.php">
+            <a class="nav-link" href="<?= getBaseUrl() ?>?toonWinkelWagen=true">
                 Winkelwagen <i class="fas fa-shopping-cart"></i>
             </a>
         </li>

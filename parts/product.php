@@ -21,16 +21,17 @@ $thumbnail = $product["afbeeldingLocation"];
                 </div>
                 &nbsp;(<?= $product['aantalBeoordelingen'] ?>)
             </span></h5>
-        <form method="post">
-            <input type="hidden" name="productID" value="<?= $product['StockItemID'] ?>">
-            <button type="submit" name="toevoegenAanWinkelwagen"
-                    class="btn btn-success btn-block justify-content-around">
+        <form method="post" style="z-index: 5">
+            <input type="hidden" value="1" name="<?= $product['StockItemID'] ?>StockItemID">
+            <input type="hidden" value="1" name="toevoegenAanWinkelwagen">
+            <button type="submit" name="toevoegenAanWinkelwagen " value="" style="z-index: 2; position: relative"
+                    class="btn btn-success btn-block justify-content-around" ">
                 <i class="fas fa-plus button-icon"></i>
                 <i class="fas fa-shopping-cart button-icon"></i>
             </button>
         </form>
     </div>
 
-    <a class="stretched-link"
+    <a class="stretched-link" style=" z-index: 0"
        href="<?= getBaseUrl() ?>?product=<?= $product['StockItemID'] ?>&categorie=<?= $_GET['categorie'] ?>"></a>
 </div>

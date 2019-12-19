@@ -37,3 +37,4 @@ if (strpos($_SERVER['REQUEST_URI'], 'home.php') !== false) {
             <?php require __DIR__ . '/parts/product.php'; ?>
         </div>
     <?php endforeach; ?>
+</div>

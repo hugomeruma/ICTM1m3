@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="<?= getBaseUrl() ?>assets/css/fontawesome-free-5.11.2-web/css/all.css">
     <title>WWI</title>
 </head>
-<body class="min-vh-100">
+<body>
+<div id="page-container">
 <?php
 // Require categorie om de categorieën voor de navigatiebalk op te halen
 

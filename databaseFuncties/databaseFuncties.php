@@ -71,25 +71,25 @@ WHERE  G.StockGroupID = ? and SearchDetails like ?";
     $aantalProd = (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['amount']);
     return $aantalProd;
 }
-
-//stockGroups
-function selecterenStockgroups()
-{
-    $sql = "SELECT SG.StockGroupID, SG.StockGroupName
-FROM stockgroups as SG  WHERE SG.StockGroupID IN (SELECT StockGroupId FROM stockitemstockgroups)";
-    return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
-}
-
-function currentStockGroup()
-{
-    if (empty($_GET['in'])) {
-        return "Alle producten";
-    } else {
-        $sql = "SELECT StockGroupName as StockGroupName FROM stockgroups WHERE StockGroupId = ?;";
-        $result = getFromDB($sql, $_GET['in']);
-        return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['StockGroupName']);
-    }
-}
+//
+////stockGroups
+//function selecterenStockgroups()
+//{
+//    $sql = "SELECT SG.StockGroupID, SG.StockGroupName
+//FROM stockgroups as SG  WHERE SG.StockGroupID IN (SELECT StockGroupId FROM stockitemstockgroups)";
+//    return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
+//}
+//
+//function currentStockGroup()
+//{
+//    if (empty($_GET['in'])) {
+//        return "Alle producten";
+//    } else {
+//        $sql = "SELECT StockGroupName as StockGroupName FROM stockgroups WHERE StockGroupId = ?;";
+//        $result = getFromDB($sql, $_GET['in']);
+//        return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['StockGroupName']);
+//    }
+//}
 
 
 function getStockGroup($where)
@@ -98,13 +98,13 @@ function getStockGroup($where)
     $result = getFromDB($sql, $where);
     return (mysqli_fetch_all($result, MYSQLI_ASSOC));
 }
-
-function getStockItem($stockItemID)
-{
-    $sql = "SELECT * FROM stockitems WHERE StockItemID = ?";
-    $where = $stockItemID;
-    return mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC);
-}
+//
+//function getStockItem($stockItemID)
+//{
+//    $sql = "SELECT * FROM stockitems WHERE StockItemID = ?";
+//    $where = $stockItemID;
+//    return mysqli_fetch_array(getFromDB($sql, $where), MYSQLI_ASSOC);
+//}
 
 function haalVooraadOp($stockItemID)
 {
@@ -132,57 +132,57 @@ function haalKleurOp($ColorID)
     $where = $ColorID;
     return (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC)[0]['ColorName']);
 }
-
-function alleProducten()
-{
-    $count = tellenProducten(null, null);
-    $limit = productenPerPagina($count);
-    $offset = offset($limit);
-    $sql = "SELECT * FROM stockitems LIMIT ? OFFSET ?";
-    return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset), MYSQLI_ASSOC);
-}
-
-function selecterenProducten()
-{
-    $where = $_GET['in'];
-    $count = tellenProducten($where, null);
-    $limit = productenPerPagina($count);
-    $offset = offset($limit);
-    $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
-ON I.StockItemID = G.StockItemID
-WHERE G.StockGroupID = ? LIMIT ? OFFSET ?";
-    return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset), MYSQLI_ASSOC);
-}
-
-function zoekenProducten()
-{
-    if (empty($_GET['in'])) {
-        $search = "%" . $_GET['searchFor'] . "%";
-
-        $count = tellenProducten(null, $search);
-        $limit = productenPerPagina($count);
-        $offset = offset($limit);
-
-        $sql = "SELECT * FROM StockItems WHERE SearchDetails like ?
-LIMIT ?
-OFFSET ?";
-        return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset, $search), MYSQLI_ASSOC);
-    }
-    if (!empty($_GET['in'])) {
-        $where = $_GET['in'];
-        $search = "%" . $_GET['searchFor'] . "%";
-
-        $count = tellenProducten($where, $search);
-        $limit = productenPerPagina($count);
-        $offset = offset($limit);
-
-        $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
-ON I.StockItemID = G.StockItemID
-WHERE  G.StockGroupID = ? and SearchDetails like ?
-LIMIT ? OFFSET ? ";
-        return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset, $search), MYSQLI_ASSOC);
-    }
-}
+//
+//function alleProducten()
+//{
+//    $count = tellenProducten(null, null);
+//    $limit = productenPerPagina($count);
+//    $offset = offset($limit);
+//    $sql = "SELECT * FROM stockitems LIMIT ? OFFSET ?";
+//    return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset), MYSQLI_ASSOC);
+//}
+//
+//function selecterenProducten()
+//{
+//    $where = $_GET['in'];
+//    $count = tellenProducten($where, null);
+//    $limit = productenPerPagina($count);
+//    $offset = offset($limit);
+//    $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
+//ON I.StockItemID = G.StockItemID
+//WHERE G.StockGroupID = ? LIMIT ? OFFSET ?";
+//    return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset), MYSQLI_ASSOC);
+//}
+//
+//function zoekenProducten()
+//{
+//    if (empty($_GET['in'])) {
+//        $search = "%" . $_GET['searchFor'] . "%";
+//
+//        $count = tellenProducten(null, $search);
+//        $limit = productenPerPagina($count);
+//        $offset = offset($limit);
+//
+//        $sql = "SELECT * FROM StockItems WHERE SearchDetails like ?
+//LIMIT ?
+//OFFSET ?";
+//        return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset, $search), MYSQLI_ASSOC);
+//    }
+//    if (!empty($_GET['in'])) {
+//        $where = $_GET['in'];
+//        $search = "%" . $_GET['searchFor'] . "%";
+//
+//        $count = tellenProducten($where, $search);
+//        $limit = productenPerPagina($count);
+//        $offset = offset($limit);
+//
+//        $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
+//ON I.StockItemID = G.StockItemID
+//WHERE  G.StockGroupID = ? and SearchDetails like ?
+//LIMIT ? OFFSET ? ";
+//        return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset, $search), MYSQLI_ASSOC);
+//    }
+//}
 
 function getSpecialDeals()
 {
