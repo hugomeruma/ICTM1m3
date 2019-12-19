@@ -98,13 +98,14 @@ function zoekProducten(string $zoekOpdracht, int $pagina, int $productenPerPagin
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-function haalProductenOp(int $pagina, int $productenPerPagina, $categorieID = null)
+function haalProductenOp(int $pagina, int $productenPerPagina, int $categorieID = null)
 {
     $offset = $pagina * $productenPerPagina - $productenPerPagina;
 
     $conn = maakVerbinding();
     if ($categorieID) { // Haal alle producten van een categorie
-        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.UnitPrice, s.TaxRate, h.QuantityOnHand, g.StockGroupID, (SELECT COUNT(*) FROM reviews r WHERE r.StockItemID = s.StockItemID) as aantalBeoordelingen, AVG(r.Rating) as gemiddeldeBeoordeling
+        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.UnitPrice, s.TaxRate, h.QuantityOnHand, g.StockGroupID, (SELECT COUNT(*) FROM reviews r WHERE r.StockItemID = s.StockItemID) as aantalBeoordelingen, AVG(r.Rating) as gemiddeldeBeoordeling,
+        (SELECT i.location FROM stockgroups_images si LEFT JOIN images i ON i.ID = si.imageID  WHERE si.StockGroupID = g.StockGroupID LIMIT 1) as afbeeldingLocation
         FROM stockitems s
         LEFT JOIN reviews r
         ON s.StockItemID = r.StockItemID
@@ -116,10 +117,12 @@ function haalProductenOp(int $pagina, int $productenPerPagina, $categorieID = nu
         GROUP BY s.StockItemID
         LIMIT ?
         OFFSET ?");
+
         $stmt->bind_param('iii', $categorieID, $productenPerPagina, $offset);
     } else { // Haal alle producten
-        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.UnitPrice, s.TaxRate, h.QuantityOnHand, g.StockGroupID, (SELECT COUNT(*) FROM reviews r WHERE r.StockItemID = s.StockItemID) as aantalBeoordelingen, AVG(r.Rating) as gemiddeldeBeoordeling
-        FROM stockitems s
+        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.UnitPrice, s.TaxRate, h.QuantityOnHand, g.StockGroupID, (SELECT COUNT(*) FROM reviews r WHERE r.StockItemID = s.StockItemID) as aantalBeoordelingen, AVG(r.Rating) as gemiddeldeBeoordeling,
+         (SELECT i.location FROM stockgroups_images si LEFT JOIN images i ON i.ID = si.imageID  WHERE si.StockGroupID = g.StockGroupID LIMIT 1) as afbeeldingLocation
+         FROM stockitems s
         LEFT JOIN reviews r
         ON s.StockItemID = r.StockItemID
         JOIN stockitemholdings h

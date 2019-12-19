@@ -1,3 +1,1 @@
-<?php
-print_r(getImages(1));
-?>
+<a href="" class="icon"></a>

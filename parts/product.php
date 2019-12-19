@@ -1,12 +1,12 @@
 <?php
 require_once "functies/content.php";
-$review = getAvgReviews($product['StockItemID']);
-$stock = haalVooraadOp($product['StockItemID']);
 $discount = "";
-$thumbnail = getImages($product['StockItemID'], "thumbnail")[0]["Location"];
+$thumbnail = $product["afbeeldingLocation"];
+//$thumbnail = getImages($product['StockItemID'], "thumbnail")[0]["Location"];
+//$thumbnail = $product['afbeelding']['location'];
 ?>
 
-<div class="card mb-3" <?php if ($stock <= 0): ?>style="opacity: 0.4" <?php endif; ?>>
+<div class="card">
     <img src="<?= getBaseUrl() ?>assets/afbeeldingen/<?= $thumbnail ?>"
          class="card-img-top" alt="...">
 
@@ -16,8 +16,11 @@ $thumbnail = getImages($product['StockItemID'], "thumbnail")[0]["Location"];
         </div>
         <h5><strong> <?= price($product['StockItemID']) ?> </strong><span
                     class="float-right"><div class="d-inline-flex"
-                                             style="align-items: center"><?= stars($review['avg']) ?></div>
-                &nbsp;(<?= $review['count'] ?>)</span></h5>
+                                             style="align-items: center">
+                    <?= stars($product['gemiddeldeBeoordeling']) ?>
+                </div>
+                &nbsp;(<?= $product['aantalBeoordelingen'] ?>)
+            </span></h5>
         <form method="post">
             <input type="hidden" name="productID" value="<?= $product['StockItemID'] ?>">
             <button type="submit" name="toevoegenAanWinkelwagen"
