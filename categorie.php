@@ -53,7 +53,7 @@ if (isset($_POST['toevoegenAanWinkelwagen'])) {
 }
 ?>
 
-<div class="container">
+<div class="container mt-5">
     <div class="row">
         <div class="col-6 align-self-center">
             <h3><?= ($_GET['categorie'] === 'alle') ? 'Alle' : haalCategorieNaamOpID($_GET['categorie']) ?></h3>
@@ -71,7 +71,7 @@ if (isset($_POST['toevoegenAanWinkelwagen'])) {
                     <input type="number" min="10" max="50" step="5"
                            class="mx-3 product_per_pagina_form form-control"
                            name="producten-per-pagina"
-                           value="<?= $_GET['producten-per-pagina'] ?? standaardProductenPerPagina() ?>">
+                           value="<?= $_GET['producten-per-pagina'] ?: standaardProductenPerPagina() ?>">
                 </div>
                 <!-- Verborgen velden om waardes van get variabelen te behouden -->
                 <input type="hidden" name="categorie" value="<?= $_GET['categorie'] ?? 'alle' ?>">
@@ -88,14 +88,15 @@ if (isset($_POST['toevoegenAanWinkelwagen'])) {
             <div class="row">
                 <!-- Producten -->
                 <?php foreach ($producten as $product):
-                    // Beoordeling afronden en omzetten naar integer
+//                     Beoordeling afronden en omzetten naar integer
 //                    $product['gemiddeldeBeoordeling'] = intval(round($product['gemiddeldeBeoordeling']));
 //                     Haal de afbeelding voor het product op
-//                    $product['afbeelding'] = haalEersteProductAfbeeldingOp($product['StockItemID']) ?? haalEersteCategorieAfbeeldingVanProductOp($product['StockGroupID']) ?? ''; ?>
+//                    $product['afbeelding'] = haalEersteProductAfbeeldingOp($product['StockItemID']) ?: haalEersteCategorieAfbeeldingVanProductOp($product['StockGroupID']) ?? ''; ?>
                     <div class="col-sm-3">
                         <?php require __DIR__ . '/parts/product.php'; ?>
                     </div>
-                <?php endforeach; ?>
+                <?php endforeach;
+                die; ?>
             </div>
         </div>
         <div class="col-6">

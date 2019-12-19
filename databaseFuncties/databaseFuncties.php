@@ -198,7 +198,9 @@ function price($StockItemID)
     $price = $price['RecommendedRetailPrice'] * ((100 + $price['TaxRate']) / 100);
     $off = checkDiscount($StockItemID);
     $price = $price * ((100 - $off) / 100);
-    $GLOBALS['off'] = $off;
+    if ($off != 0) {
+        $GLOBALS['off'] = number_format($off, 0);
+    }
     return number_format($price, 2);
 }
 
@@ -248,9 +250,27 @@ WHERE StockGroupID = ?";
 
 function getReviews($stockItemID)
 {
-    $sql = "SELECT * FROM reviews WHERE StockItemID = ? ORDER BY ReviewID desc";
+    $sql = "SELECT * FROM reviews WHERE StockItemID = ? ORDER BY ReviewID desc LIMIT 3";
     $where = $stockItemID;
     return mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC);
+}
+
+function haalUserReviewOp($StockItemID)
+{
+    $sql = "SELECT * FROM reviews WHERE StockItemID = ? AND UserID = ?";
+    $par1 = $StockItemID;
+    $par2 = $_SESSION['id'];
+
+    $conn = maakVerbinding();
+    $stmt = mysqli_stmt_init($conn);
+    mysqli_stmt_prepare($stmt, $sql);
+    mysqli_stmt_bind_param($stmt, 'ii', $par1, $par2);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    sluitVerbinding($conn);
+    $review = (mysqli_fetch_array($result, MYSQLI_ASSOC));
+    return $review;
+
 }
 
 function getAvgReviews($stockItemID)
@@ -259,6 +279,30 @@ function getAvgReviews($stockItemID)
     $where = $stockItemID;
     $array = mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC)[0];
     return $array;
+}
+
+
+function reviewValidatie($StockItemID)
+{
+//    Slechtste code ooit van alex.
+    if (isset($_SESSION['ingelogd'])) {
+        $sql = "SELECT count(ReviewID) as 'count' FROM reviews WHERE StockItemID = ? AND UserID = ?";
+        $par1 = $StockItemID;
+        $par2 = $_SESSION['id'];
+
+        $conn = maakVerbinding();
+        $stmt = mysqli_stmt_init($conn);
+        mysqli_stmt_prepare($stmt, $sql);
+        mysqli_stmt_bind_param($stmt, 'ii', $par1, $par2);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        sluitVerbinding($conn);
+        $aantalReviews = (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['count']);
+        if ($aantalReviews == 0) {
+            return 0;
+        } else return 1;
+    }
+    return 2;
 }
 
 function insertReview($stockItemID, $UserID, $Name, $Rating, $Description)
@@ -331,7 +375,7 @@ function getImages($stockItemID, $isThumbnail = null)
 {
     $imageIDs = getImageID($stockItemID);
     $images = array();
-    $sql = "SELECT * FROM images WHERE ID = ?";
+    $sql = "SELECT Location FROM images WHERE ID = ?";
 
     foreach ($imageIDs as $imageID) {
         echo "<br>";

@@ -1,0 +1,62 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+fieldset, label {
+    margin: 0;
+    padding: 0;
+}
+
+.icon {
+    color: blue;
+    font-size: 50px;
+    font-weight: 200;
+}
+
+
+.Rating {
+    border: none;
+    float: left;
+}
+
+.Rating > input {
+    display: none;
+}
+
+.Rating > label:before {
+    margin: 5px;
+    font-size: 22px;
+    font-family: FontAwesome;
+    display: inline-block;
+    font-weight: 200;
+    content: "\f005";
+}
+
+.Rating > .half:before {
+    content: "\f089";
+    font-weight: 200;
+    position: absolute;
+}
+
+.Rating > label {
+    color: #ddd;
+    float: right;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.Rating > input:checked ~ label, /* show gold star when clicked */
+.Rating:not(:checked) > label:hover, /* hover current star */
+.Rating:not(:checked) > label:hover ~ label {
+    transition: all .25s;
+    color: green;
+}
+
+/* hover previous stars in list */
+
+.Rating > input:checked + label:hover, /* hover current star when changing Rating */
+.Rating > input:checked ~ label:hover,
+.Rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.Rating > input:checked ~ label:hover ~ label {
+    font-weight: 900;
+    transition: all .25s;
+    color: green;
+}
