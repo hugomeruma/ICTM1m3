@@ -72,7 +72,7 @@ if (isset($_GET['te-verwijderen-product'])) {
                             <a href="<?= getBaseUrl() ?>product.php?id=<?= $product['StockItemID'] ?>">
                                 <h5 class="text-primary"><?= $product['StockItemName'] ?></h5>
                             </a>
-                            <strong><?= $product['UnitPrice'] ?></strong>
+                            <strong><?=price($product['StockItemID'])?></strong>
                         </div>
                         <div class="col-2 py-2 text-right">
                             <div class="form-group text-left mr-2">
