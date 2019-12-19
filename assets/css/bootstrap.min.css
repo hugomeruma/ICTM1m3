@@ -5,7 +5,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 :root {
-    --blue: #007bff;
+    --blue: #00ADEF;
     --indigo: #6610f2;
     --purple: #6f42c1;
     --pink: #e83e8c;
@@ -19,7 +19,7 @@
     --gray: #6c757d;
     --gray-dark: #343a40;
     --primary: #00adef;
-    --secondary: #f1f1f1;
+    --secondary: #8F8F8E;
     --success: #28a745;
     --info: #17a2b8;
     --warning: #ffc107;
@@ -33,6 +33,8 @@
     --breakpoint-xl: 1200px;
     --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
+
+    #8F8F8E;
 }
 
 *, *::before, *::after {
@@ -2336,7 +2338,8 @@ a.btn.disabled, fieldset:disabled a.btn {
 
 .btn-success:hover {
     color: #fff;
-    background-color: #218838;
+    background-color: #218838;ez
+
     border-color: #1e7e34
 }
 

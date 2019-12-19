@@ -5,16 +5,10 @@ fieldset, label {
     padding: 0;
 }
 
-.icon {
-    color: blue;
-    font-size: 50px;
-    font-weight: 200;
-}
-
-
 .Rating {
-    border: none;
-    float: left;
+    /*border: none;*/
+    display: block;
+
 }
 
 .Rating > input {
@@ -26,13 +20,13 @@ fieldset, label {
     font-size: 22px;
     font-family: FontAwesome;
     display: inline-block;
-    font-weight: 200;
+    font-weight: 900;
     content: "\f005";
 }
 
 .Rating > .half:before {
     content: "\f089";
-    font-weight: 200;
+    font-weight: 900;
     position: absolute;
 }
 

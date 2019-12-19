@@ -18,6 +18,7 @@ $productData = array(
     "Geproduceerd in" => json_decode($product['CustomFields'], true)['CountryOfManufacture']);
 ?>
 
+
 <div class="d-flex flex-row container">
     <div class="w-50 d-flex justify-content-center justify-content-between">
         <div id="myCarousel" class="carousel slide" style="max-width: 500px; width: 500px" data-ride="carousel"
@@ -51,12 +52,14 @@ $productData = array(
         </div>
     </div>
     <div class="w-50 d-flex justify-content-center align-items-center flex-column">
-        <div class="prijs position-relative d-flex justify-content-end">€
+        <div class="prijs position-relative d-flex justify-content-end" style="color: var(--gray);">€
             <?= price($product['StockItemID']); ?>
             <?php if (isset($off)): ?>
                 <div class="discount-icon">
-                <span class="fa-stack discount-icon"><i class="fas fa-certificate fa-stack-2x"></i>
-                    <i class="fas fa-percent fa-stack-1x fa-inverse"></i></span>
+                    <div>
+                        <span class="fa-stack " style="color: var(--green)"><i class="fas fa-certificate fa-stack-2x"></i>
+                            <i class="fas fa-percent fa-stack-1x fa-inverse"></i></span>
+                    </div>
                 </div>
             <?php endif; ?>
         </div>
@@ -87,7 +90,7 @@ $productData = array(
 
             <div class="border rounded m-2 p-2 bg-white">
                 <div class="d-flex justify-content-between">
-                    <div><?php stars($review['Rating']) ?> &nbsp; <b>(<?= $review['Rating'] ?>)</b></div>
+                    <div><?php stars($review['Rating']) ?> &nbsp; <b>(<?= $review['Rating'] / 2 ?>)</b></div>
                     <strong><?= $review['Name'] ?>&nbsp;</strong>
                 </div>
 
@@ -136,91 +139,107 @@ $productData = array(
             ?>
         </table>
 
-        <div class="">
+        <div class="h-100 d-flex">
             <?php
             if (!isset($_GET['ReviewOpgeslagen'])) {
-            $magReview = reviewValidatie($product['StockItemID']);
-            if ($magReview == 0):
-                ?>
-                <div class="">
-                    <form action="<?= getBaseUrl() ?>?product=<?= $_GET['product'] ?>&categorie=<?= $_GET['categorie'] ?>"
-                          method="post">
+                $magReview = reviewValidatie($product['StockItemID']);
+                if ($magReview == 0):
+                    ?>
+                    <div class="h-100 align-items-end">
+                        <form action="<?= getBaseUrl() ?>?product=<?= $_GET['product'] ?>&categorie=<?= $_GET['categorie'] ?>"
+                              id="stars"
+                              method="post">
 
-                        <input type="hidden" name="StockItemID" value="<?= $product['StockItemID'] ?>">
-                        <input type="hidden" name="UserID" value="<?= $_SESSION['id'] ?> ">
-                        <input type="hidden" name="Name" value="<?= $_SESSION['name'] ?>">
+                            <input type="hidden" name="StockItemID" value="<?= $product['StockItemID'] ?>">
+                            <input type="hidden" name="UserID" value="<?= $_SESSION['id'] ?> ">
+                            <input type="hidden" name="Name" value="<?= $_SESSION['name'] ?>">
 
-                        <div class="flex-column d-flex form-group">
-                            <div class="">
-                                <fieldset class="Rating">
-                                    <input type="radio" id="star5" name="Rating" value="10"/>
-                                    <label class="full" for="star5"></label>
+                            <div class="flex-column d-flex form-group">
+                                <div class="h-100 d-inline justify-content-center flex-column">
 
-                                    <input type="radio" id="star4half" name="Rating" value="9"/>
-                                    <label class="half" for="star4half"></label>
+                                    <div class="d-flex align-items-center">
+                                        <div>
+                                            <strong> Aantal sterren: &nbsp; &nbsp; </strong>
+                                        </div>
+                                        <fieldset class="Rating d-inline-block">
 
-                                    <input type="radio" id="star4" name="Rating" value="8"/>
-                                    <label class="full" for="star4"></label>
+                                            <input type="radio" id="star5" name="Rating" value="10"/>
+                                            <label class="full" for="star5"></label>
 
-                                    <input type="radio" id="star3half" name="Rating" value="7"/>
-                                    <label class="half" for="star3half"></label>
+                                            <input type="radio" id="star4half" name="Rating" value="9"/>
+                                            <label class="half" for="star4half"></label>
 
-                                    <input type="radio" id="star3" name="Rating" value="6"/>
-                                    <label class="full" for="star3"></label>
+                                            <input type="radio" id="star4" name="Rating" value="8"/>
+                                            <label class="full" for="star4"></label>
 
-                                    <input type="radio" id="star2half" name="Rating" value="5"/>
-                                    <label class="half" for="star2half"></label>
+                                            <input type="radio" id="star3half" name="Rating" value="7"/>
+                                            <label class="half" for="star3half"></label>
 
-                                    <input type="radio" id="star2" name="Rating" value="4"/>
-                                    <label class="full" for="star2"></label>
+                                            <input type="radio" id="star3" name="Rating" value="6"/>
+                                            <label class="full" for="star3"></label>
 
-                                    <input type="radio" id="star1half" name="Rating" value="3"/>
-                                    <label class="half" for="star1half"></label>
+                                            <input type="radio" id="star2half" name="Rating" value="5"/>
+                                            <label class="half" for="star2half"></label>
 
-                                    <input type="radio" id="star1" name="Rating" value="2"/>
-                                    <label class="full" for="star1"></label>
+                                            <input type="radio" id="star2" name="Rating" value="4"/>
+                                            <label class="full" for="star2"></label>
 
-                                    <input type="radio" id="starhalf" name="Rating" value="1"/>
-                                    <label class="half" for="starhalf"></label>
-                                </fieldset>
+                                            <input type="radio" id="star1half" name="Rating" value="3"/>
+                                            <label class="half" for="star1half"></label>
+
+                                            <input type="radio" id="star1" name="Rating" value="2"/>
+                                            <label class="full" for="star1"></label>
+
+                                            <input type="radio" id="starhalf" name="Rating" value="1"/>
+                                            <label class="half" for="starhalf"></label>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <textarea name="Description" type="text" placeholder="Plaats hier je review..." rows="5"
+                                          class="text_review form-control-plaintext form-control form-control-sm form p-2"></textarea>
+                                <div>
+                                    <button type="submit" class="btn btn-success py-1 px-3 m-1" name="reviewOpslaan">
+                                        Review Opslaan <i class="fas fa-save ml-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                <?php
+                elseif ($magReview == 1):
+                    ?>
+                    <div class="border plaatseenreview rounded-sm">
+                        <?php
+                        $userReview = haalUserReviewOp($_GET['product']);
+                        ?>
+                        <strong style="color: white; padding-left: 10px">Je hebt al een review staan op dit
+                            product</strong>
+                        <div class="border rounded m-2 p-2 bg-white">
+                            <div class="d-flex justify-content-between">
+                                <?php stars($userReview['Rating']) ?>
+                                <strong><?= $userReview['Name'] ?></strong>
                             </div>
 
-                            <textarea name="Description" type="text" placeholder="Plaats hier je review..." rows="5"
-                                      class="text_review  form-control-plaintext form-control form-control-sm form"></textarea>
-                            <button type="submit" class="btn btn-success" name="reviewOpslaan">Toevoegen</button>
-                        </div>
-
-                    </form>
-                </div>
-            <?php
-            elseif ($magReview = 1):
-                ?>
-                <div class="border plaatseenreview rounded-sm">
-                    <?php
-                    $userReview = haalUserReviewOp($_GET['product']);
-                    ?>
-                    <strong style="color: white; padding-left: 10px">Je hebt al een review staan op dit product</strong>
-                    <div class="border rounded m-2 p-2 bg-white">
-                        <div class="d-flex justify-content-between">
-                            <?php stars($userReview['Rating']) ?>
-                            <strong><?= $userReview['Name'] ?></strong>
-                        </div>
-
-                        <div class="py-3">
-                            <?= $userReview['Description'] ?>
+                            <div class="py-3">
+                                <?= $userReview['Description'] ?>
+                            </div>
                         </div>
                     </div>
-                </div>
-            <?php
-            elseif ($magReview = 2):
-                ?>
-                <div class="">
-                    <a href="<?= getBaseURL() ?>login.php">
-                        <button></button>
-                    </a>
-                </div>
-            <?php
-            endif;
+                <?php
+                elseif ($magReview == 2):
+                    ?>
+                    <div class="d-flex flex-column justify-content-center w-100 align-items-center">
+                        <div class="border rounded p-3 d-flex flex-column justify-content-center align-items-center">
+                            <strong>Om een review te kunnen plaatsen moet je ingelogd zijn</strong>
+                            <a href="<?= getBaseURL() ?>login.php">
+                                <button class="btn btn-success my-2"> Klink hier om in te loggen</button>
+                            </a>
+                        </div>
+                    </div>
+                <?php
+                endif;
+            }
             ?>
         </div>
     </div>

@@ -27,6 +27,15 @@ html {
 body {
     min-height: 100%
 }
+.discount-icon-card{
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    color: var(--secondary);
+
+    font-size: 20px;
+}
+
 
 .form {
     border: 1px solid lightgray;
@@ -50,8 +59,11 @@ body {
     color: green;
     position: absolute;
     z-index: -1;
-    top: 0px;
+    top: -50%;
+    right: -20%;
     font-size: 20px;
+
+    transform: rotate(2deg);
 }
 
 .review-modal {
