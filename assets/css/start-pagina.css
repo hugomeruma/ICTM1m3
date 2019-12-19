@@ -49,10 +49,9 @@
 .divider {
     background-color: var(--blue);
     /*max-height: 50px;*/
-    height: 60px !important;
+    height: 2.5em;
     display: flex;
     align-items: center;
-    margin-bottom: 30px;
 }
 
 .divider-text {
@@ -61,8 +60,20 @@
     justify-content: space-between;
     color: white;
     font-size: 40px;
-    line-height: 0 !important;
+    line-height: 0%;
 }
+
+.divider-text-sm {
+    font-family: "BigNoodleTitling Oblique";
+    display: inline-flex;
+    justify-content: space-between;
+    color: white;
+
+    padding-left: 20px;
+    font-size: 30px;
+    line-height: 0%;
+}
+
 
 .carousel-inner > .deal-carousel-item {
     transition: -webkit-transform 1.7s ease-in-out;

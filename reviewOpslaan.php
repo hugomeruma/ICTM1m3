@@ -1,5 +1,11 @@
 <?php
-$review = haalUserReviewOp($_GET['product']);
+if (!isset($review)) {
+    $review = haalUserReviewOp($_GET['product']);
+} else $review = array(
+    $review['Rating'] => 0,
+    $review['Name'] => "",
+    $review['Description'] => "De review die u geplaats heeft voldoet niet aan onze eisen.",
+)
 ?>
 
 <div class="review-modal">
