@@ -1,6 +1,6 @@
 <?php
 
-function maakAccount($voornaam, $tussenvoegsel, $achternaam, $email, $wachtwoord,$land , $plaats, $postcode, $huisnummer, $straat, $telefoonnummer)
+function maakAccount($voornaam, $tussenvoegsel, $achternaam, $email, $wachtwoord, $land, $plaats, $postcode, $huisnummer, $straat, $telefoonnummer)
 {
     // Hash wachtwoord
     $wachtwoord = password_hash($wachtwoord, PASSWORD_DEFAULT);
