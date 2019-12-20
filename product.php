@@ -2,12 +2,12 @@
 if (isset($_POST['reviewOpslaan'])) {
 //    print_r($_POST);
     trim($_POST['Description']);
-    if (!empty($_POST['Description'])) {
+    $_POST['Description'] = (strip_tags($_POST['Description']));
+    if ((!empty($_POST['Description']) or $_POST['Description'] = "") &&  $_POST['Description'] == strip_tags($_POST['Description'])) {
         insertReview($_POST['StockItemID'], $_POST['UserID'], $_POST['Name'], $_POST['Rating'], $_POST['Description']);
         redirect(haalGetVariabelenOpVoorUrl($_GET) . "&reviewOpslaan=true");
     } else {
-
-        redirect(haalGetVariabelenOpVoorUrl($_GET) . "&reviewOpslaan=true&review=bad");
+        redirect(haalGetVariabelenOpVoorUrl($_GET) . "&reviewOpslaan=true&review=nva");
     }
 }
 
