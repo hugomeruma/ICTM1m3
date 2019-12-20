@@ -1,5 +1,5 @@
 </div>
-<footer class="text-center w-100 bg-primary text-white p-2 mt-3" id="footer">
+<footer class="text-center w-100 bg-primary text-white p-2" id="footer">
     Wide World Importers © <?= date('d-m-Y') ?> | Gemaakt door ICTM1m3
 </footer>
 </div>

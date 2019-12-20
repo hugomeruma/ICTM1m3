@@ -10,7 +10,6 @@ if (!isset($_GET['review'])) {
 ?>
 
 <div class="review-modal">
-
     <div class="review-modal-item">
         <div class="modal-top bg-primary"> <?php if(!isset($_GET["review"])): ?> Uw Review is opgeslagen <?php else: ?> Helaas... <?php endif; ?>
             <a href="<?= getBaseUrl() ?>?product=<?= $_GET['product'] ?>&categorie=<?= $_GET['categorie'] ?>"
