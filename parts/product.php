@@ -1,7 +1,7 @@
 <?php
 require_once "functies/content.php";
 $discount = "";
-$thumbnail = $product["stockItemAfbeeldingLocation"] ?? $product["afbeeldingLocation"];
+$thumbnail = $product["afbeeldingLocation"] ?? 'afbeelding_niet_beschikbaar.png';
 //$thumbnail = getImages($product['StockItemID'], "thumbnail")[0]["Location"];
 //$thumbnail = $product['afbeelding']['location'];
 ?>
