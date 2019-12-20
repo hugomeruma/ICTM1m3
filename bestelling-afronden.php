@@ -42,7 +42,7 @@ if (isset($_POST['bestelling-afronden'])) {
 
     foreach ($_SESSION['winkelwagen']['producten'] as $productID => $aantal) {
         $product = haalProductOpID($productID);
-        maakBestellingsRegel($bestellingID, $productID, $aantal, $product[0]['StockItemName'], $product[0]['UnitPrice'], $product[0]['TaxRate']);
+        maakBestellingsRegel($bestellingID, $productID, $aantal, $product[0]['StockItemName'], $product[0]['RecommendedRetailPrice'], $product[0]['TaxRate']);
     }
 }
 ?>

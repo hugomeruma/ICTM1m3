@@ -151,7 +151,7 @@ function haalProductenOp(int $pagina, int $productenPerPagina, int $categorieID 
 function haalWinkelwagenProductOp(int $productID)
 {
     $conn = maakVerbinding();
-    $stmt = $conn->prepare("SELECT StockItemID, StockItemName, UnitPrice FROM stockitems WHERE StockItemID = ?");
+    $stmt = $conn->prepare("SELECT StockItemID, StockItemName, RecommendedRetailPrice FROM stockitems WHERE StockItemID = ?");
     $stmt->bind_param('i', $productID);
     $stmt->execute();
     $result = $stmt->get_result();

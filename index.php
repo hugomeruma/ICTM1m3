@@ -8,7 +8,6 @@ if (isset($_GET['reviewOpslaan'])) {
 }
 ?>
 
-<div id="content-wrap" class="container" style="padding: 2.5rem">
 <?php
 if (isset($_POST['toevoegenAanWinkelwagen']) or isset($_GET['toonWinkelWagen'])) {
     require "winkelwagen.php";
@@ -22,11 +21,6 @@ if (isset($_POST['toevoegenAanWinkelwagen']) or isset($_GET['toonWinkelWagen']))
 
 //    require 'home.php';
 }
-?>
-</div>
-
-
-<?php
 require __DIR__ . "/parts/footer.php";
 ?>
 

@@ -76,3 +76,10 @@ function getFullName($firstName, $insertion, $lastName)
     $name .= $lastName;
     return $name;
 }
+
+function zePrijsInGoedFormaat($prijs)
+{
+    setlocale(LC_MONETARY, 'nl_NL.UTF-8');
+    $prijs = money_format('%(#1n', 20);
+    return $prijs;
+}
