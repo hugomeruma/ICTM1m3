@@ -13,13 +13,9 @@ if (isset($_POST['toevoegenAanWinkelwagen']) or isset($_GET['toonWinkelWagen']))
     require "winkelwagen.php";
 } elseif (isset($_GET['product'])) {
     require 'product.php';
-} elseif (isset($_GET['categorie']) && !empty($_GET['categorie'])) {
-    require 'categorie.php';
 } else {
-
-//    redirect("?categorie=alle&producten-per-pagina=" . 12);
-
-    require 'home.php';
+    $_GET['categorie'] = 'alle';
+    require 'categorie.php';
 }
 require __DIR__ . "/parts/footer.php";
 ?>
