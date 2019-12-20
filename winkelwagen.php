@@ -28,7 +28,7 @@ if (isset($_SESSION['winkelwagen']['producten'])) {
 
         $product = haalWinkelwagenProductOp($productID)[0];
         $winkelwagen[] = $product;
-        $totaalPrijs += $aantal * $product['UnitPrice'];
+        $totaalPrijs += $aantal * $product['RecommendedRetailPrice'];
     }
 }
 

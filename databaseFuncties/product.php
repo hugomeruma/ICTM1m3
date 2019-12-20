@@ -68,7 +68,7 @@ function zoekProducten(string $zoekOpdracht, int $pagina, int $productenPerPagin
     $conn = maakVerbinding();
     $zoekOpdracht = "%{$zoekOpdracht}%";
     if ($categorieID) { // Zoeken binnen een categorie
-        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.UnitPrice, s.TaxRate, h.QuantityOnHand
+        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.RecommendedRetailPrice, s.TaxRate, h.QuantityOnHand
         FROM stockitems s
         JOIN stockitemholdings h
         ON s.StockItemID = h.StockItemID
@@ -80,7 +80,7 @@ function zoekProducten(string $zoekOpdracht, int $pagina, int $productenPerPagin
         OFFSET ?");
         $stmt->bind_param('issii', $categorieID, $zoekOpdracht, $zoekOpdracht, $productenPerPagina, $offset);
     } else { // Zoeken in alle producten
-        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.UnitPrice, s.TaxRate, h.QuantityOnHand
+        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.RecommendedRetailPrice, s.TaxRate, h.QuantityOnHand
         FROM stockitems s
         JOIN stockitemholdings h
         ON s.StockItemID = h.StockItemID
@@ -104,7 +104,7 @@ function haalProductenOp(int $pagina, int $productenPerPagina, int $categorieID 
 
     $conn = maakVerbinding();
     if ($categorieID) { // Haal alle producten van een categorie
-        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.UnitPrice, s.TaxRate, h.QuantityOnHand, g.StockGroupID, (SELECT COUNT(*) FROM reviews r WHERE r.StockItemID = s.StockItemID) as aantalBeoordelingen, AVG(r.Rating) as gemiddeldeBeoordeling,
+        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.RecommendedRetailPrice, s.TaxRate, h.QuantityOnHand, g.StockGroupID, (SELECT COUNT(*) FROM reviews r WHERE r.StockItemID = s.StockItemID) as aantalBeoordelingen, AVG(r.Rating) as gemiddeldeBeoordeling,
         (SELECT i.location FROM stockgroups_images si LEFT JOIN images i ON i.ID = si.imageID  WHERE si.StockGroupID = g.StockGroupID LIMIT 1) as afbeeldingLocation
         FROM stockitems s
         LEFT JOIN reviews r
@@ -120,7 +120,7 @@ function haalProductenOp(int $pagina, int $productenPerPagina, int $categorieID 
 
         $stmt->bind_param('iii', $categorieID, $productenPerPagina, $offset);
     } else { // Haal alle producten
-        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.UnitPrice, s.TaxRate, h.QuantityOnHand, g.StockGroupID, (SELECT COUNT(*) FROM reviews r WHERE r.StockItemID = s.StockItemID) as aantalBeoordelingen, AVG(r.Rating) as gemiddeldeBeoordeling,
+        $stmt = $conn->prepare("SELECT s.StockItemID, s.StockItemName, s.MarketingComments, s.Tags, s.RecommendedRetailPrice, s.TaxRate, h.QuantityOnHand, g.StockGroupID, (SELECT COUNT(*) FROM reviews r WHERE r.StockItemID = s.StockItemID) as aantalBeoordelingen, AVG(r.Rating) as gemiddeldeBeoordeling,
          (SELECT i.location FROM stockgroups_images si LEFT JOIN images i ON i.ID = si.imageID  WHERE si.StockGroupID = g.StockGroupID LIMIT 1) as afbeeldingLocation
          FROM stockitems s
         LEFT JOIN reviews r
@@ -145,7 +145,7 @@ function haalProductenOp(int $pagina, int $productenPerPagina, int $categorieID 
 function haalWinkelwagenProductOp(int $productID)
 {
     $conn = maakVerbinding();
-    $stmt = $conn->prepare("SELECT StockItemID, StockItemName, UnitPrice FROM stockitems WHERE StockItemID = ?");
+    $stmt = $conn->prepare("SELECT StockItemID, StockItemName, RecommendedRetailPrice FROM stockitems WHERE StockItemID = ?");
     $stmt->bind_param('i', $productID);
     $stmt->execute();
     $result = $stmt->get_result();

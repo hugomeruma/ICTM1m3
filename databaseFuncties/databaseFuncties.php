@@ -319,11 +319,11 @@ function insertReview($stockItemID, $UserID, $Name, $Rating, $Description)
 
 function getMaxDiscountStockGroup($stockgroupID, $discount)
 {
-    $sql = "SELECT max(UnitPrice) from stockitems as S 
+    $sql = "SELECT max(RecommendedRetailPrice) from stockitems as S 
 JOIN stockitemstockgroups as G on S.StockItemID = G.StockItemID
 WHERE G.StockGroupID = ?";
     $where = $stockgroupID;
-    $maxPrice = mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC)[0]["max(UnitPrice)"];
+    $maxPrice = mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC)[0]["max(RecommendedRetailPrice)"];
     return ceil($maxPrice * ($discount / 100));
 }
 
