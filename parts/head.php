@@ -18,8 +18,7 @@
 <div id="page-container">
 <?php
 // Require categorie om de categorieën voor de navigatiebalk op te halen
-
 require_once __DIR__ . '/../databaseFuncties/categorie.php';
-
 require __DIR__ . '/navbar.php';
 ?>
+    <div class="container pt-3 pb-3">
