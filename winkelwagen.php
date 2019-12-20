@@ -28,7 +28,7 @@ if (isset($_SESSION['winkelwagen']['producten'])) {
 
         $product = haalWinkelwagenProductOp($productID)[0];
         $winkelwagen[] = $product;
-        $totaalPrijs += $aantal * $product['UnitPrice'];
+        $totaalPrijs += $aantal * price($product['StockItemID']);
     }
 }
 
@@ -43,7 +43,7 @@ if (isset($_GET['te-verwijderen-product'])) {
 ?>
 <form method="post">
     <div class="row">
-        <div class="col-6 align-self-center>
+        <div class="col-6 align-self-center">
             <h1>Winkelwagen</h1>
         </div>
         <div class="col-6 align-self-center">
@@ -60,19 +60,21 @@ if (isset($_GET['te-verwijderen-product'])) {
                 <a class="btn btn-primary" href="<?= getBaseUrl() ?>?categorie=alle">Winkelen</a>
             </div>
         <?php endif;
-        foreach ($winkelwagen as $product): ?>
+        foreach ($winkelwagen as $product):
+            $thumbnail = getImages($product['StockItemID'], true)[0]['Location'];
+            ?>
             <div class="col-12 mb-2">
                 <div class="border">
                     <div class="row">
-                        <div class="col-3">
-                            <img src="<?= getBaseUrl() ?>assets/afbeeldingen/image_not_available.png"
+                        <div class="col-3 d-flex justify-content-center align-items-center">
+                            <img src="<?= getBaseUrl() ?>assets/afbeeldingen/<?= $thumbnail ?>"
                                  class="winkelwagen-product-afbeelding w-100" alt="">
                         </div>
                         <div class="col-7 py-2">
                             <a href="<?= getBaseUrl() ?>product.php?id=<?= $product['StockItemID'] ?>">
                                 <h5 class="text-primary"><?= $product['StockItemName'] ?></h5>
                             </a>
-                            <strong><?=price($product['StockItemID'])?></strong>
+                            <strong>&euro;<?= price($product['StockItemID']) ?></strong>
                         </div>
                         <div class="col-2 py-2 text-right">
                             <div class="form-group text-left mr-2">

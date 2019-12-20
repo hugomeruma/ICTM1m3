@@ -44,6 +44,11 @@ body {
     height: 2.5rem;            /* Footer height */
 }
 
+.winkelwagen-product-afbeelding {
+    max-height: 100px;
+    object-fit: contain;
+}
+
 .discount-icon-card {
     position: absolute;
     top: 0%;

@@ -18,9 +18,9 @@ if (isset($_POST['toevoegenAanWinkelwagen']) or isset($_GET['toonWinkelWagen']))
     require 'categorie.php';
 } else {
 
-//    redirect("?categorie=alle&producten-per-pagina=" . 12);
+    redirect("?categorie=alle&producten-per-pagina=" . 12);
 
-    require 'home.php';
+//    require 'home.php';
 }
 ?>
 </div>

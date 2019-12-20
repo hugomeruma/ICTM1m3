@@ -22,6 +22,7 @@ $productData = array(
     "Dit product is gekoeld" => haalTempOp($product['IsChillerStock']),
     "Vooraad" => "",
     "Geproduceerd in" => json_decode($product['CustomFields'], true)['CountryOfManufacture']);
+
 ?>
 
 
@@ -32,6 +33,7 @@ $productData = array(
             <div class="carousel-inner">
                 <?php
                 $imageInfo = getImages($product['StockItemID']);
+
                 $first = true;
                 foreach ($imageInfo as $image): ?>
                     <div class="carousel-item <?php if ($first == true) {

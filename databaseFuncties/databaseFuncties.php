@@ -71,6 +71,7 @@ WHERE  G.StockGroupID = ? and SearchDetails like ?";
     $aantalProd = (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['amount']);
     return $aantalProd;
 }
+
 //
 ////stockGroups
 //function selecterenStockgroups()
@@ -98,6 +99,7 @@ function getStockGroup($where)
     $result = getFromDB($sql, $where);
     return (mysqli_fetch_all($result, MYSQLI_ASSOC));
 }
+
 //
 //function getStockItem($stockItemID)
 //{
@@ -132,6 +134,7 @@ function haalKleurOp($ColorID)
     $where = $ColorID;
     return (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC)[0]['ColorName']);
 }
+
 //
 //function alleProducten()
 //{
@@ -338,10 +341,13 @@ function stockItemImages($stockItemID)
 {
     $sql = "SELECT ImageID FROM stockitems_images WHERE StockItemID = ?";
     $where = $stockItemID;
-    $result = (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC));
+
+    $result = (mysqli_fetch_all(getFromDB($sql, null, $where), MYSQLI_ASSOC));
+
     if (!empty($result)) {
         return $result[0];
     }
+
     return;
 }
 
@@ -355,8 +361,10 @@ function getImageID($stockItemID)
 
     if (empty($imageID)) {
         $stockGroupIDs = getStockGroup($stockItemID);
-        if ($_GET['categorie'] != "alle") {
-            array_unshift($stockGroupIDs, Array("StockGroupID" => $_GET['categorie']));
+        if (isset($_GET['categorie'])) {
+            if ($_GET['categorie'] != "alle") {
+                array_unshift($stockGroupIDs, Array("StockGroupID" => $_GET['categorie']));
+            }
         }
 
         foreach ($stockGroupIDs as $stockGroupID) {
