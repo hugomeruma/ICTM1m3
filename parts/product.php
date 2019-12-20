@@ -1,7 +1,7 @@
 <?php
 require_once "functies/content.php";
 $discount = "";
-$thumbnail = $product["afbeeldingLocation"];
+$thumbnail = $product["afbeeldingLocation"] ?? 'afbeelding_niet_beschikbaar.png';
 //$thumbnail = getImages($product['StockItemID'], "thumbnail")[0]["Location"];
 //$thumbnail = $product['afbeelding']['location'];
 ?>
@@ -25,9 +25,10 @@ $thumbnail = $product["afbeeldingLocation"];
             <input type="hidden" value="1" name="<?= $product['StockItemID'] ?>StockItemID">
             <input type="hidden" value="1" name="toevoegenAanWinkelwagen">
             <button type="submit" name="toevoegenAanWinkelwagen " value="" style="z-index: 2; position: relative"
-                    class="btn btn-success btn-block justify-content-around" ">
-                <i class="fas fa-plus button-icon"></i>
-                <i class="fas fa-shopping-cart button-icon"></i>
+                    class="btn btn-success btn-block justify-content-around"
+            ">
+            <i class="fas fa-plus button-icon"></i>
+            <i class="fas fa-shopping-cart button-icon"></i>
             </button>
         </form>
     </div>
