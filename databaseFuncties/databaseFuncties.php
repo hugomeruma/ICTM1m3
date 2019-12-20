@@ -204,7 +204,7 @@ function price($StockItemID)
     if ($off != 0) {
         $GLOBALS['off'] = number_format($off, 0);
     }
-    return number_format($price, 2);
+    return str_replace(".", ",", number_format($price, 2));
 }
 
 
@@ -342,10 +342,10 @@ function stockItemImages($stockItemID)
     $sql = "SELECT ImageID FROM stockitems_images WHERE StockItemID = ?";
     $where = $stockItemID;
 
-    $result = (mysqli_fetch_all(getFromDB($sql, null, $where), MYSQLI_ASSOC));
+    $result = (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC));
 
     if (!empty($result)) {
-        return $result[0];
+        return $result;
     }
 
     return;
@@ -381,8 +381,10 @@ function getImageID($stockItemID)
 
 function getImages($stockItemID, $isThumbnail = null)
 {
+
     $imageIDs = getImageID($stockItemID);
     $images = array();
+
     $sql = "SELECT Location FROM images WHERE ID = ?";
 
     foreach ($imageIDs as $imageID) {

@@ -1,7 +1,8 @@
 <?php
 require_once "functies/content.php";
 $discount = "";
-$thumbnail = $product["afbeeldingLocation"] ?? 'afbeelding_niet_beschikbaar.png';
+//dd($product);
+$thumbnail = $product["stockItemAfbeeldingLocation"] ?? $product["afbeeldingLocation"] ?? 'afbeelding_niet_beschikbaar.png';
 //$thumbnail = getImages($product['StockItemID'], "thumbnail")[0]["Location"];
 //$thumbnail = $product['afbeelding']['location'];
 ?>
@@ -14,7 +15,7 @@ $thumbnail = $product["afbeeldingLocation"] ?? 'afbeelding_niet_beschikbaar.png'
         <div style="height: 10ex">
             <h5 class="card-title"><?= $product['StockItemName'] ?></h5>
         </div>
-        <h5><strong> <?= price($product['StockItemID']) ?> </strong><span
+        <h5><strong> &euro;<?= price($product['StockItemID']) ?> </strong><span
                     class="float-right"><div class="d-inline-flex"
                                              style="align-items: center">
                     <?= stars($product['gemiddeldeBeoordeling']) ?>
