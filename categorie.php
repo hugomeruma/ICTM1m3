@@ -66,14 +66,14 @@ if (isset($_POST['toevoegenAanWinkelwagen'])) {
         <form method='get'>
             <div class="form-inline">
                 Resultaten per pagina
-                <input type="number" min="10" max="50" step="5"
+                <input type="number" min="10" max="100"
                        class="mx-3 product_per_pagina_form form-control"
                        name="producten-per-pagina"
-                       value="<?= $_GET['producten-per-pagina'] ?: standaardProductenPerPagina() ?>">
+                       value="<?= $_GET['producten-per-pagina'] ?? standaardProductenPerPagina() ?>">
             </div>
             <!-- Verborgen velden om waardes van get variabelen te behouden -->
-            <input type="hidden" name="categorie" value="<?= $_GET['categorie'] ?: 'alle' ?>">
-            <input type="hidden" name="pagina" value="<?= $_GET['pagina'] ?: 1 ?>">
+            <input type="hidden" name="categorie" value="<?= $_GET['categorie'] ?? 'alle' ?>">
+            <input type="hidden" name="pagina" value="<?= $_GET['pagina'] ?? 1 ?>">
             <?php if (isset($_GET['zoek-opdracht'])): ?>
                 <input type="hidden" name="zoek-opdracht" value="<?= $_GET['zoek-opdracht'] ?>">
             <?php endif ?>
@@ -102,14 +102,14 @@ if (isset($_POST['toevoegenAanWinkelwagen'])) {
         <form method='get'>
             <div class="form-inline">
                 Resultaten per pagina
-                <input type="number" min="10" max="50" step="5"
+                <input type="number" min="10" max="100"
                        class="mx-3 product_per_pagina_form form-control"
                        name="producten-per-pagina"
-                       value="<?= $_GET['producten-per-pagina'] ?: standaardProductenPerPagina() ?>">
+                       value="<?= $_GET['producten-per-pagina'] ?? standaardProductenPerPagina() ?>">
             </div>
             <!-- Verborgen velden om waardes van get variabelen te behouden -->
-            <input type="hidden" name="categorie" value="<?= $_GET['categorie'] ?: 'alle' ?>">
-            <input type="hidden" name="pagina" value="<?= $_GET['pagina'] ?: 1 ?>">
+            <input type="hidden" name="categorie" value="<?= $_GET['categorie'] ?? 'alle' ?>">
+            <input type="hidden" name="pagina" value="<?= $_GET['pagina'] ?? 1 ?>">
             <?php if (isset($_GET['zoek-opdracht'])): ?>
                 <input type="hidden" name="zoek-opdracht" value="<?= $_GET['zoek-opdracht'] ?>">
             <?php endif ?>

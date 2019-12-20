@@ -24,13 +24,10 @@ html {
     /*min-height: ;*/
 }
 
-body {
-    /*min-height: 100%*/
-}
-
 #page-container {
     position: relative;
     min-height: 100vh;
+    padding-bottom: 40px;
 }
 
 #content-wrap {
