@@ -28,7 +28,7 @@ if (isset($_SESSION['winkelwagen']['producten'])) {
 
         $product = haalWinkelwagenProductOp($productID)[0];
         $winkelwagen[] = $product;
-        $totaalPrijs += $aantal * price($product['StockItemID']);
+        $totaalPrijs += $aantal * price($product['StockItemID'], false);
     }
 }
 
@@ -61,7 +61,7 @@ if (isset($_GET['te-verwijderen-product'])) {
             </div>
         <?php endif;
         foreach ($winkelwagen as $product):
-            $thumbnail = getImages($product['StockItemID'], true)[0]['Location'];
+            $thumbnail = getImages($product['StockItemID'], true)[0]['Location'] ?? '';
             ?>
             <div class="col-12 mb-2">
                 <div class="border">
@@ -95,7 +95,7 @@ if (isset($_GET['te-verwijderen-product'])) {
         <!-- Laat alleen zien als er producten in de winkelwagen zitten -->
         <?php if (isset($_SESSION['winkelwagen']['producten']) || !empty($_SESSION['winkelwagen']['producten'])): ?>
             <div class="col-12 text-right">
-                <strong>Totaalbedrag:</strong> € <?= $totaalPrijs ?><br>
+                <strong>Totaalbedrag:</strong> € <?= str_replace(".", ",", number_format($totaalPrijs, 2)) ?><br>
                 <button class="btn btn-primary mt-1" type="submit" name="toevoegenAanWinkelwagen" value="test">Opslaan</button>
             </div>
         <?php endif; ?>

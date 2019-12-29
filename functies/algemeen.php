@@ -27,7 +27,7 @@ function paginaNummering($huidigePagina, $totaalPaginas)
     return $paginaNummers;
 }
 
-function getBaseUrl($base = 'localhost/ICTM1m3')
+function getBaseUrl($base = 'localhost:8080')
 {
     return 'http://' . $base . '/';
 }
@@ -75,11 +75,4 @@ function getFullName($firstName, $insertion, $lastName)
     }
     $name .= $lastName;
     return $name;
-}
-
-function zePrijsInGoedFormaat($prijs)
-{
-    setlocale(LC_MONETARY, 'nl_NL.UTF-8');
-    $prijs = money_format('%(#1n', 20);
-    return $prijs;
 }

@@ -67,7 +67,7 @@ if (isset($_POST['bestelling-afronden'])) {
         $_SESSION['melding']['class'] = 'danger';
     }
     // Redirect naat de pagina waarop de melding word getoont
-    redirect 'bestelling-afgerond.php';
+    redirect('bestelling-afgerond.php');
 }
 ?>
 <div class="container">
@@ -81,7 +81,7 @@ if (isset($_POST['bestelling-afronden'])) {
                 <p>We kunnen gegevens automatisch invullen, omdat je bent ingelogd.</p>
                 <form method="get">
                     <input type="hidden" name="automatisch-invullen" value="ja">
-                    <button type="submit">Automatisch invullen</button>
+                    <button class="btn btn-primary" type="submit">Automatisch invullen</button>
                 </form>
                 <!--  Als je niet ingelogd bent kun je inloggen -->
             <?php else: ?>
@@ -114,7 +114,7 @@ if (isset($_POST['bestelling-afronden'])) {
                 <div class="form-group">
                     <label for="tussenvoegsel">Tussenvoegsel</label>
                     <input type="text" class="form-control" id="tussenvoegsel" name="tussenvoegsel"
-                           value="<?= $account["Tussenvoegsel"] ?? '' ?>">
+                           value="<?= $account["Insertion"] ?? '' ?>">
                 </div>
                 <div class="form-group">
                     <label for="achternaam">Achternaam*</label>
@@ -149,7 +149,7 @@ if (isset($_POST['bestelling-afronden'])) {
                 <div class="form-group">
                     <label for="straatnaam">Straatnaam*</label>
                     <input type="text" class="form-control" id="straatnaam" name="straatnaam"
-                           value="<?= $account["StreetName"] ?? '' ?>" required>
+                           value="<?= $account["Street"] ?? '' ?>" required>
                 </div>
                 <div class="form-group">
                     <label for="telefoonnummer">Telefoonnummer</label>

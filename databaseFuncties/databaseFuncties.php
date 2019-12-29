@@ -141,7 +141,7 @@ function getSpecialDeals()
     return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
 }
 
-function price($StockItemID)
+function price($StockItemID, $formateer = true)
 {
     $sql = "SELECT RecommendedRetailPrice, TaxRate FROM stockitems WHERE StockItemID = ?";
     $where = $StockItemID;
@@ -152,7 +152,10 @@ function price($StockItemID)
     if ($off != 0) {
         $GLOBALS['off'] = number_format($off, 0);
     }
-    return str_replace(".", ",", number_format($price, 2));
+    if ($formateer) {
+        $price = str_replace(".", ",", number_format($price, 2));
+    }
+    return $price;
 }
 
 
@@ -282,7 +285,7 @@ function stockgroupImages($stockGroupID)
 {
     $sql = "SELECT ImageID FROM stockgroups_images WHERE StockGroupID = ?";
     $where = $stockGroupID;
-    return (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC))[0];
+    return (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC))[0] ?? '';
 }
 
 function stockItemImages($stockItemID)
@@ -337,12 +340,15 @@ function getImages($stockItemID, $isThumbnail = null)
 
     foreach ($imageIDs as $imageID) {
         echo "<br>";
-        $where = $imageID["ImageID"];
-        $images[] = (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC));
+        $where = $imageID["ImageID"] ?? '';
+        $result = getFromDB($sql, $where);
+        if ($result) {
+            $images[] = (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC));
+        }
     }
 
     if ($isThumbnail != null) {
-        return $images[0];
+        return $images[0] ?? '';
     } else {
         return $images;
     }
