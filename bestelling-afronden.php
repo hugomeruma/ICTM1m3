@@ -60,11 +60,9 @@ if (isset($_POST['bestelling-afronden'])) {
     if ($succes) {
         $_SESSION['melding']['titel'] = 'Succesvol!';
         $_SESSION['melding']['bericht'] = 'Uw bestelling is geplaatst!';
-        $_SESSION['melding']['class'] = 'success';
     } else {
         $_SESSION['melding']['titel'] = 'Error!';
         $_SESSION['melding']['bericht'] = 'Er is iets fout gegaan, neem contact met ons op om de bestelling alsnog te plaatsen.';
-        $_SESSION['melding']['class'] = 'danger';
     }
     // Redirect naat de pagina waarop de melding word getoont
     redirect('bestelling-afgerond.php');
