@@ -135,58 +135,6 @@ function haalKleurOp($ColorID)
     return (mysqli_fetch_all(getFromDB($sql, $where), MYSQLI_ASSOC)[0]['ColorName']);
 }
 
-//
-//function alleProducten()
-//{
-//    $count = tellenProducten(null, null);
-//    $limit = productenPerPagina($count);
-//    $offset = offset($limit);
-//    $sql = "SELECT * FROM stockitems LIMIT ? OFFSET ?";
-//    return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset), MYSQLI_ASSOC);
-//}
-//
-//function selecterenProducten()
-//{
-//    $where = $_GET['in'];
-//    $count = tellenProducten($where, null);
-//    $limit = productenPerPagina($count);
-//    $offset = offset($limit);
-//    $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
-//ON I.StockItemID = G.StockItemID
-//WHERE G.StockGroupID = ? LIMIT ? OFFSET ?";
-//    return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset), MYSQLI_ASSOC);
-//}
-//
-//function zoekenProducten()
-//{
-//    if (empty($_GET['in'])) {
-//        $search = "%" . $_GET['searchFor'] . "%";
-//
-//        $count = tellenProducten(null, $search);
-//        $limit = productenPerPagina($count);
-//        $offset = offset($limit);
-//
-//        $sql = "SELECT * FROM StockItems WHERE SearchDetails like ?
-//LIMIT ?
-//OFFSET ?";
-//        return mysqli_fetch_all(getFromDB($sql, null, $limit, $offset, $search), MYSQLI_ASSOC);
-//    }
-//    if (!empty($_GET['in'])) {
-//        $where = $_GET['in'];
-//        $search = "%" . $_GET['searchFor'] . "%";
-//
-//        $count = tellenProducten($where, $search);
-//        $limit = productenPerPagina($count);
-//        $offset = offset($limit);
-//
-//        $sql = "SELECT * FROM StockItems as I JOIN stockitemstockgroups as G
-//ON I.StockItemID = G.StockItemID
-//WHERE  G.StockGroupID = ? and SearchDetails like ?
-//LIMIT ? OFFSET ? ";
-//        return mysqli_fetch_all(getFromDB($sql, $where, $limit, $offset, $search), MYSQLI_ASSOC);
-//    }
-//}
-
 function getSpecialDeals()
 {
     $sql = "SELECT * FROM specialdeals;";

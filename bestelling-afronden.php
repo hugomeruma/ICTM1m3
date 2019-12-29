@@ -37,13 +37,37 @@ if (isset($_GET['automatisch-invullen']) && $_GET['automatisch-invullen'] === 'j
 
 // Bestelling opslaan in database
 if (isset($_POST['bestelling-afronden'])) {
+    // Maak klant en bestelling aan en haal ID op
     $klantID = maakKlant($_POST['voornaam'], $_POST['tussenvoegsel'], $_POST['achternaam'], $_POST['telefoonnummer'], $_POST['email']);
     $bestellingID = maakBestelling($klantID, $_POST['plaats'], $_POST['postcode'], $_POST['huisnummer'], $_POST['postcode']);
+    $succes = true;
 
-    foreach ($_SESSION['winkelwagen']['producten'] as $productID => $aantal) {
-        $product = haalProductOpID($productID);
-        maakBestellingsRegel($bestellingID, $productID, $aantal, $product[0]['StockItemName'], $product[0]['RecommendedRetailPrice'], $product[0]['TaxRate']);
+    // Check of de bestelling en klant succesvol zijn opgeslagen anders word $succes false
+    if ($bestellingID && $klantID) {
+        // Loop door de producten heen en maak bestelregels
+        foreach ($_SESSION['winkelwagen']['producten'] as $productID => $aantal) {
+            $product = haalProductOpID($productID);
+            // Als bestelling niet goed gaat wordt $succes false
+            if (!maakBestellingsRegel($bestellingID, $productID, $aantal, $product[0]['StockItemName'], $product[0]['RecommendedRetailPrice'], $product[0]['TaxRate'])) {
+                $succes = false;
+            }
+        }
+    } else {
+        $succes = false;
     }
+
+    // Pak het juiste bericht op basis van de waarde van $succes
+    if ($succes) {
+        $_SESSION['melding']['titel'] = 'Succesvol!';
+        $_SESSION['melding']['bericht'] = 'Uw bestelling is geplaatst!';
+        $_SESSION['melding']['class'] = 'success';
+    } else {
+        $_SESSION['melding']['titel'] = 'Error!';
+        $_SESSION['melding']['bericht'] = 'Er is iets fout gegaan, neem contact met ons op om de bestelling alsnog te plaatsen.';
+        $_SESSION['melding']['class'] = 'danger';
+    }
+    // Redirect naat de pagina waarop de melding word getoont
+    redirect 'bestelling-afgerond.php';
 }
 ?>
 <div class="container">
@@ -76,7 +100,7 @@ if (isset($_POST['bestelling-afronden'])) {
                     <!-- Link om te registreren -->
                     <a class="mt-3" href="<?= getBaseUrl() ?>registreren.php">Registreer</a>
                 </form>
-            <?php endif ?>
+            <?php endif; ?>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-8">
             <h2>Uw gegevens</h2>
