@@ -72,27 +72,6 @@ WHERE  G.StockGroupID = ? and SearchDetails like ?";
     return $aantalProd;
 }
 
-//
-////stockGroups
-//function selecterenStockgroups()
-//{
-//    $sql = "SELECT SG.StockGroupID, SG.StockGroupName
-//FROM stockgroups as SG  WHERE SG.StockGroupID IN (SELECT StockGroupId FROM stockitemstockgroups)";
-//    return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
-//}
-//
-//function currentStockGroup()
-//{
-//    if (empty($_GET['in'])) {
-//        return "Alle producten";
-//    } else {
-//        $sql = "SELECT StockGroupName as StockGroupName FROM stockgroups WHERE StockGroupId = ?;";
-//        $result = getFromDB($sql, $_GET['in']);
-//        return (mysqli_fetch_all($result, MYSQLI_ASSOC)[0]['StockGroupName']);
-//    }
-//}
-
-
 function getStockGroup($where)
 {
     $sql = "SELECT StockGroupID FROM stockitemstockgroups where StockItemID = ?;";
@@ -141,7 +120,7 @@ function getSpecialDeals()
     return mysqli_fetch_all(getFromDB($sql), MYSQLI_ASSOC);
 }
 
-function price($StockItemID, $formateer = true)
+function price($StockItemID)
 {
     $sql = "SELECT RecommendedRetailPrice, TaxRate FROM stockitems WHERE StockItemID = ?";
     $where = $StockItemID;
@@ -152,10 +131,7 @@ function price($StockItemID, $formateer = true)
     if ($off != 0) {
         $GLOBALS['off'] = number_format($off, 0);
     }
-    if ($formateer) {
-        $price = str_replace(".", ",", number_format($price, 2));
-    }
-    return $price;
+    return number_format($price, 2);
 }
 
 
