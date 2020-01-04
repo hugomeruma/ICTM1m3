@@ -7,6 +7,8 @@ require __DIR__ . "/parts/head.php";
 <p class="text-center text-primary"><?= $_SESSION['melding']['bericht'] ?></p>
 
 <?php
+unset($_SESSION['melding']['titel']);
+unset($_SESSION['melding']['bericht']);
 require __DIR__ . "/parts/footer.php";
 ?>
 
