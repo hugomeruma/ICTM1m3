@@ -9,12 +9,12 @@ if (isset($_GET['reviewOpslaan'])) {
 ?>
 
 <?php
-if (isset($_POST['toevoegenAanWinkelwagen']) or isset($_GET['toonWinkelWagen'])) {
+if (isset($_POST['toevoegenAanWinkelwagen']) or isset($_GET['toonWinkelWagen']) or isset($_GET['te-verwijderen-product'])) {
     require "winkelwagen.php";
 } elseif (isset($_GET['product'])) {
     require 'product.php';
 } else {
-    $_GET['categorie'] = 'alle';
+//    $_GET['categorie'] = 'alle';
     require 'categorie.php';
 }
 require __DIR__ . "/parts/footer.php";
