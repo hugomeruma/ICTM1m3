@@ -35,13 +35,13 @@
         </li>
         <?php if (isset($_SESSION['ingelogd']) && $_SESSION['ingelogd'] == true): ?>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                    aria-expanded="false">
                     <?= $_SESSION['name'] ?? '' ?>
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a class="dropdown-item" href="<?= getBaseUrl() . 'gegevens-wijzigen.php' ?>">Gegevens
+                        <a class="dropdown-item" href="<?= getBaseUrl() ?>">Gegevens
                             wijzigen</a>
                     </li>
                     <li>

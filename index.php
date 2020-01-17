@@ -14,7 +14,7 @@ if (isset($_POST['toevoegenAanWinkelwagen']) or isset($_GET['toonWinkelWagen']) 
 } elseif (isset($_GET['product'])) {
     require 'product.php';
 } else {
-//    $_GET['categorie'] = 'alle';
+    $_GET['categorie'] = 'alle';
     require 'categorie.php';
 }
 require __DIR__ . "/parts/footer.php";
