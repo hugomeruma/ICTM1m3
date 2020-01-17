@@ -1,16 +1,15 @@
 <?php
-
 require_once "functies/content.php";
-
 $discount = "";
+//dd($product);
 $thumbnail = $product["stockItemAfbeeldingLocation"] ?? $product["afbeeldingLocation"] ?? 'afbeelding_niet_beschikbaar.png';
-
+//$thumbnail = getImages($product['StockItemID'], "thumbnail")[0]["Location"];
+//$thumbnail = $product['afbeelding']['location'];
 ?>
+
 <div class="card">
-    <div class="img-productkaart">
-        <img src="<?= getBaseUrl() ?>assets/afbeeldingen/<?= $thumbnail ?>"
-             class="card-img-top" alt="...">
-    </div>
+    <img src="<?= getBaseUrl() ?>assets/afbeeldingen/<?= $thumbnail ?>"
+         class="card-img-top" alt="...">
 
     <div class="card-body">
         <div style="height: 10ex">
@@ -27,10 +26,9 @@ $thumbnail = $product["stockItemAfbeeldingLocation"] ?? $product["afbeeldingLoca
             <input type="hidden" value="1" name="<?= $product['StockItemID'] ?>StockItemID">
             <input type="hidden" value="1" name="toevoegenAanWinkelwagen">
             <button type="submit" name="toevoegenAanWinkelwagen " value="" style="z-index: 2; position: relative"
-                    class="btn btn-success btn-block justify-content-around"
-            ">
-            <i class="fas fa-plus button-icon"></i>
-            <i class="fas fa-shopping-cart button-icon"></i>
+                    class="btn btn-success btn-block justify-content-around" ">
+                <i class="fas fa-plus button-icon"></i>
+                <i class="fas fa-shopping-cart button-icon"></i>
             </button>
         </form>
     </div>

@@ -9,7 +9,7 @@ if (isset($_GET['reviewOpslaan'])) {
 ?>
 
 <?php
-if (isset($_POST['toevoegenAanWinkelwagen']) or isset($_GET['toonWinkelWagen']) or isset($_GET['te-verwijderen-product'])) {
+if (isset($_POST['toevoegenAanWinkelwagen']) or isset($_GET['toonWinkelWagen'])) {
     require "winkelwagen.php";
 } elseif (isset($_GET['product'])) {
     require 'product.php';
